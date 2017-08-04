@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+.mat-tab-links {
+    float: right;
+}
+body {
+    box-sizing: content-box;
+    height: 90vh;
+}
+@font-face {
+  font-family: 'Fantasque';
+  src:  url('assets/Webfonts/FantasqueSansMono-Regular.woff2') format('woff2'),
+        url('assets/Webfonts/FantasqueSansMono-Regular.woff') format('woff');
+}
+* {
+    font-family: 'Fantasque', monospace
+}
+.full-width {
+    width: 100%;
+}

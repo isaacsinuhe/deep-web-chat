@@ -1,0 +1,10 @@
+.home {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+.home > * {
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    margin: 3%;
+}
