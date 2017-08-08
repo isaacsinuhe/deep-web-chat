@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { DeepMaterialModule } from './modules/deep-material/deep-material.module';
@@ -15,13 +16,14 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { HttpModule } from '@angular/http';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { UsersService } from './services/users.service';
 import { MessagesService } from './services/messages.service';
 import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
+import { ContactComponent } from './components/contact/contact.component';
+import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
 
 @NgModule({
   declarations: [
@@ -34,16 +36,18 @@ import { SignUpService } from './services/sign-up.service';
     HomeComponent,
     NavbarComponent,
     ChatComponent,
-    SidebarComponent
+    ContactComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
     DeepMaterialModule,
-    AppRoutingModule,
-    HttpModule
+    HttpModule,
+    DashboardRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     UsersService, 

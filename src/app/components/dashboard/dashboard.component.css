@@ -1,0 +1,33 @@
+.sidenav-header {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: auto;
+  padding: 20px 0;
+}
+
+.mat-button-toggle-checked {
+  background-color: #f0f0f0;
+  border-bottom: 2px solid #673ab7;
+}
+.sidenav-body {
+  margin: 10px 5px;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.sidenav-content {
+  display: inline-block;
+  height: auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidenav {
+  padding: 0 20px;
+  min-width: 20%;
+}

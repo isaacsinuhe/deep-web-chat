@@ -10,9 +10,9 @@ export class NavbarComponent implements OnInit {
   private active
   constructor() {
     this.navLinks = [
-      {route: 'home', icon: 'home', label: 'HOME'},
-      {route: 'dashboard', icon: 'dashboard', label: 'DASHBOARD'},
-      {route: 'settings', icon: 'settings', label: 'SETTINGS'}
+      {route: 'home', icon: 'home', label: 'HOME'}
+      , {route: 'dashboard', icon: 'dashboard', label: 'DASHBOARD'}
+      // , {route: 'settings', icon: 'settings', label: 'SETTINGS'}
     ]
   }
 

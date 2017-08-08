@@ -1,3 +1,37 @@
-<deep-sidebar>
-  <deep-chat> </deep-chat>
-</deep-sidebar>
+<md-sidenav-container class="container">
+
+    <!-- actual sidenav sidenav content -->
+    <md-sidenav #sidenav class="sidenav" opened="true" mode="side">
+        <div class="sidenav-header">
+            <md-button-toggle-group #g="mdButtonToggleGroup" (change)="changeState(g.value)">
+                <md-button-toggle [routerLink]="['single']" [checked]="state === 'single'" value="single">
+                    <md-icon>face</md-icon>
+                </md-button-toggle>
+
+                <md-button-toggle [routerLink]="['group']" [checked]="state === 'group'" value="group">
+                    <md-icon>group</md-icon>
+                </md-button-toggle>
+
+                <md-button-toggle [routerLink]="['settings']" [checked]="state === 'settings'" value="settings">
+                    <md-icon>settings</md-icon>
+                </md-button-toggle>
+            </md-button-toggle-group>
+        </div>
+
+        <div class="sidenav-body">
+            <router-outlet></router-outlet>
+        </div>
+
+    </md-sidenav>
+    <!-- actual sidenav sidenav content -->
+
+    <div class="sidenav-content">
+        
+        <md-button-toggle value="open" (click)="sidenav.toggle()">
+            <md-icon>chevron_{{sidenav.opened?'left':'right'}}</md-icon>
+        </md-button-toggle>
+
+        <deep-chat [(sidebarContent)]="state" [sidebar]="sidenav"></deep-chat>
+    </div>
+
+</md-sidenav-container>

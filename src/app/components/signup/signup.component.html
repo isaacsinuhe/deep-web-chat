@@ -1,56 +1,68 @@
 <md-card>
-  <md-card-header>
-    <h1>Signup</h1>
-  </md-card-header>
-  <md-card-content>
+<!-- form scope -->
+<form [formGroup]="signUpForm" (ngSubmit)="signUp()">
 
-    <!-- form scope -->
-    <form [formGroup]="signUpForm">
-    
-        <!-- username field -->
-        <md-input-container class="full-width">
-          <input formControlName="name" type="name" mdInput placeholder="name">
-          <md-icon mdSuffix>person_pin</md-icon>
-          <md-error>This field is required</md-error>
-        </md-input-container>
-        <!-- username field -->
+    <md-card-header>
+      <h1>Signup</h1>
+    </md-card-header>
 
-        <!-- username field -->
-        <md-input-container class="full-width">
-          <input formControlName="email" type="email" mdInput placeholder="email">
-          <md-icon mdSuffix>email</md-icon>
-          <md-error>This field is required</md-error>
-        </md-input-container>
-        <!-- username field -->
+    <md-card-content>
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="name" type="name" mdInput placeholder="name">
+        <md-icon mdSuffix>person_pin</md-icon>
+        <md-error>This field is required</md-error>
+      </md-input-container>
+      <!-- username field -->
 
-        <!-- username field -->
-        <md-input-container class="full-width">
-          <input formControlName="username" type="text" mdInput placeholder="username">
-          <md-icon mdSuffix>face</md-icon>
-          <md-error>This field is required</md-error>
-        </md-input-container>
-        <!-- username field -->
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="email" type="email" mdInput placeholder="email">
+        <md-icon mdSuffix>email</md-icon>
+        <md-error>This field must be a valid email</md-error>
+      </md-input-container>
+      <!-- username field -->
 
-        <!-- username field -->
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="username" type="text" mdInput placeholder="username">
+        <md-icon mdSuffix>face</md-icon>
+        <md-error>This field is required</md-error>
+      </md-input-container>
+      <!-- username field -->
+
+      <!-- password fieldgroup -->
+      <div formGroupName="password" #password>
+        <!-- password1 field -->
         <md-input-container class="full-width">
-          <input maxlength="12" formControlName="password" type="password" mdInput placeholder="password">
+          <input maxlength="12" formControlName="pass" type="password" mdInput placeholder="password">
           <md-icon mdSuffix>vpn_key</md-icon>
+          <md-error>The password must have a minimum length of 8 charachters</md-error>
           <md-hint align="start">Minimum length <strong>8 charachters</strong> </md-hint>
           <md-hint align="end">{{signUpForm.controls.password.value.length}} / 12</md-hint>
-          <md-error>This field is required</md-error>
         </md-input-container>
-        <!-- username field -->
-        
-        <!-- username field -->
-        <!-- <md-input-container class="full-width">
-          <input formControlName="avatar" type="file" mdInput placeholder="username">
-        </md-input-container> -->
-        <!-- username field -->
+        <!-- password1 field -->
 
-    </form>
-    <!-- form scope -->
-  </md-card-content>
-  <md-card-actions>
-    <button md-button (click)="signUp()">click me</button>
-  </md-card-actions>
+        <!-- password2 field -->
+        <md-input-container class="full-width">
+          <input maxlength="12" formControlName="pass2" type="password" mdInput placeholder="repeat-password">
+          <md-icon mdSuffix>vpn_key</md-icon>
+          <md-error>The password must have a minimum length of 8 charachters</md-error>
+          <md-hint align="start">Minimum length <strong>8 charachters</strong> </md-hint>
+          <md-hint align="end">{{signUpForm.controls.password.value.length}} / 12</md-hint>
+        </md-input-container>
+        <!-- password2 field -->
+      </div>
+        <md-error *ngIf="signUpForm.hasError('equal', 'password')">
+          Both Passwords must be the same
+        </md-error>
+      <!-- password fieldgroup -->
+    </md-card-content>
+
+    <md-card-actions>
+      <button md-button>Sign up</button>
+    </md-card-actions>
+
+  </form>
+  <!-- form scope -->
 </md-card>

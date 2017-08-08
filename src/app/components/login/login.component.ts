@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  login () {
+  logIn () {
     const { controls: {
         username: {value: username},
         password: {value: password}

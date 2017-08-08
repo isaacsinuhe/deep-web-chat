@@ -3,6 +3,7 @@ import { SignUpService } from '../../services/sign-up.service'
 import { FormBuilder, Validators } from '@angular/forms'
 import { MdSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
+import { equalValidator } from '../../validators/formValidators'
 
 @Component({
   selector: 'deep-signup',
@@ -25,9 +26,12 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required]
-      , password: ['', Validators.required]
+      , password: this.fb.group({
+          pass: ['', [Validators.required, Validators.minLength(8)]],
+          pass2: ['', [Validators.required, Validators.minLength(8)]]
+      }, { validator: equalValidator })
       , name: ['', Validators.required]
-      , email: ['', Validators.required]
+      , email: ['', [Validators.required, Validators.email]]
     })
   }
 
@@ -47,8 +51,7 @@ export class SignupComponent implements OnInit {
   }
 
   validateForm() {
-    console.log(this.signUpForm, this.signUpForm.valid);
-    
+    this.signUpForm.updateValueAndValidity()
     if (this.signUpForm.valid) {
       this.snackBar.open('accepted', 'x', { duration: 700 })
       this.router.navigate(['/dashboard'])

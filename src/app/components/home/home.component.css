@@ -2,9 +2,12 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
+    padding: 20px;
+    width: auto;
+    height: auto;
 }
 .home > * {
-    flex: 1 1 auto;
+    min-width: 45%;
+    flex: 0 1 auto;
     box-sizing: border-box;
-    margin: 3%;
 }

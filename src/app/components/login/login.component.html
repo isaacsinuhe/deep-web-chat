@@ -1,19 +1,19 @@
 <md-card>
-  <md-card-header>
-    <h1>Login</h1>
-  </md-card-header>
-  <md-card-content>
+  <!-- form scope -->
+  <form [formGroup]="loginForm" (ngSubmit)="logIn()">
 
-    <!-- form scope -->
-    <form [formGroup]="loginForm">
+    <md-card-header>
+      <h1>Login</h1>
+    </md-card-header>
 
+    <md-card-content>
       <!-- username field -->
       <md-input-container class="full-width">
         <input formControlName="username" type="text" mdInput placeholder="username">
         <md-icon mdSuffix>face</md-icon>
         <md-error>This field is required</md-error>
       </md-input-container>
-      <!-- username field -->
+      <!-- username field -->     
 
       <!-- password field -->
       <md-input-container class="full-width">
@@ -22,12 +22,12 @@
         <md-error>This field is required</md-error>
       </md-input-container>
       <!-- password field -->
+    </md-card-content>
+    
+    <md-card-actions>
+      <button md-button>Log in</button>
+    </md-card-actions>
 
-    </form>
-    <!-- form scope -->
-
-  </md-card-content>
-  <md-card-actions>
-    <button md-button (click)="login()">Log in</button>
-  </md-card-actions>
+  </form>
+  <!-- form scope -->
 </md-card>
