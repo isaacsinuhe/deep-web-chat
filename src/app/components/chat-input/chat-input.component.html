@@ -1,0 +1,13 @@
+<form (submit)="addMessage(message.value)">
+  <div class="chat-input-container">
+    <md-input-container>
+      <input #message="ngModel" type="text" 
+      [ngModelOptions]="{standalone: true}"
+      ngModel
+      mdInput placeholder="message">
+    </md-input-container>
+    <button md-mini-fab>
+      <md-icon>send</md-icon>
+    </button>
+  </div>
+</form>

@@ -10,14 +10,14 @@
       <!-- username field -->
       <md-input-container class="full-width">
         <input formControlName="username" type="text" mdInput placeholder="username">
-        <md-icon mdSuffix>face</md-icon>
+        <md-icon mdSuffix>fingerprint</md-icon>
         <md-error>This field is required</md-error>
       </md-input-container>
       <!-- username field -->     
 
       <!-- password field -->
       <md-input-container class="full-width">
-        <input formControlName="password" type="password" mdInput placeholder="password">
+        <input maxlength="12" minlength="8" formControlName="password" type="password" mdInput placeholder="password">
         <md-icon mdSuffix>vpn_key</md-icon>
         <md-error>This field is required</md-error>
       </md-input-container>

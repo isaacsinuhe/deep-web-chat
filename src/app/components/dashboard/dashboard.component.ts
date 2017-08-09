@@ -1,5 +1,6 @@
 import { OnDestroy, Component, OnInit, HostBinding, Input, Output, EventEmitter } from '@angular/core';
 import { slideFromLeftAnimation } from '../../animations'
+import { ActivatedRoute } from '@angular/router'
 
 @Component({
   selector: 'deep-dashboard',
@@ -15,12 +16,14 @@ export class DashboardComponent implements OnInit {
   @HostBinding('style.height') height = '90vh';
   @HostBinding('style.width') width = '100%';
 
-  state = 'single'
+  state = 'contacts'
   routeSub
   
-  constructor() { }
+  constructor(private aR: ActivatedRoute) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    ({children: [{snapshot: {url: [{path: this.state}]}}]} = this.aR)
+  }
 
   changeState (value) {
     this.state = value

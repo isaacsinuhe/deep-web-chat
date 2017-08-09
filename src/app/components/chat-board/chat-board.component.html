@@ -1,0 +1,8 @@
+<div class="chat-area">
+    <deep-message *ngFor="let message of messages" 
+        [content]="message.content"
+        [date]="message.date"
+        [owner]="message.owner"
+    >
+    </deep-message>
+</div>

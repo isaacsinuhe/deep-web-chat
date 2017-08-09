@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, 
   Output, DoCheck, OnChanges } from '@angular/core';
+import { ConversationsService } from '../../services/conversations.service'
 
 @Component({
   selector: 'deep-chat',
@@ -7,23 +8,21 @@ import { Component, OnInit, Input, EventEmitter,
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit, DoCheck, OnChanges {
-  @Input () sidebar
-  @Input () sidebarContent
-  @Output () sidebarContentChange = new EventEmitter
-  
-  constructor() { }
+  messages = []
+  constructor(private convoS: ConversationsService) {
+  }
 
   ngOnInit() {
+    const convoId = 8
+    // somehow getting the convo id from the param
+    this.convoS.getMessages(convoId).subscribe( 
+      message =>
+        this.messages.push(message)
+    )
   }
   ngOnChanges() {
   }
-  changeSidebarState (value) {
-    this.sidebarContentChange.emit(value)
-  }
   ngDoCheck () {
-  }
-  toggleSidebar () {
-    this.sidebar.toggle()
   }
 
 }

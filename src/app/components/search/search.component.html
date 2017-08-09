@@ -1,0 +1,23 @@
+<div class="search-container">
+
+  <form class="search-header" [formGroup]="searchForm" (ngSubmit)="search()">
+    <md-input-container class="input-search">
+      <input formControlName="search" type="name" mdInput placeholder="find friends">
+      <md-error>you must enter a search criteria</md-error>
+    </md-input-container>
+    <button md-mini-fab class="btn-search"><md-icon >search</md-icon></button>
+  </form>
+
+  <div class="search-results" *ngIf="contactlist; else announcement">
+    <deep-contact *ngFor="let contact of contactlist" 
+      [name]="contact.name" [username]="contact.username" [country]="contact.country">
+    </deep-contact>
+  </div>
+  <ng-template #announcement>
+    <div style="display: flex; flex-flow:column wrap; align-items:center;">
+      <p>search for contacts</p>
+      <p>around the world!!!</p>
+    </div>
+  </ng-template>
+
+</div>

@@ -1,0 +1,29 @@
+deep-chat-status-bar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    border-bottom: 2px solid #673ab7;
+    padding: 10px 5px;
+    width: auto;
+    height: auto;
+    /* border: 2px solid red;   */
+
+    z-index: -1;
+}
+deep-chat-board {
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    height: 70%;
+    max-height: 70%;
+    /* border: 2px solid red;   */
+}
+
+deep-chat-input {
+    display: block;
+    position: relative;
+    width: 95%;
+    height: 10%;
+     /* border: 2px solid red;   */
+}

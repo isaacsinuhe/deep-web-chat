@@ -24,6 +24,13 @@ import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
 import { ContactComponent } from './components/contact/contact.component';
 import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
+import { ChatStatusBarComponent } from './components/chat-status-bar/chat-status-bar.component';
+import { ChatBoardComponent } from './components/chat-board/chat-board.component';
+import { ChatInputComponent } from './components/chat-input/chat-input.component';
+import { SearchComponent } from './components/search/search.component';
+import { SearchContactsService } from './services/search-contacts.service';
+import { MessageComponent } from './components/message/message.component';
+import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +43,12 @@ import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.mo
     HomeComponent,
     NavbarComponent,
     ChatComponent,
-    ContactComponent
+    ContactComponent,
+    ChatStatusBarComponent,
+    ChatBoardComponent,
+    ChatInputComponent,
+    SearchComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +66,9 @@ import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.mo
     MessagesService, 
     ConversationsService, 
     LoginService,
-    SignUpService
+    SignUpService,
+    SearchContactsService,
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

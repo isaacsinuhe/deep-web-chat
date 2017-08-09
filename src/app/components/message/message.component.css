@@ -1,0 +1,39 @@
+ .message-bubble {
+    max-height: 100%;
+    position: relative;
+    text-align: left;
+    font-size: 18px;
+    max-width: 70%;
+    min-width: 30%;
+    box-shadow: 3px 3px 1px gray;
+    background-color: #e0e0e0;
+    border: 5px solid white;
+    cursor: pointer;
+    margin: 30px;
+    box-sizing: border-box;
+    height: auto;
+    width: fit-content;
+    padding: 20px 50px 20px 20px;
+    transition: all ease-in-out 500ms;
+    outline: 1px solid black;
+}
+.message-bubble:hover {
+    background-color: whitesmoke;
+    border: 5px solid purple;
+    transform: scale( 1.06, 1.06);
+    transition: all ease-in-out 500ms
+}
+.message-bubble .date {
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    font-size: 12px;
+    color: rebeccapurple;
+}
+.message-bubble .owner {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    font-size: 15px;
+    color: crimson;
+} 

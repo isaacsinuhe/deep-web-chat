@@ -1,0 +1,29 @@
+.search-container {
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+}
+
+.input-search {
+    box-sizing: border-box;
+    width: 70%;
+    margin: 0 10px;
+}
+.btn-search{
+    box-sizing: border-box;
+    padding: auto;
+    background-color: rgba(210, 210, 210, 0.5);
+    border: 2px inset #673ab7;
+    color: #673ab7;
+    opacity: .7;
+}
+.btn-search md-icon{
+    padding-top: 6px;
+}
+.search-header {
+    
+}
+.search-results {
+    overflow-y: scroll;
+    height: 100%;
+}
