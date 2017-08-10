@@ -8,7 +8,7 @@ import { slideFromRightAnimation } from '../../animations'
   animations: [slideFromRightAnimation]
 })
 export class HomeComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('@logAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
   @HostBinding('style.position') position = 'absolute';
   @HostBinding('style.height') height = '90vh';

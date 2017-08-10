@@ -1,0 +1,16 @@
+<md-card>
+  <md-card-header>
+    {{name}}
+  </md-card-header>
+
+  <md-card-content>
+    {{lastMessages[lastMessages.length - 1].content}}  
+  </md-card-content>
+
+  <md-card-actions>
+    <!-- <p><span *ngFor=""></span></p> -->
+    {{lastMessages[lastMessages.length - 1].date | date}}
+    <md-icon>watch_later</md-icon>
+  </md-card-actions>
+
+</md-card>

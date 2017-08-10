@@ -18,7 +18,6 @@ import { ChatComponent } from './components/chat/chat.component';
 import { HttpModule } from '@angular/http';
 
 import { UsersService } from './services/users.service';
-import { MessagesService } from './services/messages.service';
 import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
@@ -30,6 +29,11 @@ import { ChatInputComponent } from './components/chat-input/chat-input.component
 import { SearchComponent } from './components/search/search.component';
 import { SearchContactsService } from './services/search-contacts.service';
 import { MessageComponent } from './components/message/message.component';
+import { SessionService } from './services/session.service';
+import { ConvoListComponent } from './components/convo-list/convo-list.component';
+import { ContactListComponent } from './components/contact-list/contact-list.component';
+import { ConvoComponent } from './components/convo/convo.component';
+import { NotificationListComponent } from './components/notification-list/notification-list.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,11 @@ import { MessageComponent } from './components/message/message.component';
     ChatBoardComponent,
     ChatInputComponent,
     SearchComponent,
-    MessageComponent
+    MessageComponent,
+    ConvoListComponent,
+    ContactListComponent,
+    ConvoComponent,
+    NotificationListComponent
   ],
   imports: [
     BrowserModule,
@@ -61,12 +69,12 @@ import { MessageComponent } from './components/message/message.component';
     AppRoutingModule
   ],
   providers: [
-    UsersService, 
-    MessagesService, 
+    UsersService,
     ConversationsService, 
     LoginService,
     SignUpService,
-    SearchContactsService
+    SearchContactsService,
+    SessionService
   ],
   bootstrap: [AppComponent]
 })

@@ -35,7 +35,7 @@
 }
 .sidenav-body {
   height: 85%;
-  margin-left: 20px;
+  padding: 10px;
 }
 
 .toggle-nav-btn {

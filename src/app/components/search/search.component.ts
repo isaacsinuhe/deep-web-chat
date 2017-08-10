@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms'
 import 'rxjs/add/operator/timeout'
 import { SearchContactsService } from '../../services/search-contacts.service'
+import { enterFromRight } from '../../animations'
 
 @Component({
   selector: 'deep-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css'],
+  animations: [enterFromRight]
 })
 export class SearchComponent implements OnInit {
+  @HostBinding('@routeAnimation') routeAnimation = true;
+  
   searchForm
   contactlist
   constructor(private fb: FormBuilder, private sS: SearchContactsService) { }

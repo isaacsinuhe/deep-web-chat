@@ -4,16 +4,20 @@ import { DashboardComponent } from '../../components/dashboard/dashboard.compone
 import { SettingsComponent } from '../../components/settings/settings.component'
 import { PageNotFoundComponent } from '../../components/page-not-found/page-not-found.component'
 import { SearchComponent } from '../../components/search/search.component'
+import { ConvoListComponent } from '../../components/convo-list/convo-list.component'
+import { ContactListComponent } from '../../components/contact-list/contact-list.component'
+import { NotificationListComponent } from '../../components/notification-list/notification-list.component'
 
 const routes: Routes = [
   { 
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: 'contacts', component: SettingsComponent },
-      { path: '', redirectTo: 'contacts', pathMatch: 'full' },
+      { path: 'convos', component: ConvoListComponent },
+      { path: 'contacts', component: ContactListComponent },
+      { path: 'notifs', component: NotificationListComponent },
+      { path: '', redirectTo: 'convos', pathMatch: 'full' },
       { path: 'search', component: SearchComponent },
-      { path: 'convos', component: PageNotFoundComponent },
       { path: 'settings', component: SettingsComponent }
     ]
   }

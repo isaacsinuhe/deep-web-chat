@@ -39,6 +39,16 @@ export class SearchContactsService {
         username: 'fdaf',
         country: 'juy',
       },
+      {
+        name: 'testa2',
+        username: 'fdaf',
+        country: 'juy',
+      },
+      {
+        name: 'testa2',
+        username: 'fdaf',
+        country: 'juy',
+      },
     ])
   }
 }

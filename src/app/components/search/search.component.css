@@ -1,4 +1,4 @@
-.search-container {
+:host {
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
@@ -21,10 +21,6 @@
 
 .btn-search md-icon{
     padding-top: 6px;
-}
-
-.search-header {
-    
 }
 
 .search-results {

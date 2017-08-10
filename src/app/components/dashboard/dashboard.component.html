@@ -12,8 +12,12 @@
                     <md-icon>group</md-icon>
                 </md-button-toggle>
 
-                <md-button-toggle [routerLink]="['search']" [checked]="state === 'search'" value="search">
+                <md-button-toggle [routerLink]="['notifs']" [checked]="state === 'notifs'" value="notifs">
                     <md-icon>public</md-icon>
+                </md-button-toggle>
+
+                <md-button-toggle [routerLink]="['search']" [checked]="state === 'search'" value="search">
+                    <md-icon>search</md-icon>
                 </md-button-toggle>
 
                 <md-button-toggle [routerLink]="['settings']" [checked]="state === 'settings'" value="settings">

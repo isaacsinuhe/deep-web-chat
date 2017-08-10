@@ -9,15 +9,12 @@ import { ActivatedRoute } from '@angular/router'
   animations: [ slideFromLeftAnimation ]
 })
 export class DashboardComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
-
-  // @HostBinding('style.display') display = 'block';
-  // @HostBinding('style.position') position = 'relative';
-  // @HostBinding('style.height') height = '100%';
-  // @HostBinding('style.width') width = '100%';
-
-  state = 'contacts'
-  routeSub
+  state
+  @HostBinding('@dashAnimation') routeAnimation = true;
+  @HostBinding('style.display') display = 'block';
+  @HostBinding('style.position') position = 'absolute';
+  @HostBinding('style.height') height = '90vh';
+  @HostBinding('style.width') width = '100%';
   
   constructor(private aR: ActivatedRoute) { }
 
