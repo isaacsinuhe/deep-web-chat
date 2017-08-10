@@ -1,8 +1,10 @@
-<div class="chat-area">
-    <deep-message *ngFor="let message of messages" 
+<div #container class="convo-container" 
+    [scrollTop]="container.scrollHeight - container.clientHeight">
+
+    <deep-message *ngFor="let message of messages"
+        [mine]="message.mine"
         [content]="message.content"
         [date]="message.date"
-        [owner]="message.owner"
-    >
+        [owner]="message.owner">
     </deep-message>
 </div>

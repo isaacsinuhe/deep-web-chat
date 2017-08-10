@@ -9,6 +9,7 @@
     width: 70%;
     margin: 0 10px;
 }
+
 .btn-search{
     box-sizing: border-box;
     padding: auto;
@@ -17,13 +18,16 @@
     color: #673ab7;
     opacity: .7;
 }
+
 .btn-search md-icon{
     padding-top: 6px;
 }
+
 .search-header {
     
 }
+
 .search-results {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 100%;
 }

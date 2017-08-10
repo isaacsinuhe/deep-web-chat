@@ -1,4 +1,4 @@
-<div class="message-bubble">
+<div [ngClass]="{'message-bubble': true, 'my-message': mine}">
   <div class="content">
     {{content}}
   </div>

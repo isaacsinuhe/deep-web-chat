@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { ViewChild, Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable'
+import 'rxjs/add/observable/fromEvent'
 
 @Component({
   selector: 'deep-chat-board',
@@ -7,10 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ChatBoardComponent implements OnInit {
   @Input() messages
+  @ViewChild('container') convoContainer
+  prevHeight
+  scrollTop = 0
+
   constructor() { }
 
-  ngOnInit() {
-    
-  }
-
+  ngOnInit () { }
 }

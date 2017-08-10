@@ -1,39 +1,58 @@
- .message-bubble {
-    max-height: 100%;
+:host {
+    height: auto;
+    width: 100%;
+}
+.message-bubble.my-message { float: right; }
+.message-bubble {
+    position: relative;
+    box-shadow: 3px 3px 1px rgba(224, 224, 224, .8), -3px 3px 1px rgba(224, 224, 224, .8);
+    background-color: whitesmoke;
+    border-bottom-width: 0;
+    cursor: pointer;
+    box-sizing: border-box;
+    align-self: flex-start;
+
+    height: auto;
+    min-width: 30%;
+    max-width: 70%;
+    width: fit-content;
+    
+    padding: 20px 50px 20px 20px;
+    transition: all ease-in-out 500ms;
+    margin-bottom: 30px;
+    /* border: 2px solid white; */
+    /* opacity: .9; */
+}
+
+.message-bubble.my-message .content{ text-align: right }
+.message-bubble .content {
     position: relative;
     text-align: left;
     font-size: 18px;
-    max-width: 70%;
-    min-width: 30%;
-    box-shadow: 3px 3px 1px gray;
-    background-color: #e0e0e0;
-    border: 5px solid white;
-    cursor: pointer;
-    margin: 30px;
-    box-sizing: border-box;
-    height: auto;
-    width: fit-content;
-    padding: 20px 50px 20px 20px;
-    transition: all ease-in-out 500ms;
-    outline: 1px solid black;
+    word-wrap: break-word;
 }
-.message-bubble:hover {
-    background-color: whitesmoke;
-    border: 5px solid purple;
-    transform: scale( 1.06, 1.06);
-    transition: all ease-in-out 500ms
-}
+
 .message-bubble .date {
     position: absolute;
-    bottom: 3px;
-    right: 3px;
+    bottom: -20px;
+    left: 0px;
+    text-align: left;
     font-size: 12px;
     color: rebeccapurple;
+    width: auto;
 }
+.message-bubble.my-message .owner { left: 1px }
 .message-bubble .owner {
     position: absolute;
-    bottom: 2px;
-    left: 2px;
+    bottom: 1px;
+    right: 1px;
     font-size: 15px;
+    font-weight: bold;
     color: crimson;
+    opacity: .7;
 } 
+.message-bubble:hover {
+    background-color: #e0e0e0;
+    border-bottom: 3px solid #673ab7;
+    transition: all ease-in-out 500ms;
+}

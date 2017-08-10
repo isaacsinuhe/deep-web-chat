@@ -9,6 +9,7 @@ export class MessageComponent implements OnInit {
   @Input() content
   @Input() date
   @Input() owner
+  @Input() mine
   
   constructor() { }
 

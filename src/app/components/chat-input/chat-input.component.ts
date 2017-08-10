@@ -17,10 +17,7 @@ export class ChatInputComponent implements OnInit {
 
   addMessage (value) {
     if (!value) return
-    this.messages.push({content: value, owner: 'MYSELF', date: moment()})
+    this.messages.push({content: value, owner: 'MYSELF', date: moment(), mine: true})
     this.input.control.setValue('')
-    
-
   }
-
 }

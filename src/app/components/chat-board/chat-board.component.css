@@ -1,0 +1,16 @@
+:host {
+    flex: 0 1 100%;
+    /* border: 2px solid green; */
+    overflow: hidden;
+}
+.convo-container {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    overflow: auto;
+    padding: 10px 30px 30px;
+}

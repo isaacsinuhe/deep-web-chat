@@ -11,10 +11,10 @@ import { ActivatedRoute } from '@angular/router'
 export class DashboardComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
 
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
-  @HostBinding('style.height') height = '90vh';
-  @HostBinding('style.width') width = '100%';
+  // @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'relative';
+  // @HostBinding('style.height') height = '100%';
+  // @HostBinding('style.width') width = '100%';
 
   state = 'contacts'
   routeSub

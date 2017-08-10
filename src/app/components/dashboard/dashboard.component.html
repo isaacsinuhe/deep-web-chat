@@ -4,16 +4,16 @@
     <md-sidenav #sidenav class="sidenav" opened="true" mode="side">
         <div class="sidenav-header">
             <md-button-toggle-group #g="mdButtonToggleGroup" (change)="changeState(g.value)">
-                <md-button-toggle [routerLink]="['search']" [checked]="state === 'search'" value="search">
-                    <md-icon>public</md-icon>
+                <md-button-toggle [routerLink]="['convos']" [checked]="state === 'convos'" value="convos">
+                    <md-icon>chat_bubble</md-icon>
                 </md-button-toggle>
 
                 <md-button-toggle [routerLink]="['contacts']" [checked]="state === 'contacts'" value="contacts">
                     <md-icon>group</md-icon>
                 </md-button-toggle>
 
-                <md-button-toggle [routerLink]="['convos']" [checked]="state === 'convos'" value="convos">
-                    <md-icon>chat_bubble</md-icon>
+                <md-button-toggle [routerLink]="['search']" [checked]="state === 'search'" value="search">
+                    <md-icon>public</md-icon>
                 </md-button-toggle>
 
                 <md-button-toggle [routerLink]="['settings']" [checked]="state === 'settings'" value="settings">

@@ -30,7 +30,6 @@ import { ChatInputComponent } from './components/chat-input/chat-input.component
 import { SearchComponent } from './components/search/search.component';
 import { SearchContactsService } from './services/search-contacts.service';
 import { MessageComponent } from './components/message/message.component';
-import { ProfileService } from './services/profile.service';
 
 @NgModule({
   declarations: [
@@ -67,8 +66,7 @@ import { ProfileService } from './services/profile.service';
     ConversationsService, 
     LoginService,
     SignUpService,
-    SearchContactsService,
-    ProfileService
+    SearchContactsService
   ],
   bootstrap: [AppComponent]
 })
