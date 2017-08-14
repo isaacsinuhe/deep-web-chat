@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable'
 import { PARTICIPANT } from '../enums/participant'
 import { CONVERSATION } from '../enums/conversation.enum'
+import { NOTIFICATION } from '../enums/notification.enum'
 import * as moment from 'moment'
 
 @Injectable()
@@ -89,15 +90,67 @@ export class SessionService {
 
     // ],
     ), 
-    notifications: [],
+    notifications: [
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'you are gonna die',
+        type: NOTIFICATION.INVITATION, 
+        content: ';bbbbbbbbbbbbbbbbbddddddddddddddddddddddddddddddddddddddddbbbvvvvvvvvvvv',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'you have an invitation to join the group "SFSD;FKA SLDKF"',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'You forgot tu git push your commits :O',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'You forgot tu git push your commits :O',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'You forgot tu git push your commits :O',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'You forgot tu git push your commits :O',
+        date: moment()
+      },
+      {
+        id: 'dfj;adkjf', senderId: 'fadfa',
+        senderName: 'fda', title: 'Good news',
+        type: NOTIFICATION.INVITATION, 
+        content: 'You forgot tu git push your commits :O',
+        date: moment()
+      },
+    ],
     settings: {},
   }
   private convoObserver
   private contactObserver
+  private notificationObserver
 
   constructor() {
     this.convoObserver = Observable.from(this.sessionState.conversations)
     this.contactObserver = Observable.from(this.sessionState.contacts)
+    this.notificationObserver = Observable.from(this.sessionState.notifications)
   }
 
   get(prop) {
@@ -110,6 +163,9 @@ export class SessionService {
   }
   getContacts () {
     return this.contactObserver
+  }
+  getNotifications () {
+    return this.notificationObserver
   }
   setAuth (val) {
     this.authenticated = val

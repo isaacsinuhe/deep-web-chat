@@ -34,6 +34,7 @@ import { ConvoListComponent } from './components/convo-list/convo-list.component
 import { ContactListComponent } from './components/contact-list/contact-list.component';
 import { ConvoComponent } from './components/convo/convo.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { NotificationListComponent } from './components/notification-list/notifi
     ConvoListComponent,
     ContactListComponent,
     ConvoComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { enterFromRight } from '../../animations'
+import { SessionService } from '../../services/session.service'
 
 @Component({
   selector: 'deep-notification-list',
@@ -9,10 +10,13 @@ import { enterFromRight } from '../../animations'
 })
 export class NotificationListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  constructor() { }
+  public notifList = []
+  constructor(private sS: SessionService) { }
 
   ngOnInit() {
+    this.sS.getNotifications().subscribe( n => {
+      this.notifList.push(n)
+    })
   }
 
 }

@@ -12,7 +12,7 @@ export class ContactListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
 
   constructor(private sS: SessionService) { }
-  private contactList = []
+  public contactList = []
   ngOnInit() {
     this.sS.getContacts().subscribe((contact) => {
       this.contactList.push(contact)

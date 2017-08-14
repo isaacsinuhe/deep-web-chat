@@ -1,3 +1,9 @@
-<p>
-  notification-list works!
-</p>
+<deep-notification *ngFor="let notif of notifList"
+  [id]="notif.id"
+  [senderId]="notif.senderId"
+  [senderName]="notif.senderName"
+  [title]="notif.title"
+  [date]="notif.date"
+  [type]="notif.type"
+  [content]="notif.content"
+></deep-notification>

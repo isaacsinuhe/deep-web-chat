@@ -22,7 +22,7 @@
 
 .sidenav {
   height: 100%;
-  width: 320px;
+  width: 400px;
   overflow: hidden;
   box-sizing: border-box;
 }
@@ -35,7 +35,7 @@
 }
 .sidenav-body {
   height: 85%;
-  padding: 10px;
+  padding: 10px ;
 }
 
 .toggle-nav-btn {
