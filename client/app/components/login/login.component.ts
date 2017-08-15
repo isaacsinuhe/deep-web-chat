@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit {
   validateForm () {
 
     if (this.loginForm.valid) {
-      this.snackBar.open('accepted', 'x', { duration: 700 })
+      // this.snackBar.open('accepted', 'x', { duration: 700 })
       this.router.navigate(['/dashboard'])
     } else {
-      this.snackBar.open('rejected', 'x', { duration: 700 })
+      // this.snackBar.open('rejected', 'x', { duration: 700 })
     }
   }
 }

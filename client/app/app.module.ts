@@ -5,6 +5,10 @@ import { DeepMaterialModule } from './modules/deep-material/deep-material.module
 import { MaterialModule } from '@angular/material'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -35,6 +39,10 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
 import { ConvoComponent } from './components/convo/convo.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -67,7 +75,15 @@ import { NotificationComponent } from './components/notification/notification.co
     ReactiveFormsModule,
     DeepMaterialModule,
     HttpModule,
+    HttpClientModule,
     DashboardRoutingModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     AppRoutingModule
   ],
   providers: [

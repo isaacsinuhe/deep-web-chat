@@ -15,6 +15,7 @@ export class SignupComponent implements OnInit {
   username
   password
   signUpForm
+  passMinLength = {length: 8}
 
   constructor(
     private signUpService: SignUpService,
@@ -53,10 +54,10 @@ export class SignupComponent implements OnInit {
   validateForm() {
     this.signUpForm.updateValueAndValidity()
     if (this.signUpForm.valid) {
-      this.snackBar.open('accepted', 'x', { duration: 700 })
+      // this.snackBar.open('accepted', 'x', { duration: 700 })
       this.router.navigate(['/dashboard'])
     } else {
-      this.snackBar.open('rejected', 'x', { duration: 700 })
+      // this.snackBar.open('rejected', 'x', { duration: 700 })
     }
   }
 }

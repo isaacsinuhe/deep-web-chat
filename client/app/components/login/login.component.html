@@ -3,29 +3,32 @@
   <form [formGroup]="loginForm" (ngSubmit)="logIn()">
 
     <md-card-header>
-      <h1>Login</h1>
+      <h1>{{'LOGIN.HEADER' | translate}}</h1>
     </md-card-header>
 
     <md-card-content>
       <!-- username field -->
       <md-input-container class="full-width">
-        <input formControlName="username" type="text" mdInput placeholder="username">
+        <input formControlName="username" type="text" mdInput 
+          placeholder="{{'LOGIN.FORM.USERNAME' | translate}}">
         <md-icon mdSuffix>fingerprint</md-icon>
-        <md-error>This field is required</md-error>
+        <md-error>{{'VALIDATORS.REQUIRED' | translate}}</md-error>
       </md-input-container>
       <!-- username field -->     
 
       <!-- password field -->
       <md-input-container class="full-width">
-        <input maxlength="12" minlength="8" formControlName="password" type="password" mdInput placeholder="password">
+        <input maxlength="12" minlength="8" formControlName="password" type="password" mdInput 
+          placeholder="{{'LOGIN.FORM.PASSWORD' | translate}}">
         <md-icon mdSuffix>vpn_key</md-icon>
-        <md-error>This field is required</md-error>
+        <md-error>{{'VALIDATORS.REQUIRED' | translate}}</md-error>
       </md-input-container>
       <!-- password field -->
     </md-card-content>
     
     <md-card-actions>
-      <button md-button>Log in</button>
+      <button md-button>
+        {{'LOGIN.FORM.SUBMIT' | translate}}</button>
     </md-card-actions>
 
   </form>

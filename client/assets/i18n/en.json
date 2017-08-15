@@ -1,0 +1,25 @@
+{
+  "LOGIN.HEADER": "Log In",
+  "LOGIN.FORM.USERNAME": "Username",
+  "LOGIN.FORM.PASSWORD": "Password",
+  "LOGIN.FORM.SUBMIT": "Log In",
+
+  "SIGNUP.HEADER": "Sign Up",
+  "SIGNUP.FORM.NAME": "Name",
+  "SIGNUP.FORM.EMAIL": "Email",
+  "SIGNUP.FORM.USERNAME": "Username",
+  "SIGNUP.FORM.PASSWORD": "Password",
+  "SIGNUP.FORM.PASSWORD.REPEAT": "Repeat Password",
+  "SIGNUP.FORM.SUBMIT": "Sign Up",
+
+  "SEARCH.INPUT.FIND": "Find Friends",
+
+  "CHAT.INPUT.MESSAGE": "Type a message",
+
+  "HINTS.MIN.LENGTH": "Minimum allowed length, {{length}} characters",
+
+  "VALIDATORS.REQUIRED": "Required Field",
+  "VALIDATORS.MIN.LENGTH": "This field requires a min length of {{length}} characters",
+  "VALIDATORS.EQUAL": "Password mismatch",
+  "VALIDATORS.EMAIL": "This field requires a valid email format"
+}

@@ -1,0 +1,85 @@
+<md-card>
+<!-- form scope -->
+<form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+
+    <md-card-header>
+      <h1>
+        {{'SIGNUP.HEADER' | translate}}</h1>
+    </md-card-header>
+
+    <md-card-content>
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="name" type="name" mdInput 
+          placeholder="{{'SIGNUP.FORM.NAME' | translate}}">
+        <md-icon mdSuffix>face</md-icon>
+        <md-error>
+          {{'VALIDATORS.REQUIRED' | translate}}</md-error>
+      </md-input-container>
+      <!-- username field -->
+
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="email" type="email" mdInput 
+          placeholder="{{'SIGNUP.FORM.EMAIL' | translate}}">
+        <md-icon mdSuffix>email</md-icon>
+        <md-error>
+          {{'VALIDATORS.EMAIL' | translate}}</md-error>
+      </md-input-container>
+      <!-- username field -->
+
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="username" type="text" mdInput 
+          placeholder="{{'SIGNUP.FORM.USERNAME' | translate}}">
+        <md-icon mdSuffix>fingerprint</md-icon>
+        <md-error>
+          {{'VALIDATORS.REQUIRED' | translate}}</md-error>
+      </md-input-container>
+      <!-- username field -->
+
+      <!-- password fieldgroup -->
+      <div formGroupName="password" #password>
+        <!-- password1 field -->
+        <md-input-container class="full-width">
+          <input maxlength="12" formControlName="pass" type="password" mdInput 
+            placeholder="{{'SIGNUP.FORM.PASSWORD' | translate}}">
+          <md-icon mdSuffix>vpn_key</md-icon>
+          <md-error>
+            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}</md-error>
+          <md-hint align="start">
+            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}</md-hint>
+          <md-hint align="end">
+            {{signUpForm.controls.password.value.length || 0}} / 12</md-hint>
+        </md-input-container>
+        <!-- password1 field -->
+
+        <!-- password2 field -->
+        <md-input-container class="full-width">
+          <input maxlength="12" formControlName="pass2" type="password" mdInput 
+           placeholder="{{'SIGNUP.FORM.PASSWORD.REPEAT' | translate}}">
+          <md-icon mdSuffix>vpn_key</md-icon>
+          <md-error>
+            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}</md-error>
+          <md-hint align="start">
+            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}</md-hint>
+          <md-hint align="end">
+            {{signUpForm.controls.password.value.length || 0}} / 12</md-hint>
+        </md-input-container>
+        <!-- password2 field -->
+      </div>
+        <md-error *ngIf="signUpForm.hasError('equal', 'password')">
+          {{'VALIDATORS.EQUAL' | translate}}
+        </md-error>
+      <!-- password fieldgroup -->
+    </md-card-content>
+
+    <md-card-actions>
+      <button md-button>
+       {{'SIGNUP.FORM.SUBMIT' | translate}}
+      </button>
+    </md-card-actions>
+
+  </form>
+  <!-- form scope -->
+</md-card>

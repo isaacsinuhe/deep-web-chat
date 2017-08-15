@@ -4,7 +4,8 @@
       <input #message="ngModel" type="text" 
       [ngModelOptions]="{standalone: true}"
       ngModel
-      mdInput placeholder="message">
+      mdInput 
+      placeholder="{{'CHAT.INPUT.MESSAGE' | translate}}">
     </md-input-container>
     <button md-mini-fab>
       <md-icon>send</md-icon>

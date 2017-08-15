@@ -1,0 +1,25 @@
+{
+  "LOGIN.HEADER": "Ingresar",
+  "LOGIN.FORM.USERNAME": "Nombre de Usuario",
+  "LOGIN.FORM.PASSWORD": "Contraseña",
+  "LOGIN.FORM.SUBMIT": "Ingresar",
+
+  "SIGNUP.HEADER": "Registrar",
+  "SIGNUP.FORM.NAME": "Nombre",
+  "SIGNUP.FORM.EMAIL": "Correo electrónico",
+  "SIGNUP.FORM.USERNAME": "Nombre de Usuario",
+  "SIGNUP.FORM.PASSWORD": "Contraseña",
+  "SIGNUP.FORM.PASSWORD.REPEAT": "Repetir Contraseña",
+  "SIGNUP.FORM.SUBMIT": "Registrar",
+
+  "SEARCH.INPUT.FIND": "Buscar amigos",
+
+  "CHAT.INPUT.MESSAGE": "Ingresa un mensaje",
+
+  "HINTS.MIN.LENGTH": "Longitud mínima de {{length}} caracteres",
+
+  "VALIDATORS.REQUIRED": "Este campo es requerido",
+  "VALIDATORS.MIN.LENGTH": "Este campo requiere una longitud de {{length}} caracteres",
+  "VALIDATORS.EQUAL": "La contraseña repetida no coincide con la inicial",
+  "VALIDATORS.EMAIL": "Este campo requiere un formato de correo electrónico válido"
+}
