@@ -5,7 +5,7 @@
   "LOGIN.FORM.SUBMIT": "Log In",
 
   "SIGNUP.HEADER": "Sign Up",
-  "SIGNUP.FORM.NAME": "Name",
+  "SIGNUP.FORM.FULLNAME": "Name",
   "SIGNUP.FORM.EMAIL": "Email",
   "SIGNUP.FORM.USERNAME": "Username",
   "SIGNUP.FORM.PASSWORD": "Password",

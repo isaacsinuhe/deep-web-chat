@@ -4,8 +4,8 @@ import * as mongoose from 'mongoose';
 // Creation of the new User schema
 const userSchema = new mongoose.Schema({
   username: { type: String, unique: true, trim: true},
-  name: String,
-  email: { type: String, lowercase: true, trim: true },
+  fullname: String,
+  email: { type: String, unique: true, lowercase: true, trim: true },
   password: String
 });
 

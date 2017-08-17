@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { SignUpService } from '../../services/sign-up.service'
 import { FormBuilder, Validators } from '@angular/forms'
 import { MdSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
 import { equalValidator } from '../../validators/formValidators'
 
+import { User } from '../../models/user'
+
 @Component({
   selector: 'deep-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, DoCheck {
 
   username
   password
@@ -22,33 +24,49 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private snackBar: MdSnackBar,
     private router: Router
-  ) { }
+  ) { 
+
+  }
 
   ngOnInit() {
     this.signUpForm = this.fb.group({
-      username: ['', Validators.required]
+      username: ['', Validators.required, this.signUpService.isUsernameUnique.bind(this.signUpService)]
       , password: this.fb.group({
           pass: ['', [Validators.required, Validators.minLength(8)]],
           pass2: ['', [Validators.required, Validators.minLength(8)]]
       }, { validator: equalValidator })
-      , name: ['', Validators.required]
-      , email: ['', [Validators.required, Validators.email]]
+      , fullname: ['', Validators.required]
+      , email: ['', [Validators.required, Validators.email], this.signUpService.isEmailUnique.bind(this.signUpService)]
     })
+  }
+  ngDoCheck () {
+    console.log(this.signUpForm.controls.email.hasError('repeated'));
+    
   }
 
   signUp() {
+
     const { controls: {
         username: { value: username },
-        password: { value: password }
+        fullname: { value: fullname },
+        email: { value: email },
+        password: {controls: { pass: {value: password} }}
       } } = this.signUpForm
 
-    this.signUpService.requestSignUp({ username, password })
-      .subscribe(
-      v => {
-        this.validateForm()
-      },
-      console.error
-    )
+    const user = new User({ username, fullname, email, password })
+      
+    this.signUpForm.updateValueAndValidity()
+    if (this.signUpForm.valid) {
+      this.signUpService.requestSignUp(user)
+        .subscribe(
+        v => {
+          this.router.navigate(['/dashboard'])
+        },
+        e => {
+          this.snackBar.open('There has been an error with the server, try again later', 'x', { duration: 700 })
+        }
+      )
+    }
   }
 
   validateForm() {
@@ -60,4 +78,5 @@ export class SignupComponent implements OnInit {
       // this.snackBar.open('rejected', 'x', { duration: 700 })
     }
   }
+  
 }

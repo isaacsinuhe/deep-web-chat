@@ -1,4 +1,5 @@
-import { FormGroup, ValidationErrors } from '@angular/forms'
+import { FormGroup, ValidationErrors, FormControl } from '@angular/forms'
+import { Observable } from 'rxjs/Observable'
 
 export function equalValidator({ value }: FormGroup): { [key: string]: any } {
     const [first, ...rest] = Object.keys(value || {})

@@ -8,24 +8,26 @@
     </md-card-header>
 
     <md-card-content>
-      <!-- username field -->
+      <!-- fullname field -->
       <md-input-container class="full-width">
-        <input formControlName="name" type="name" mdInput 
-          placeholder="{{'SIGNUP.FORM.NAME' | translate}}">
+        <input formControlName="fullname" type="text" mdInput 
+          placeholder="{{'SIGNUP.FORM.FULLNAME' | translate}}">
         <md-icon mdSuffix>face</md-icon>
-        <md-error>
-          {{'VALIDATORS.REQUIRED' | translate}}</md-error>
+        <md-error>{{'VALIDATORS.REQUIRED' | translate}}</md-error>
+        <md-error *ngIf="usedFullname">{{'VALIDATORS.USED' | translate: usedFullname}}</md-error>
       </md-input-container>
-      <!-- username field -->
+      <!-- fullname field -->
 
+      
       <!-- username field -->
       <md-input-container class="full-width">
         <input formControlName="email" type="email" mdInput 
           placeholder="{{'SIGNUP.FORM.EMAIL' | translate}}">
         <md-icon mdSuffix>email</md-icon>
-        <md-error>
-          {{'VALIDATORS.EMAIL' | translate}}</md-error>
+        <md-error>{{'VALIDATORS.EMAIL' | translate}}</md-error>
+        <md-error *ngIf="signUpForm.hasError('repeated', 'email')">repetido</md-error>
       </md-input-container>
+
       <!-- username field -->
 
       <!-- username field -->

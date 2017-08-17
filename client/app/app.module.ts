@@ -21,7 +21,6 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { HttpModule } from '@angular/http';
 
-import { UsersService } from './services/users.service';
 import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
@@ -87,7 +86,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppRoutingModule
   ],
   providers: [
-    UsersService,
     ConversationsService, 
     LoginService,
     SignUpService,

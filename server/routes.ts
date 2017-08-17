@@ -12,6 +12,8 @@ export default function setRoutes(app) {
 
   // Users
   router.route('/login').post(userController.login)
+  router.route('/user/uniqueUsername').get(userController.uniqueUsername)
+  router.route('/user/uniqueEmail').get(userController.uniqueEmail)
 
   router.route('/users').get(userController.getAll)
   router.route('/users/count').get(userController.count)

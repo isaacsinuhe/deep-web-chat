@@ -3,7 +3,6 @@ import { Http } from '@angular/http'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/switchMap'
-import { IUser } from '../services/users.service'
 
 @Injectable()
 export class LoginService {
@@ -19,7 +18,7 @@ export class LoginService {
       )
   }
 
-  requestLogin (user: IUser) {
+  requestLogin (user) {
     return this.request
   }
 
