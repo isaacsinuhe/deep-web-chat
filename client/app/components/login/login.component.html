@@ -21,7 +21,9 @@
         <input maxlength="12" minlength="8" formControlName="password" type="password" mdInput 
           placeholder="{{'LOGIN.FORM.PASSWORD' | translate}}">
         <md-icon mdSuffix>vpn_key</md-icon>
-        <md-error>{{'VALIDATORS.REQUIRED' | translate}}</md-error>
+        <md-error>
+          {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}
+        </md-error>
       </md-input-container>
       <!-- password field -->
     </md-card-content>

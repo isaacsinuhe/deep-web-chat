@@ -1,14 +1,9 @@
-import * as bcrypt from 'bcryptjs';
-import * as mongoose from 'mongoose';
+import { Schema, model, SchemaOptions } from 'mongoose'
 
-// Creation of the new User schema
-const messageSchema = new mongoose.Schema({
-  username: { type: String, unique: true, trim: true},
-  name: String,
-  email: { type: String, lowercase: true, trim: true },
-  password: String
-});
-
-const Message = mongoose.model('Message', messageSchema);
+const messageSchema = new Schema({
+  content: String,
+  ownerId: Schema.Types.ObjectId
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
+const Message = model('Message', messageSchema)
 
 export default Message;

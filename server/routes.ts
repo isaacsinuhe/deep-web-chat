@@ -2,29 +2,31 @@ import * as express from 'express'
 
 import UserController from './controllers/user'
 import User from './models/user'
+import * as passport from 'passport'
 
 export default function setRoutes(app) {
-
-  const router = express.Router()
-
+  
+  const api = express.Router()
   const userController = new UserController()
 
-
+  // Auth and validators
+  api.route('/login').post(userController.login)
+  api.route('/signup').post(userController.signup)
+  api.route('/user/uniqueUsername').get(userController.uniqueUsername)
+  api.route('/user/uniqueEmail').get(userController.uniqueEmail)
+  
+  // Authenticate requests
+  api.all('/*', passport.authenticate('jwt', { session: false }))
+  
   // Users
-  router.route('/login').post(userController.login)
-  router.route('/user/uniqueUsername').get(userController.uniqueUsername)
-  router.route('/user/uniqueEmail').get(userController.uniqueEmail)
-
-  router.route('/users').get(userController.getAll)
-  router.route('/users/count').get(userController.count)
-
-  // Crud inherited from BaseController
-  router.route('/user').post(userController.insert)
-  router.route('/user/:id').get(userController.get)
-  router.route('/user/:id').put(userController.update)
-  router.route('/user/:id').delete(userController.delete)
+  api.route('/users').get(userController.getAll)
+  api.route('/users/count').get(userController.count)
+  api.route('/user').post(userController.insert)
+  api.route('/user/:id').get(userController.get)
+  api.route('/user/:id').put(userController.update)
+  api.route('/user/:id').delete(userController.delete)
   
   // Apply the routes to our application with the prefix /api
-  app.use('/api', router)
+  app.use('/api', api)
   
 }

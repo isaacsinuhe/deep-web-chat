@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
+import { SessionService } from '../../services/session.service'
 
 @Component({
   selector: 'deep-navbar',
@@ -6,16 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  public navLinks
-  private active
-  constructor() {
-    this.navLinks = [
-      {route: 'home', icon: 'home', label: 'HOME'}
-      , {route: 'dashboard', icon: 'dashboard', label: 'DASHBOARD'}
-      // , {route: 'settings', icon: 'settings', label: 'SETTINGS'}
-    ]
+  constructor(private session: SessionService) {
   }
 
+  logout () {
+    this.session.logOut()
+  }
+  
   ngOnInit() {
   }
 

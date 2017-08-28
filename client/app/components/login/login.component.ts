@@ -3,6 +3,8 @@ import { LoginService } from '../../services/login.service'
 import { FormBuilder, Validators } from '@angular/forms'
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 import { Router } from '@angular/router'
+import { Credentials } from '../../models/user'
+
 
 @Component({
   selector: 'deep-login',
@@ -10,9 +12,8 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username
-  password
   loginForm
+  passMinLength = { length: 8 }
  
   constructor(
     private snackBar: MdSnackBar,
@@ -34,23 +35,22 @@ export class LoginComponent implements OnInit {
         password: {value: password}
       }} = this.loginForm
     
-    console.log(username, password)
-    
-    this.loginService
-      .requestLogin({username, password})
-      .subscribe(
-        v => { this.validateForm() },
-        console.error
-      )
-  }
-  
-  validateForm () {
+    const credentials = new Credentials({ username, password})
+    this.loginForm.updateValueAndValidity()
 
     if (this.loginForm.valid) {
-      // this.snackBar.open('accepted', 'x', { duration: 700 })
-      this.router.navigate(['/dashboard'])
-    } else {
-      // this.snackBar.open('rejected', 'x', { duration: 700 })
+      this.loginService
+        .requestLogin(credentials)
+        .subscribe(
+          v => {
+            localStorage.setItem('id_token', v.id_token)
+            this.router.navigate(['/dashboard'])
+          },
+          e => {
+            // localStorage.removeItem('id_token')
+            this.snackBar.open('The username or the password you typed are incorrect, try again', 'x', { duration: 2000 })
+          }
+        )
     }
   }
 }

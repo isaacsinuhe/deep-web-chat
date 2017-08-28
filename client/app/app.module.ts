@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { AppComponent } from './app.component';
@@ -25,6 +26,8 @@ import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
 import { ContactComponent } from './components/contact/contact.component';
+import { DashboardGuard } from './guards/dashboard.guard'
+import { HomeGuard } from './guards/home.guard'
 import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
 import { ChatStatusBarComponent } from './components/chat-status-bar/chat-status-bar.component';
 import { ChatBoardComponent } from './components/chat-board/chat-board.component';
@@ -38,6 +41,7 @@ import { ContactListComponent } from './components/contact-list/contact-list.com
 import { ConvoComponent } from './components/convo/convo.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { AuthModule } from './modules/auth/auth.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -83,9 +87,12 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    AuthModule
   ],
   providers: [
+    DashboardGuard,
+    HomeGuard,
     ConversationsService, 
     LoginService,
     SignUpService,

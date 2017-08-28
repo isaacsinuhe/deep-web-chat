@@ -1,6 +1,4 @@
-<div #container class="convo-container" 
-    [scrollTop]="container.scrollHeight - container.clientHeight">
-
+<div #container class="convo-container" [scrollTop]="container.scrollHeight - container.clientHeight">
     <deep-message *ngFor="let message of messages"
         [mine]="message.mine"
         [content]="message.content"

@@ -9,10 +9,10 @@ import { slideFromRightAnimation } from '../../animations'
 })
 export class HomeComponent implements OnInit {
   @HostBinding('@logAnimation') routeAnimation = true;
-  @HostBinding('style.display') display = 'block';
-  @HostBinding('style.position') position = 'absolute';
-  @HostBinding('style.height') height = '90vh';
-  @HostBinding('style.width') width = '100%';
+  // @HostBinding('style.display') display = 'block';
+  // @HostBinding('style.position') position = 'absolute';
+  // @HostBinding('style.height') height = '90vh';
+  // @HostBinding('style.width') width = '100%';
 
   constructor() { }
 

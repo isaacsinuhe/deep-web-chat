@@ -21,5 +21,6 @@
   "VALIDATORS.REQUIRED": "Required Field",
   "VALIDATORS.MIN.LENGTH": "This field requires a min length of {{length}} characters",
   "VALIDATORS.EQUAL": "Password mismatch",
-  "VALIDATORS.EMAIL": "This field requires a valid email format"
+  "VALIDATORS.EMAIL": "This field requires a valid email format",
+  "VALIDATORS.REPEATED": "This field contains an used value, please choose another one"
 }

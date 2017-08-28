@@ -1,13 +1,14 @@
-.home {
+:host {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row no-wrap;
     justify-content: space-around;
     padding: 20px;
     width: auto;
     height: auto;
 }
-.home > * {
-    min-width: 45%;
-    flex: 0 1 auto;
+:host deep-login, :host deep-signup {
+    display: block;
+    max-width: 45%;
+    flex: 0 1 45%;
     box-sizing: border-box;
 }

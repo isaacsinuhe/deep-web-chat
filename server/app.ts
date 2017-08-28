@@ -1,30 +1,51 @@
-import * as bodyParser from 'body-parser';
-import * as dotenv from 'dotenv';
-import * as express from 'express';
-import * as morgan from 'morgan';
-import * as mongoose from 'mongoose';
-import * as path from 'path';
+import * as bodyParser from 'body-parser'
+import * as dotenv from 'dotenv'
+import * as express from 'express'
+import * as morgan from 'morgan'
+import * as mongoose from 'mongoose'
+import * as path from 'path'
+import * as passport from 'passport'
+import * as passportJWT from 'passport-jwt'
+import User from './models/user'
 
-import setRoutes from './routes';
+import setRoutes from './routes'
+import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt'
 
-const app = express();
-dotenv.load({ path: '.env' });
-app.set('port', (process.env.PORT || 3000));
 
-app.use('/', express.static(path.join(__dirname, '../public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+dotenv.config({ path: '.env' })
+
+const jwtOptions: StrategyOptions = {
+  jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  secretOrKey: process.env.SECRET_TOKEN
+}
+const userStrategy = new Strategy(jwtOptions, function (jwt_payload, next) {
+  console.log('payload received', jwt_payload);
+  // usually this would be a database call:
+  const user = User.findById(jwt_payload._id, (err, res) =>
+    res ? next(null, user) : next(null, false)
+  )
+});
+
+passport.use(userStrategy)
+const app = express()
+app.use(passport.initialize())
+
+app.set('port', (process.env.PORT || 3000))
+app.use('/', express.static(path.join(__dirname, '../public')))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(morgan('dev'));
 
 // mongoose 
-(<any>mongoose).Promise = global.Promise;
+(<any>mongoose).Promise = global.Promise
 const connection = mongoose.connect(process.env.MONGODB_URI, 
   { useMongoClient: true }
-);
+)
 
 connection
-.then((val) => {
+.then( () => {
   console.log('Connected to MongoDB')
   
   // connected to mongo and routes fully setted up
@@ -41,4 +62,4 @@ connection
   console.log('connection error:')
 })
 
-export { app };
+export { app }

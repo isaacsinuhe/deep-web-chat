@@ -3,8 +3,7 @@
 <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
 
     <md-card-header>
-      <h1>
-        {{'SIGNUP.HEADER' | translate}}</h1>
+      <h1>{{'SIGNUP.HEADER' | translate}}</h1>
     </md-card-header>
 
     <md-card-content>
@@ -13,8 +12,9 @@
         <input formControlName="fullname" type="text" mdInput 
           placeholder="{{'SIGNUP.FORM.FULLNAME' | translate}}">
         <md-icon mdSuffix>face</md-icon>
-        <md-error>{{'VALIDATORS.REQUIRED' | translate}}</md-error>
-        <md-error *ngIf="usedFullname">{{'VALIDATORS.USED' | translate: usedFullname}}</md-error>
+        <md-error>
+          {{'VALIDATORS.REQUIRED' | translate}}
+        </md-error>
       </md-input-container>
       <!-- fullname field -->
 
@@ -24,19 +24,29 @@
         <input formControlName="email" type="email" mdInput 
           placeholder="{{'SIGNUP.FORM.EMAIL' | translate}}">
         <md-icon mdSuffix>email</md-icon>
-        <md-error>{{'VALIDATORS.EMAIL' | translate}}</md-error>
-        <md-error *ngIf="signUpForm.hasError('repeated', 'email')">repetido</md-error>
+        <md-error *ngIf="signUpForm.get('email').getError('required')">
+          {{'VALIDATORS.REQUIRED' | translate}}
+        </md-error>
+        <md-error *ngIf="signUpForm.get('email').getError('email')">
+          {{'VALIDATORS.EMAIL' | translate}}
+        </md-error>
+        <md-error *ngIf="signUpForm.get('email').getError('repeated')">
+          {{'VALIDATORS.REPEATED' | translate}}
+        </md-error>
       </md-input-container>
-
       <!-- username field -->
-
+      
       <!-- username field -->
       <md-input-container class="full-width">
         <input formControlName="username" type="text" mdInput 
-          placeholder="{{'SIGNUP.FORM.USERNAME' | translate}}">
+        placeholder="{{'SIGNUP.FORM.USERNAME' | translate}}">
         <md-icon mdSuffix>fingerprint</md-icon>
-        <md-error>
-          {{'VALIDATORS.REQUIRED' | translate}}</md-error>
+        <md-error *ngIf="signUpForm.get('username').getError('required')">
+          {{'VALIDATORS.REQUIRED' | translate}}
+        </md-error>
+        <md-error *ngIf="signUpForm.get('username').getError('repeated')">
+          {{'VALIDATORS.REPEATED' | translate}}
+        </md-error>
       </md-input-container>
       <!-- username field -->
 
@@ -44,15 +54,18 @@
       <div formGroupName="password" #password>
         <!-- password1 field -->
         <md-input-container class="full-width">
-          <input maxlength="12" formControlName="pass" type="password" mdInput 
+          <input maxlength="12" minlength='8' formControlName="pass" type="password" mdInput 
             placeholder="{{'SIGNUP.FORM.PASSWORD' | translate}}">
           <md-icon mdSuffix>vpn_key</md-icon>
           <md-error>
-            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}</md-error>
+            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}
+          </md-error>
           <md-hint align="start">
-            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}</md-hint>
+            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}
+          </md-hint>
           <md-hint align="end">
-            {{signUpForm.controls.password.value.length || 0}} / 12</md-hint>
+            {{signUpForm.controls.password.value.length || 0}} / 12
+          </md-hint>
         </md-input-container>
         <!-- password1 field -->
 
@@ -62,11 +75,14 @@
            placeholder="{{'SIGNUP.FORM.PASSWORD.REPEAT' | translate}}">
           <md-icon mdSuffix>vpn_key</md-icon>
           <md-error>
-            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}</md-error>
+            {{'VALIDATORS.MIN.LENGTH' | translate: passMinLength}}
+          </md-error>
           <md-hint align="start">
-            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}</md-hint>
+            {{'HINTS.MIN.LENGTH' | translate: passMinLength}}
+          </md-hint>
           <md-hint align="end">
-            {{signUpForm.controls.password.value.length || 0}} / 12</md-hint>
+            {{signUpForm.controls.password.value.length || 0}} / 12
+          </md-hint>
         </md-input-container>
         <!-- password2 field -->
       </div>
@@ -75,7 +91,13 @@
         </md-error>
       <!-- password fieldgroup -->
     </md-card-content>
-
+    {{signUpForm.valid}}
+    {{signUpForm.controls.username.valid}}
+    {{signUpForm.controls.fullname.valid}}
+    {{signUpForm.controls.email.valid}}
+    {{signUpForm.controls.password.valid}}
+    {{signUpForm.controls.password.controls.pass.valid}}
+    {{signUpForm.controls.password.controls.pass2.valid}}
     <md-card-actions>
       <button md-button>
        {{'SIGNUP.FORM.SUBMIT' | translate}}

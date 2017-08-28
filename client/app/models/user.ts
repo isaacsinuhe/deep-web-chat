@@ -10,4 +10,12 @@ export class User {
         this.fullname = user.fullname
     }
 }
+export class Credentials {
+    username
+    password
+    constructor (user) {
+        this.username = user.username
+        this.password = user.password
+    }
+}
 

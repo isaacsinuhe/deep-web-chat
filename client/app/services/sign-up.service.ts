@@ -1,44 +1,39 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms'
 import { Http, URLSearchParams } from '@angular/http'
+import { AuthHttp } from 'angular2-jwt'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/switchMap'
+import 'rxjs/add/operator/map'
 
-import {User} from '../models/user'
+import { User } from '../models/user'
 
 @Injectable()
 export class SignUpService {
   // request: Observable<boolean>
-  constructor(private http: Http) {
-
-    // this.request = Observable
-    //   .timer(500)
-    //   .switchMap(() =>
-    //     new Observable(observer => {
-    //       observer.next(true)
-    //     })
-    //   )
-
-  }
+  constructor(private http: AuthHttp) { }
 
   isUsernameUnique ({value}) {
-    
-    const http = this.http
     const params = new URLSearchParams()
     params.set('username', value)
-    return this.http.get(`/api/user/uniqueUsername`, {search: params})
+    return this.http
+      .get(`/api/user/uniqueUsername`, { search: params })
+      .map( (res) => res.json().repeated ? {repeated: true} : null )
   }
-  isEmailUnique ({value}) {
-    const http = this.http
+
+  isEmailUnique ({ value }) {
     const params = new URLSearchParams()
     params.set('email', value)
-    return this.http.get(`/api/user/uniqueEmail`, {search: params})
+    
+    return this.http
+      .get(`/api/user/uniqueEmail`, { search: params })
+      .map( (res) => res.json().repeated ? {repeated: true} : null )
   }
 
   requestSignUp(user) {
-    // return this.request
-    return this.http.post('/api/user', user)
+    return this.http.post('/api/signup', user)
+      .map((res) => res.json())
   }
 }
 

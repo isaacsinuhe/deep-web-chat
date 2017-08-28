@@ -7,7 +7,7 @@
     position: relative;
     box-shadow: 3px 3px 1px rgba(224, 224, 224, .8), -3px 3px 1px rgba(224, 224, 224, .8);
     background-color: whitesmoke;
-    border-bottom-width: 0;
+    border-bottom: 3px solid rgba(224, 224, 224, .8);
     cursor: pointer;
     box-sizing: border-box;
     align-self: flex-start;
@@ -53,6 +53,6 @@
 } 
 .message-bubble:hover {
     background-color: #e0e0e0;
-    border-bottom: 3px solid #673ab7;
+    border-bottom-color:  #673ab7;
     transition: all ease-in-out 500ms;
 }

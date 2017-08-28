@@ -12,10 +12,7 @@ import { User } from '../../models/user'
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit, DoCheck {
-
-  username
-  password
+export class SignupComponent implements OnInit {
   signUpForm
   passMinLength = {length: 8}
 
@@ -24,59 +21,50 @@ export class SignupComponent implements OnInit, DoCheck {
     private fb: FormBuilder,
     private snackBar: MdSnackBar,
     private router: Router
-  ) { 
-
-  }
+  ) { }
 
   ngOnInit() {
     this.signUpForm = this.fb.group({
-      username: ['', Validators.required, this.signUpService.isUsernameUnique.bind(this.signUpService)]
-      , password: this.fb.group({
+      username: ['',
+        Validators.required,
+        this.signUpService.isUsernameUnique.bind(this.signUpService)],
+      password: this.fb.group({
           pass: ['', [Validators.required, Validators.minLength(8)]],
           pass2: ['', [Validators.required, Validators.minLength(8)]]
-      }, { validator: equalValidator })
-      , fullname: ['', Validators.required]
-      , email: ['', [Validators.required, Validators.email], this.signUpService.isEmailUnique.bind(this.signUpService)]
+      }, { validator: equalValidator }),
+      fullname: ['', Validators.required],
+      email: ['', 
+        [Validators.required, Validators.email],
+        this.signUpService.isEmailUnique.bind(this.signUpService)
+      ]
     })
-  }
-  ngDoCheck () {
-    console.log(this.signUpForm.controls.email.hasError('repeated'));
-    
   }
 
   signUp() {
-
+    
     const { controls: {
-        username: { value: username },
-        fullname: { value: fullname },
-        email: { value: email },
-        password: {controls: { pass: {value: password} }}
-      } } = this.signUpForm
-
+      username: { value: username },
+      fullname: { value: fullname },
+      email: { value: email },
+      password: {controls: { pass: {value: password} }}
+    } } = this.signUpForm
+    
     const user = new User({ username, fullname, email, password })
-      
     this.signUpForm.updateValueAndValidity()
+
     if (this.signUpForm.valid) {
-      this.signUpService.requestSignUp(user)
+      this.signUpService
+        .requestSignUp(user)
         .subscribe(
-        v => {
-          this.router.navigate(['/dashboard'])
-        },
-        e => {
-          this.snackBar.open('There has been an error with the server, try again later', 'x', { duration: 700 })
-        }
+          v => {
+            localStorage.setItem('id_token', v.id_token)
+            this.router.navigate(['/dashboard'])
+          },
+          e => {
+            // localStorage.removeItem('id_token')
+            this.snackBar.open('There has been an error with the server, try again later', 'x', { duration: 700 })
+          }
       )
     }
   }
-
-  validateForm() {
-    this.signUpForm.updateValueAndValidity()
-    if (this.signUpForm.valid) {
-      // this.snackBar.open('accepted', 'x', { duration: 700 })
-      this.router.navigate(['/dashboard'])
-    } else {
-      // this.snackBar.open('rejected', 'x', { duration: 700 })
-    }
-  }
-  
 }
