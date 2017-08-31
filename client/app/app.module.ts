@@ -42,6 +42,7 @@ import { ConvoComponent } from './components/convo/convo.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AuthModule } from './modules/auth/auth.module';
+import { DashboardResolve } from './guards/dashboard.resolver'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -97,7 +98,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginService,
     SignUpService,
     SearchContactsService,
-    SessionService
+    SessionService,
+    DashboardResolve
   ],
   bootstrap: [AppComponent]
 })

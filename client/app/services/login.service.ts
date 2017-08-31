@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { Http } from '@angular/http'
+import { SessionService } from './session.service'
 import { AuthHttp, tokenNotExpired } from 'angular2-jwt'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/operator/do'
@@ -12,8 +13,10 @@ export class LoginService {
 
   requestLogin (credentials) {
     return this.http.post('/api/login', credentials)
-      .do((v) => { console.log(v, tokenNotExpired()) })
       .map((res) => res.json())
+      .do((v) => { 
+        console.log(v, tokenNotExpired()) 
+      })
   }
 
 }

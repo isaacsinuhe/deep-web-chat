@@ -40,7 +40,8 @@ export const slideFromLeftAnimation: AnimationEntryMetadata =
             animate('0.5s ease-in')
         ]),
         transition(':leave', [
-            animate('0.5s ease-in', style({
+            animate('0.5s ease-in',
+            style({
                 opacity: 0,
                 transform: 'translateX(100%)'
             }))

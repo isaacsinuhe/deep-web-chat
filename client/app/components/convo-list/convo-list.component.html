@@ -1,6 +1,6 @@
 <deep-convo *ngFor="let convo of convoList"
-  [name]="convo.name"
-  [lastMessages]="convo.lastMessages"
+  [name]="convo.conversation.name"
+  [lastMessages]="convo.conversation.messages"
   [participants]="convo.participants"
   [status]="convo.status"
 >

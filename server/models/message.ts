@@ -1,9 +1,12 @@
 import { Schema, model, SchemaOptions } from 'mongoose'
+import {} from './conversation'
+const { ObjectId } = Schema.Types
 
-const messageSchema = new Schema({
+const MessageSchema = new Schema({
   content: String,
-  ownerId: Schema.Types.ObjectId
-}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
-const Message = model('Message', messageSchema)
+  owner: {type: ObjectId, ref: 'User'}
+}, { timestamps: { createdAt: 'createdAt' } })
 
-export default Message;
+export const Message = model('Message', MessageSchema)
+
+export default Message

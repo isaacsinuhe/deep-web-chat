@@ -1,160 +1,194 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, DoCheck } from '@angular/core';
+import { Subject } from 'rxjs/Subject'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
+import { AsyncSubject } from 'rxjs/AsyncSubject'
 import { Observable } from 'rxjs/Observable'
 import { PARTICIPANT } from '../enums/participant'
 import { CONVERSATION } from '../enums/conversation.enum'
 import { NOTIFICATION } from '../enums/notification.enum'
-import { tokenNotExpired } from 'angular2-jwt'
+import { tokenNotExpired, JwtHelper, AuthHttp } from 'angular2-jwt'
 import { Router } from '@angular/router'
 import * as moment from 'moment'
 
 @Injectable()
-export class SessionService {
-  private  = false
+export class SessionService implements OnInit{
+  
   private picture = 'https://cdn4.iconfinder.com/data/icons/squared-line-generic-2/64/human-user-account-profile-128.png' 
-  private pic = '../../assets / user - account.jpg'
+  
   private sessionState = 
   {
     user: {
       _id: 'sfadf',
       username: 'myself',
-      fullname: 'john cena'
+      createdAt: moment(),
+      updatedAt: moment(),
+      email: 'a@a.com',
+      fullname: 'john cena',
+      notifications:
+      [
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'you are gonna die',
+          type: NOTIFICATION.INVITATION,
+          content: ';bbbbbbbbbbbbbbbbbddddddddddddddddddddddddddddddddddddddddbbbvvvvvvvvvvv',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'you have an invitation to join the group "SFSD;FKA SLDKF"',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'You forgot to git push your commits :O',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'You forgot to git push your commits :O',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'You forgot to git push your commits :O',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'You forgot to git push your commits :O',
+          date: moment()
+        },
+        {
+          id: 'dfj;adkjf', senderId: 'fadfa',
+          senderName: 'fda', title: 'Good news',
+          type: NOTIFICATION.INVITATION,
+          content: 'You forgot to git push your commits :O',
+          date: moment()
+        },
+      ],
+      settings: {},
+      contacts:
+      [
+        {
+          fullname: 'Emily',
+          username: 'Emily21876',
+        },
+        {
+          fullname: 'Jon',
+          username: 'klj21876',
+        },
+        {
+          fullname: 'F',
+          username: 'OJSH7IACS78',
+        },
+        {
+          fullname: '9876GYUBNI',
+          username: 'KKK',
+        },
+        {
+          fullname: 'Em',
+          username: 'Em1876',
+        },
+        {
+          fullname: '9876GYUBNI',
+          username: 'KKK',
+        },
+        {
+          fullname: 'Em',
+          username: 'Em1876',
+        },
+        {
+          fullname: '9876GYUBNI',
+          username: 'KKK',
+        },
+        {
+          fullname: 'Em',
+          username: 'Em1876',
+        },
+        {
+          fullname: 'SH',
+          username: 'JFJ',
+        }
+      ],
     },
-    contacts: 
-    [
-      {
-        name: 'Emily',
-        username: 'Emily21876',
-        country: 'MEX',
-      },
-      {
-        name: 'Jon',
-        username: 'klj21876',
-        country: 'USA',
-      },
-      {
-        name: 'F',
-        username: 'OJSH7IACS78',
-        country: 'CAN',
-      },
-      {
-        name: '9876GYUBNI',
-        username: 'KKK',
-        country: 'LIB',
-      },
-      {
-        name: 'Em',
-        username: 'Em1876',
-        country: 'UGA',
-      },
-      {
-        name: '9876GYUBNI',
-        username: 'KKK',
-        country: 'LIB',
-      },
-      {
-        name: 'Em',
-        username: 'Em1876',
-        country: 'UGA',
-      },
-      {
-        name: '9876GYUBNI',
-        username: 'KKK',
-        country: 'LIB',
-      },
-      {
-        name: 'Em',
-        username: 'Em1876',
-        country: 'UGA',
-      },
-      {
-        name: 'SH',
-        username: 'JFJ',
-        country: 'AUS',
-      }      
-    ],
+    
     conversations: new Array(10).fill(
     // [
       {
         _id: 'kijhjnk',
-        name: 'Viernes de Smash', 
-        avatar: this.picture,
         status: CONVERSATION.FOLLOWING,
-        lastMessages: [
-          { content: 'fffffffffffffffffffffffffffffff', ownerId: 'M3', date: moment(), mine: false },
-        ],
-        participants: [
-          { name: 'John', avatar: this.picture, status: PARTICIPANT.ACTIVE },
-          { name: 'Ava', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-          { name: 'Eddie', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-          { name: 'B', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-          { name: 'A', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-        ],
+        conversation: {
+          _id: 'Anonymous',
+          name: 'Viernes de Smash',
+          createdAt: moment(),
+          updatedAt: moment(),
+          avatar: this.picture,
+          messages: [
+            { 
+              _id: 'Anonymous',
+              createdAt: moment(),
+              updatedAt: moment(),
+              owner: 'Anonymous', 
+              content: '---------------', 
+              mine: false },
+          ],
+          participants: [
+            { name: 'John', avatar: this.picture, status: PARTICIPANT.ACTIVE },
+            { name: 'Ava', avatar: this.picture, status: PARTICIPANT.ACTIVE},
+            { name: 'Eddie', avatar: this.picture, status: PARTICIPANT.ACTIVE},
+            { name: 'B', avatar: this.picture, status: PARTICIPANT.ACTIVE},
+            { name: 'A', avatar: this.picture, status: PARTICIPANT.ACTIVE},
+          ],
+        }
       },
 
     // ],
-    ), 
-    notifications: 
-    [
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'you are gonna die',
-        type: NOTIFICATION.INVITATION, 
-        content: ';bbbbbbbbbbbbbbbbbddddddddddddddddddddddddddddddddddddddddbbbvvvvvvvvvvv',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'you have an invitation to join the group "SFSD;FKA SLDKF"',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'You forgot to git push your commits :O',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'You forgot to git push your commits :O',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'You forgot to git push your commits :O',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'You forgot to git push your commits :O',
-        date: moment()
-      },
-      {
-        id: 'dfj;adkjf', senderId: 'fadfa',
-        senderName: 'fda', title: 'Good news',
-        type: NOTIFICATION.INVITATION, 
-        content: 'You forgot to git push your commits :O',
-        date: moment()
-      },
-    ],
-    settings: {},
+    )    
   }
+  public sessionSubject
+  public sessionChanges$
+
   private convoObserver
   private contactObserver
   private notificationObserver
+  private pic = '../../assets / user - account.jpg'
+  private jwt = new JwtHelper
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private http: AuthHttp) {
+    this.sessionSubject = new BehaviorSubject<any>(this.sessionState)
+    this.sessionChanges$ = this.sessionSubject.asObservable()
+
     this.convoObserver = Observable.from(this.sessionState.conversations)
-    this.contactObserver = Observable.from(this.sessionState.contacts)
-    this.notificationObserver = Observable.from(this.sessionState.notifications)
+    this.contactObserver = Observable.from(this.sessionState.user.contacts)
+    this.notificationObserver = Observable.from(this.sessionState.user.notifications)
+  }
+
+  ngOnInit () {
+
+  }
+
+  initSessionState () {  
+    const params = new URLSearchParams()
+    params.set('_id', this.sessionId)
+
+    return this.http
+      .get(`/api/user/hydrate`, { search: params })
+      .map((res) => res.json())
+      .do( session => {
+        this.sessionState = session
+        this.sessionSubject.next(session)
+        console.log('here', session)
+      })
   }
 
   getConversations () {
@@ -168,7 +202,16 @@ export class SessionService {
   }
 
   get loggedIn () {
-    return !!(localStorage.getItem('id_token') && tokenNotExpired())
+    const token = localStorage.getItem('id_token'),
+          expired = !tokenNotExpired()
+    
+    return token && !expired
+  }
+  get sessionId () {
+    const token = localStorage.getItem('id_token'),
+          id = token && this.jwt.decodeToken(token)._id
+    
+    return id
   }
   
   logOut () {

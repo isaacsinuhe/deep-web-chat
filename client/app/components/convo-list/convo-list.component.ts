@@ -10,13 +10,19 @@ import { SessionService } from '../../services/session.service'
   animations: [ enterFromRight ]
 })
 export class ConvoListComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
+  @HostBinding('@routeAnimation') routeAnimation = true
 
   convoList = []
 
-  constructor( private sS: SessionService) {
-    this.sS.getConversations()
+  constructor(private session: SessionService) {
+    
+    this.session.sessionChanges$.subscribe(
+      (data) => {console.log('async sessionchanges in convolist compo', data);
+      }
+    )
+    this.session.getConversations()
     .subscribe((convo) => {
+      // console.log('from convo list component', convo)
       this.convoList.push(convo)
     })
   }

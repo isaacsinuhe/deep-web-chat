@@ -1,6 +1,7 @@
-import { OnDestroy, Component, OnInit, HostBinding, Input, Output, EventEmitter } from '@angular/core';
+import { OnDestroy, Component, OnInit, HostBinding, Input,  Output, EventEmitter } from '@angular/core';
 import { slideFromLeftAnimation } from '../../animations'
 import { ActivatedRoute } from '@angular/router'
+import { SessionService } from './../../services/session.service'
 
 @Component({
   selector: 'deep-dashboard',
@@ -9,6 +10,7 @@ import { ActivatedRoute } from '@angular/router'
   animations: [ slideFromLeftAnimation ]
 })
 export class DashboardComponent implements OnInit {
+  
   state
   @HostBinding('@dashAnimation') routeAnimation = true;
   @HostBinding('style.display') display = 'block';
@@ -16,12 +18,22 @@ export class DashboardComponent implements OnInit {
   @HostBinding('style.height') height = '90vh';
   @HostBinding('style.width') width = '100%';
   
-  constructor(private aR: ActivatedRoute) { }
-
+  constructor(private route: ActivatedRoute, private session: SessionService) { }
+  protected sessionState
   ngOnInit() {
-    ({children: [{snapshot: {url: [{path: this.state}]}}]} = this.aR)
+    this.route.data
+      .subscribe(({0: data}) => {
+        console.log('from dashboard component', data)
+        this.sessionState = data
+      })
+      
+    this.session.sessionChanges$.subscribe(
+      (session) => console.log(session, 'in sessionchanges'),
+      (session) => console.log(session, 'in sessionchanges'),
+      () => console.log('in sessionchanges')
+    )
   }
-
+  
   changeState (value) {
     this.state = value
   }

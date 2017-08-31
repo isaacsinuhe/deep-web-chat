@@ -9,11 +9,13 @@ import { ConvoListComponent } from '../../components/convo-list/convo-list.compo
 import { ContactListComponent } from '../../components/contact-list/contact-list.component'
 import { NotificationListComponent } from '../../components/notification-list/notification-list.component';
 import { DashboardGuard } from '../../guards/dashboard.guard'
+import { DashboardResolve } from '../../guards/dashboard.resolver'
 
 const routes: Routes = [
   { 
     path: 'dashboard',
     component: DashboardComponent,
+    resolve: [DashboardResolve],
     canActivate: [DashboardGuard],
     canActivateChild: [DashboardGuard],
     children: [
@@ -28,8 +30,14 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  exports: [
+    RouterModule
+  ],
   imports: [
     RouterModule.forChild(routes),
+  ],
+  providers: [
+    DashboardResolve
   ]
 })
 export class DashboardRoutingModule { }

@@ -1,0 +1,4 @@
+.inactive-nav-item {
+    visibility: hidden;
+    position: absolute;   
+}

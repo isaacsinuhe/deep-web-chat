@@ -15,8 +15,6 @@ export class DashboardGuard implements CanActivate, CanActivateChild {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      console.log('ajjjjjjjjjjjjjjjjjjjjjjjjj')
-    
     return this.session.loggedIn ? 
       true : 
       (this.router.navigate(['/home']), false)

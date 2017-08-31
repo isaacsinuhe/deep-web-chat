@@ -1,21 +1,24 @@
 <nav md-tab-nav-bar>
 
-  <a md-tab-link *ngIf="!session.loggedIn"
-  [routerLink]="home" 
-  routerLinkActive 
-  #d="routerLinkActive" 
-  [active]="d.isActive">
+  <a md-tab-link
+  routerLink="/home"
+  routerLinkActive
+  #home="routerLinkActive" 
+  [active]="home.isActive"
+  [ngClass]="{'inactive-nav-item': !home.isActive}">
   <md-icon>home</md-icon></a>
   
-  <a md-tab-link *ngIf="session.loggedIn"
-  (click)="logout()">
+  <a md-tab-link
+  (click)="logout()"
+  [ngClass]="{'inactive-nav-item': !dashboard.isActive}">
   <md-icon>exit_to_app</md-icon></a>
   
-  <a md-tab-link *ngIf="session.loggedIn"
-  [routerLink]="dashboard"
+  <a md-tab-link
+  routerLink="/dashboard"
   routerLinkActive
-  #d="routerLinkActive"
-  [active]="d.isActive">
+  #dashboard="routerLinkActive"
+  [active]="dashboard.isActive"
+  [ngClass]="{'inactive-nav-item': !dashboard.isActive}">
   <md-icon>dashboard</md-icon></a>
   
 </nav> 
