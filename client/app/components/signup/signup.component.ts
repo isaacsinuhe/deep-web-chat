@@ -57,11 +57,12 @@ export class SignupComponent implements OnInit {
         .requestSignUp(user)
         .subscribe(
           v => {
+            localStorage.removeItem('id_token')
             localStorage.setItem('id_token', v.id_token)
             this.router.navigate(['/dashboard'])
           },
           e => {
-            // localStorage.removeItem('id_token')
+            localStorage.removeItem('id_token')
             this.snackBar.open('There has been an error with the server, try again later', 'x', { duration: 700 })
           }
       )

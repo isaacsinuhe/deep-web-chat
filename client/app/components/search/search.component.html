@@ -8,7 +8,7 @@
 </form>
 
 <div class="search-results" *ngIf="contactlist; else announcement">
-  <deep-contact *ngFor="let contact of contactlist" [name]="contact.name" [username]="contact.username" [country]="contact.country">
+  <deep-contact *ngFor="let contact of contactlist" [name]="contact.name" [username]="contact.username">
   </deep-contact>
 </div>
 <ng-template #announcement>

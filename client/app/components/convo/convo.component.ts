@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core'
+import { ConversationsService } from './../../services/conversations.service'
 
 @Component({
   selector: 'deep-convo',
@@ -7,13 +8,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ConvoComponent implements OnInit {
   @Input () name
-  @Input () lastMessages
+  @Input () lastMessage
   @Input () participants
   @Input () status
+  @Input () id
 
-  constructor() { }
+  constructor(private conversationService: ConversationsService) { }
 
   ngOnInit() {
   }
-
+  displayConversation () {
+    console.log(this.id)
+    this.conversationService.updateCurrentConversation(this.id)
+  }
 }

@@ -38,8 +38,9 @@ export default function setRoutes(app) {
   api.route('/message/:id').get(messageController.get)
   api.route('/message/:id').put(messageController.update)
   api.route('/message/:id').delete(messageController.delete)
-  
+
   // Conversation requests
+  api.route('/conversation/messages').get(conversationController.getMessages)
   api.route('/conversations').get(conversationController.getAll)
   api.route('/conversations/count').get(conversationController.count)
   api.route('/conversation').post(conversationController.insert)

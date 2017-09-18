@@ -16,15 +16,13 @@ export class ConvoListComponent implements OnInit {
 
   constructor(private session: SessionService) {
     
-    this.session.sessionChanges$.subscribe(
-      (data) => {console.log('async sessionchanges in convolist compo', data);
-      }
-    )
-    this.session.getConversations()
-    .subscribe((convo) => {
-      // console.log('from convo list component', convo)
-      this.convoList.push(convo)
-    })
+    this.session.sessionChanges$
+      .map( ss => ss.conversations)
+      .subscribe(
+        conversations => {
+          this.convoList = conversations
+        }
+      )
   }
 
   ngOnInit() {

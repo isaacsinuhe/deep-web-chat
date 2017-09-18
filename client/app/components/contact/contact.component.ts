@@ -8,7 +8,6 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ContactComponent implements OnInit {
   @Input () name
   @Input () username
-  @Input () country
   constructor() { }
 
   ngOnInit() {

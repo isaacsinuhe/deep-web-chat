@@ -9,9 +9,6 @@ import 'rxjs/add/observable/fromEvent'
 })
 export class ChatBoardComponent implements OnInit {
   @Input() messages
-  @ViewChild('container') convoContainer
-  prevHeight
-  scrollTop = 0
 
   constructor() { }
 

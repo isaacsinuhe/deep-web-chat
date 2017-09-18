@@ -2,12 +2,14 @@ import { Injectable, OnInit, DoCheck } from '@angular/core';
 import { Subject } from 'rxjs/Subject'
 import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 import { AsyncSubject } from 'rxjs/AsyncSubject'
+import { ReplaySubject } from 'rxjs/ReplaySubject'
 import { Observable } from 'rxjs/Observable'
 import { PARTICIPANT } from '../enums/participant'
 import { CONVERSATION } from '../enums/conversation.enum'
 import { NOTIFICATION } from '../enums/notification.enum'
 import { tokenNotExpired, JwtHelper, AuthHttp } from 'angular2-jwt'
 import { Router } from '@angular/router'
+import { RequestOptions, URLSearchParams } from '@angular/http'
 import * as moment from 'moment'
 
 @Injectable()
@@ -155,8 +157,11 @@ export class SessionService implements OnInit{
     // ],
     )    
   }
+  // observables for session changes
   public sessionSubject
   public sessionChanges$
+  
+
 
   private convoObserver
   private contactObserver
@@ -165,7 +170,8 @@ export class SessionService implements OnInit{
   private jwt = new JwtHelper
 
   constructor(private router: Router, private http: AuthHttp) {
-    this.sessionSubject = new BehaviorSubject<any>(this.sessionState)
+    // initialization of subjects and observables
+    this.sessionSubject = new ReplaySubject(1)
     this.sessionChanges$ = this.sessionSubject.asObservable()
 
     this.convoObserver = Observable.from(this.sessionState.conversations)
@@ -177,18 +183,22 @@ export class SessionService implements OnInit{
 
   }
 
-  initSessionState () {  
-    const params = new URLSearchParams()
-    params.set('_id', this.sessionId)
-
+  initSessionState () {
+    const params = new URLSearchParams(`userId=${this.sessionId}`)
+    const reqOpts = new RequestOptions({search: params})
+    
     return this.http
-      .get(`/api/user/hydrate`, { search: params })
-      .map((res) => res.json())
+      .get(`/api/user/hydrate`, reqOpts)
+      .map(res => res.json())
       .do( session => {
         this.sessionState = session
-        this.sessionSubject.next(session)
-        console.log('here', session)
+        this.notifySessionChange(session)
       })
+  }
+
+  notifySessionChange (change) {
+    this.sessionSubject.next(change)
+    return change
   }
 
   getConversations () {
@@ -200,6 +210,10 @@ export class SessionService implements OnInit{
   getNotifications () {
     return this.notificationObserver
   }
+  getMessages ({convoId}) {
+    return this.http
+          .get('/api/')
+  }
 
   get loggedIn () {
     const token = localStorage.getItem('id_token'),
@@ -208,10 +222,8 @@ export class SessionService implements OnInit{
     return token && !expired
   }
   get sessionId () {
-    const token = localStorage.getItem('id_token'),
-          id = token && this.jwt.decodeToken(token)._id
-    
-    return id
+    const token = localStorage.getItem('id_token')
+    return token && this.jwt.decodeToken(token)._id
   }
   
   logOut () {

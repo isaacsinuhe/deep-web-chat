@@ -23,20 +23,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.route.data
       .subscribe(({0: data}) => {
-        console.log('from dashboard component', data)
         this.sessionState = data
       })
-      
-    this.session.sessionChanges$.subscribe(
-      (session) => console.log(session, 'in sessionchanges'),
-      (session) => console.log(session, 'in sessionchanges'),
-      () => console.log('in sessionchanges')
-    )
   }
-  
+
   changeState (value) {
     this.state = value
   }
-
-
 }

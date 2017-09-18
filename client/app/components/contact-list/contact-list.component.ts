@@ -11,12 +11,16 @@ import { SessionService } from '../../services/session.service'
 export class ContactListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
 
-  constructor(private sS: SessionService) { }
+  constructor(private session: SessionService) { }
   public contactList = []
   ngOnInit() {
-    this.sS.getContacts().subscribe((contact) => {
-      this.contactList.push(contact)
-    })
+    this.session.sessionChanges$
+      .map(ss => ss.user.contacts)
+      .subscribe(
+      contacts => {
+        this.contactList = contacts
+      }
+      )
   }
 
 }
