@@ -17,146 +17,8 @@ export class SessionService implements OnInit{
   
   private picture = 'https://cdn4.iconfinder.com/data/icons/squared-line-generic-2/64/human-user-account-profile-128.png' 
   
-  private sessionState = 
-  {
-    user: {
-      _id: 'sfadf',
-      username: 'myself',
-      createdAt: moment(),
-      updatedAt: moment(),
-      email: 'a@a.com',
-      fullname: 'john cena',
-      notifications:
-      [
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'you are gonna die',
-          type: NOTIFICATION.INVITATION,
-          content: ';bbbbbbbbbbbbbbbbbddddddddddddddddddddddddddddddddddddddddbbbvvvvvvvvvvv',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'you have an invitation to join the group "SFSD;FKA SLDKF"',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'You forgot to git push your commits :O',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'You forgot to git push your commits :O',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'You forgot to git push your commits :O',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'You forgot to git push your commits :O',
-          date: moment()
-        },
-        {
-          id: 'dfj;adkjf', senderId: 'fadfa',
-          senderName: 'fda', title: 'Good news',
-          type: NOTIFICATION.INVITATION,
-          content: 'You forgot to git push your commits :O',
-          date: moment()
-        },
-      ],
-      settings: {},
-      contacts:
-      [
-        {
-          fullname: 'Emily',
-          username: 'Emily21876',
-        },
-        {
-          fullname: 'Jon',
-          username: 'klj21876',
-        },
-        {
-          fullname: 'F',
-          username: 'OJSH7IACS78',
-        },
-        {
-          fullname: '9876GYUBNI',
-          username: 'KKK',
-        },
-        {
-          fullname: 'Em',
-          username: 'Em1876',
-        },
-        {
-          fullname: '9876GYUBNI',
-          username: 'KKK',
-        },
-        {
-          fullname: 'Em',
-          username: 'Em1876',
-        },
-        {
-          fullname: '9876GYUBNI',
-          username: 'KKK',
-        },
-        {
-          fullname: 'Em',
-          username: 'Em1876',
-        },
-        {
-          fullname: 'SH',
-          username: 'JFJ',
-        }
-      ],
-    },
-    
-    conversations: new Array(10).fill(
-    // [
-      {
-        _id: 'kijhjnk',
-        status: CONVERSATION.FOLLOWING,
-        conversation: {
-          _id: 'Anonymous',
-          name: 'Viernes de Smash',
-          createdAt: moment(),
-          updatedAt: moment(),
-          avatar: this.picture,
-          messages: [
-            { 
-              _id: 'Anonymous',
-              createdAt: moment(),
-              updatedAt: moment(),
-              owner: 'Anonymous', 
-              content: '---------------', 
-              mine: false },
-          ],
-          participants: [
-            { name: 'John', avatar: this.picture, status: PARTICIPANT.ACTIVE },
-            { name: 'Ava', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-            { name: 'Eddie', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-            { name: 'B', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-            { name: 'A', avatar: this.picture, status: PARTICIPANT.ACTIVE},
-          ],
-        }
-      },
-
-    // ],
-    )    
-  }
+  private sessionState
+  
   // observables for session changes
   public sessionSubject
   public sessionChanges$
@@ -174,9 +36,9 @@ export class SessionService implements OnInit{
     this.sessionSubject = new ReplaySubject(1)
     this.sessionChanges$ = this.sessionSubject.asObservable()
 
-    this.convoObserver = Observable.from(this.sessionState.conversations)
-    this.contactObserver = Observable.from(this.sessionState.user.contacts)
-    this.notificationObserver = Observable.from(this.sessionState.user.notifications)
+    // this.convoObserver = Observable.from(this.sessionState.conversations)
+    // this.contactObserver = Observable.from(this.sessionState.user.contacts)
+    // this.notificationObserver = Observable.from(this.sessionState.user.notifications)
   }
 
   ngOnInit () {
@@ -201,19 +63,15 @@ export class SessionService implements OnInit{
     return change
   }
 
-  getConversations () {
-    return this.convoObserver
-  }
-  getContacts () {
-    return this.contactObserver
-  }
-  getNotifications () {
-    return this.notificationObserver
-  }
-  getMessages ({convoId}) {
-    return this.http
-          .get('/api/')
-  }
+  // getConversations () {
+  //   return this.convoObserver
+  // }
+  // getContacts () {
+  //   return this.contactObserver
+  // }
+  // getNotifications () {
+  //   return this.notificationObserver
+  // }
 
   get loggedIn () {
     const token = localStorage.getItem('id_token'),

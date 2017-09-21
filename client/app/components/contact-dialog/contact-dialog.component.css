@@ -1,0 +1,14 @@
+:host h1{
+    text-transform: capitalize;
+    border-bottom: solid rgba(102, 58, 183, 0.28) 3px;
+}
+
+
+:host md-dialog-actions{
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row nowrap;
+}
+:host md-dialog-actions button{
+    border-bottom: solid rgba(102, 58, 183, 0.28) 3px;
+}

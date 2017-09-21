@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { enterFromRight } from '../../animations'
-import { SessionService } from '../../services/session.service'
+import { ContactsService } from '../../services/contacts.service'
 
 @Component({
   selector: 'deep-contact-list',
@@ -10,17 +10,16 @@ import { SessionService } from '../../services/session.service'
 })
 export class ContactListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
-
-  constructor(private session: SessionService) { }
   public contactList = []
+
+  constructor(private contacts: ContactsService) {
+  }
   ngOnInit() {
-    this.session.sessionChanges$
-      .map(ss => ss.user.contacts)
-      .subscribe(
-      contacts => {
-        this.contactList = contacts
-      }
-      )
+    this.contacts.contactsChange$
+      .subscribe( contactList => {
+        this.contactList = contactList
+      })
+    this.contacts.getContacts().subscribe(console.log)
   }
 
 }

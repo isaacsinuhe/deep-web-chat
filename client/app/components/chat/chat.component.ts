@@ -10,16 +10,20 @@ import { ConversationsService } from '../../services/conversations.service'
 })
 export class ChatComponent implements OnInit, DoCheck, OnChanges {
   messages = []
+  conversation
 
   constructor(private conversationService: ConversationsService) {
   }
 
   ngOnInit() {
-    // const convoId = 8
-    // // somehow getting the convo id from the param
-    // this.conversationService.getMessages(convoId).subscribe( 
-    //   message => this.messages.push(message)
-    // )
+    this.conversationService.currentConvoChange$
+      .subscribe( ({ messages, name, participants, updatedAt }) => {
+        this.conversation = {name, participants, updatedAt}
+        this.messages = messages
+      })
+
+    this.conversationService.incomingMessageChange$
+      .subscribe( msg => this.messages.push(msg))
   }
   ngOnChanges() {
   }

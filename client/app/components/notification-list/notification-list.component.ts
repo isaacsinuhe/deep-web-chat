@@ -14,9 +14,9 @@ export class NotificationListComponent implements OnInit {
   constructor(private sS: SessionService) { }
 
   ngOnInit() {
-    this.sS.getNotifications().subscribe( n => {
-      this.notifList.push(n)
-    })
+    // this.sS.getNotifications().subscribe( n => {
+    //   this.notifList.push(n)
+    // })
   }
 
 }

@@ -1,3 +1,21 @@
 md-card {
+    background-color: rgba(102, 58, 183, 0.28);
+}
+
+:host md-card-header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+}
+
+:host md-card-header md-icon {
+    cursor: pointer;
+    transition: ease-in-out 200ms;
+}
+:host md-card-header md-icon:hover {
+    transform: scale(1.2)
+}
+
+md-card {
     margin: 5px 10px 0 0;
 }

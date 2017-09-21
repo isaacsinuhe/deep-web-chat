@@ -14,9 +14,11 @@ const UserSchema: Schema = new Schema({
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
   contacts: [{ type: ObjectId, ref: 'User'}],
+  // contacts: [ ContactsSchema ],
   notifications: [ NotificationSchema ],
-  settings: SettingsSchema
-}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
+  settings: [ SettingsSchema ]
+}, 
+{ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 
 // Before saving the user, hash the password
 UserSchema.pre('save', function(next){
@@ -70,6 +72,9 @@ export interface IUserDocument extends Document {
   fullname: string
   email: string
   password: String
+  contacts?: Object[]
+  settings?: Object[]
+  notifications?: Object[]
 }
 
 // Defining user methods and properties
@@ -79,7 +84,7 @@ export interface IUser extends IUserDocument {
 }
 // Defining model, its static methods, and variables
 export interface IUserModel extends Model<IUser> {
-  // for statick methods
+  // for static methods
 }
 export const User: IUserModel = model<IUser, IUserModel>('User', UserSchema)
 

@@ -12,5 +12,9 @@ export class ChatBoardComponent implements OnInit {
 
   constructor() { }
 
+  addMessage () {
+
+  }
+  
   ngOnInit () { }
 }

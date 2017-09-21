@@ -26,6 +26,7 @@ import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
 import { ContactComponent } from './components/contact/contact.component';
+import { ContactDialogComponent } from './components/contact-dialog/contact-dialog.component';
 import { DashboardGuard } from './guards/dashboard.guard'
 import { HomeGuard } from './guards/home.guard'
 import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
@@ -42,7 +43,8 @@ import { ConvoComponent } from './components/convo/convo.component';
 import { NotificationListComponent } from './components/notification-list/notification-list.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { AuthModule } from './modules/auth/auth.module';
-import { DashboardResolve } from './guards/dashboard.resolver'
+import { DashboardResolve } from './guards/dashboard.resolver';
+import { ContactsService } from './services/contacts.service'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,6 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    ContactDialogComponent,
     LoginComponent,
     SignupComponent,
     DashboardComponent,
@@ -99,8 +102,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     SignUpService,
     SearchContactsService,
     SessionService,
-    DashboardResolve
+    DashboardResolve,
+    ContactsService
   ],
+  entryComponents: [ContactDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

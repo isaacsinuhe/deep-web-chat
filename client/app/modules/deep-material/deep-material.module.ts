@@ -6,7 +6,7 @@ import { MdSnackBarModule } from '@angular/material';
 import {
   MdDatepickerModule, MdSidenavModule, MdInputModule,
   MdGridListModule, MdIconModule, MdTabsModule,
-  MdButtonModule, MdCheckboxModule} from '@angular/material'
+  MdButtonModule, MdCheckboxModule, MdDialogModule} from '@angular/material'
 
 @NgModule({
   imports: [
@@ -20,6 +20,7 @@ import {
     MdSidenavModule,
     MdDatepickerModule,
     MdSnackBarModule,
+    MdDialogModule,
     MdGridListModule
   ],
   exports: [
@@ -32,6 +33,7 @@ import {
     MdDatepickerModule,
     MdSnackBarModule,
     MdSidenavModule,
+    MdDialogModule,
     MdGridListModule
   ],
   declarations: []

@@ -1,0 +1,10 @@
+<h1>{{data.operation}} friend</h1>
+<h2 md-dialog-title>
+  This action will {{data.operation}} <strong>{{data.name}}</strong> {{data.operation == "add"? 'in': 'from'}} your contact
+  list.
+</h2>
+<h3>Are you sure you wanna proceed?</h3>
+<md-dialog-actions>
+  <button md-button [md-dialog-close]="true">Yes</button>
+  <button md-button [md-dialog-close]="false">Cancel</button>
+</md-dialog-actions>

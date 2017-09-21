@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'deep-chat-status-bar',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./chat-status-bar.component.css']
 })
 export class ChatStatusBarComponent implements OnInit {
-
+  @Input() conversation
   constructor() { }
 
   ngOnInit() {

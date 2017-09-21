@@ -1,4 +1,5 @@
 import { Input, Component, OnInit } from '@angular/core';
+import { SessionService } from '../../services/session.service'
 
 @Component({
   selector: 'deep-message',
@@ -9,11 +10,12 @@ export class MessageComponent implements OnInit {
   @Input() content
   @Input() date
   @Input() owner
-  @Input() mine
+  private id
   
-  constructor() { }
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit() {
+    this.id = this.sessionService.sessionId
   }
 
 }

@@ -17,8 +17,9 @@ export class ConvoComponent implements OnInit {
 
   ngOnInit() {
   }
+  
   displayConversation () {
-    console.log(this.id)
-    this.conversationService.updateCurrentConversation(this.id)
+    if (this.id !== this.conversationService.currentConvoId)
+    this.conversationService.changeConversation(this.id)
   }
 }

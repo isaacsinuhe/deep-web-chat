@@ -1,5 +1,7 @@
 <deep-contact *ngFor="let contact of contactList"
-  [name]="contact.name"
-  [username]="contact.username"
+  [name]="contact?.fullname"
+  [username]="contact?.username"
+  [email]="contact?.email"
+  [id]="contact?._id"
 >
 </deep-contact>

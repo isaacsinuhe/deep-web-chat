@@ -1,5 +1,5 @@
-<div [ngClass]="{'message-bubble': true, 'my-message': mine}">
+<div [ngClass]="{'message-bubble': true, 'my-message': owner._id == id}">
   <div class="content">{{content}}</div>
-  <div class="owner">{{owner}}</div>
+  <div class="owner">{{owner.username}}</div>
   <div class="date">{{date}}</div>
 </div>

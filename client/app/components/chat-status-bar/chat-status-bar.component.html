@@ -1,3 +1,4 @@
-<p>
-  chat-status-bar works!
-</p>
+<p *ngIf="!conversation">Select a conversation</p>
+<p>{{conversation?.name}}</p>
+<p *ngFor="let part of conversation?.participants">{{part?.username}}</p>
+<p>{{conversation?.updatedAt}}</p>

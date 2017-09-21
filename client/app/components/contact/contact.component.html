@@ -1,8 +1,14 @@
 <md-card>
-    <md-card-header></md-card-header>
+    <md-card-header>
+        <md-icon (click)="addContact()" class="add">add_circle</md-icon>
+        <md-icon (click)="removeContact()" class="remove">remove_circle</md-icon>
+    </md-card-header>
+
+    <md-card-title>
+        <md-icon>face</md-icon> {{name}}
+    </md-card-title>
+
     <md-card-content>
-        {{name}} <md-icon>face</md-icon>
-        {{username}} <md-icon>fingerprint</md-icon>
+        <p><md-icon>email</md-icon>{{email}}</p>
     </md-card-content>
-    <md-card-actions></md-card-actions>
 </md-card>

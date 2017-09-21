@@ -6,12 +6,27 @@ export default class ConversationController extends Controller {
 
   getMessages (req, res) {
     Conversation.findOne({_id: req.query.conversationId})
+    .populate([
+      {
+        path: 'participants',
+        select: 'username email fullname'
+      },
+      {
+        path: 'messages',
+        populate: {
+          path: 'owner',
+          select: 'createdAt username email fullname'
+        }
+      },
+    ])
     .then(
       conversation => {
         console.log(conversation)
-        if (conversation)
-        res.status(200).json(conversation)
-        res.sendStatus(404)
+        if (conversation) {
+          res.status(200).json(conversation)
+        } else {
+          res.sendStatus(404)
+        }
       },
       err => { 
         console.log(err, 'error in conversation/messages/:id')

@@ -1,5 +1,4 @@
 import { Schema, model, SchemaOptions } from 'mongoose'
-import {} from './conversation'
 const { ObjectId } = Schema.Types
 
 const MessageSchema = new Schema({

@@ -89,4 +89,24 @@ export default class UserController extends Controller {
     })
   }
 
+  getContacts (req, res) {
+    const id = req.query.userId
+    console.log(id, 'this idddddddddddd');
+    
+    User.findOne({_id: id})
+      .populate({
+        path: 'contacts',
+        select: 'username email fullname'
+      })
+      .select('contacts')
+      .then(
+        result => {
+          console.log('blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', result, id)
+          res.status(200).json(result.contacts)
+          console.log(result, 'result from user/contacts')
+        },
+        err => res.sendStatus(400)
+      )
+  }
+
 }
