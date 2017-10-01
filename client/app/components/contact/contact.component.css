@@ -1,5 +1,5 @@
 md-card {
-    background-color: rgba(102, 58, 183, 0.28);
+    /* background-color: rgba(102, 58, 183, 0.28); */
 }
 
 :host md-card-header{
@@ -11,6 +11,7 @@ md-card {
 :host md-card-header md-icon {
     cursor: pointer;
     transition: ease-in-out 200ms;
+    content: 'add_circle'
 }
 :host md-card-header md-icon:hover {
     transform: scale(1.2)

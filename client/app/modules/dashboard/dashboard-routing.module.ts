@@ -15,9 +15,9 @@ const routes: Routes = [
   { 
     path: 'dashboard',
     component: DashboardComponent,
-    resolve: [DashboardResolve],
-    canActivate: [DashboardGuard],
-    canActivateChild: [DashboardGuard],
+    resolve: [ DashboardResolve ],
+    canActivate: [ DashboardGuard ],
+    canActivateChild: [ DashboardGuard ],
     children: [
       { path: 'convos', component: ConvoListComponent },
       { path: 'contacts', component: ContactListComponent },

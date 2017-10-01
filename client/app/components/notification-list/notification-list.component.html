@@ -1,9 +1,10 @@
-<deep-notification *ngFor="let notif of notifList"
-  [id]="notif.id"
-  [senderId]="notif.senderId"
-  [senderName]="notif.senderName"
-  [title]="notif.title"
-  [date]="notif.date"
-  [type]="notif.type"
-  [content]="notif.content"
-></deep-notification>
+<div *ngFor="let contact of notifList">
+  <deep-contact *ngIf="contact.status === 2" 
+    [fullname]="contact?.fullname"
+    [username]="contact?.username"
+    [email]="contact?.email"
+    [id]="contact?._id"
+    [status]="contact?.status">
+  </deep-contact>
+</div>
+

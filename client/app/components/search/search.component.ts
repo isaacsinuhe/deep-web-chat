@@ -1,7 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms'
 import 'rxjs/add/operator/timeout'
-import { SearchContactsService } from '../../services/search-contacts.service'
+// import { SearchContactsService } from '../../services/search-contacts.service'
+import { ContactsService } from '../../services/contacts.service'
 import { enterFromRight } from '../../animations'
 
 @Component({
@@ -14,8 +15,8 @@ export class SearchComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   
   searchForm
-  contactlist
-  constructor(private fb: FormBuilder, private sS: SearchContactsService) { }
+  contactList 
+  constructor(private fb: FormBuilder, private contacts: ContactsService) { }
 
   ngOnInit() {
     this.searchForm = this.fb.group({
@@ -26,11 +27,18 @@ export class SearchComponent implements OnInit {
 
   search () {
     const query = this.searchForm.get('search').value
+    this.contactList = []
     if (!query) return
 
-    this.contactlist = []
-    this.sS.getSearchList(query)
-      .subscribe( (arr) => {this.contactlist.push(arr)})
+    this.contacts.searchContacts(query)
+      .subscribe( (arr) => {
+        console.log(arr);
+        arr.forEach(contact => {
+          Object.defineProperty(contact, 'status', {value: 2})
+        });
+        
+        this.contactList = arr
+      })
   }
 
 }

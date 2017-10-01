@@ -5,7 +5,9 @@ import 'rxjs/add/observable/from'
 @Injectable()
 export class SearchContactsService {
   contactlist
-  constructor() { }
+  constructor() {
+    console.log('constructor de search component');
+  }
   getSearchList ( query ) {
     return Observable.from(
     [

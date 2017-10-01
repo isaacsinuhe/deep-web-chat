@@ -1,5 +1,6 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { SessionService } from '../../services/session.service'
+import { Moment } from 'moment'
 
 @Component({
   selector: 'deep-message',
@@ -8,7 +9,7 @@ import { SessionService } from '../../services/session.service'
 })
 export class MessageComponent implements OnInit {
   @Input() content
-  @Input() date
+  @Input() date: Moment
   @Input() owner
   private id
   

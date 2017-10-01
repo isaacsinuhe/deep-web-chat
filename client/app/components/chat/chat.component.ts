@@ -17,13 +17,25 @@ export class ChatComponent implements OnInit, DoCheck, OnChanges {
 
   ngOnInit() {
     this.conversationService.currentConvoChange$
-      .subscribe( ({ messages, name, participants, updatedAt }) => {
-        this.conversation = {name, participants, updatedAt}
-        this.messages = messages
-      })
+      .subscribe( ( conversation ) => {        
+        this.conversation = conversation
+        this.messages = conversation.messages
+        // this.messages = [...conversation.messages]
+      })  
 
-    this.conversationService.incomingMessageChange$
-      .subscribe( msg => this.messages.push(msg))
+    // this.conversationService.previousMessagesChange$
+    // .subscribe( msg => {
+    //   const arr = Array.from(this.messages)
+    //   arr.unshift(msg)
+    //   this.messages = arr
+    // })
+    
+    // this.conversationService.incomingMessageChange$
+    // .subscribe( msg => {      
+    //   const arr = Array.from(this.messages)
+    //   arr.push(msg)
+    //   this.messages = arr
+    // })
   }
   ngOnChanges() {
   }

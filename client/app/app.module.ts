@@ -44,7 +44,9 @@ import { NotificationListComponent } from './components/notification-list/notifi
 import { NotificationComponent } from './components/notification/notification.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { DashboardResolve } from './guards/dashboard.resolver';
-import { ContactsService } from './services/contacts.service'
+import { ContactsService } from './services/contacts.service';
+import { SocketService } from './services/socket.service';
+import { MessageTimestampPipe } from './pipes/message-timestamp.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -72,7 +74,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContactListComponent,
     ConvoComponent,
     NotificationListComponent,
-    NotificationComponent
+    NotificationComponent,
+    MessageTimestampPipe
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SearchContactsService,
     SessionService,
     DashboardResolve,
-    ContactsService
+    ContactsService,
+    SocketService
   ],
   entryComponents: [ContactDialogComponent],
   bootstrap: [AppComponent]

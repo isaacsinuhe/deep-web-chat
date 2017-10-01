@@ -1,4 +1,5 @@
 import * as bodyParser from 'body-parser'
+import * as socket from 'socket.io'
 import * as dotenv from 'dotenv'
 import * as express from 'express'
 import * as morgan from 'morgan'
@@ -6,9 +7,10 @@ import * as mongoose from 'mongoose'
 import * as path from 'path'
 import * as passport from 'passport'
 import * as passportJWT from 'passport-jwt'
+import * as http from 'http'
 import User from './models/user'
-
-import setRoutes from './routes'
+import { socketEvents } from './socket'
+import setAPIRoutes from './routes'
 import { ExtractJwt, Strategy, StrategyOptions } from 'passport-jwt'
 
 
@@ -19,7 +21,7 @@ const jwtOptions: StrategyOptions = {
   secretOrKey: process.env.SECRET_TOKEN
 }
 const userStrategy = new Strategy(jwtOptions, function (jwt_payload, next) {
-  console.log('payload received', jwt_payload);
+  // console.log('payload received', jwt_payload);
   // usually this would be a database call:
   const user = User.findById(jwt_payload._id, (err, res) =>
     res ? next(null, user) : next(null, false)
@@ -44,17 +46,20 @@ const connection = mongoose.connect(process.env.MONGODB_URI,
   { useMongoClient: true }
 )
 
+const server = http.createServer(app)
 connection
 .then( () => {
   console.log('Connected to MongoDB')
   
   // connected to mongo and routes fully setted up
-  setRoutes(app)
+  setAPIRoutes(app)
+  socketEvents()
+
   app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, '../public/index.html'))
   })
   
-  app.listen(app.get('port'), () => {
+  server.listen(app.get('port'), () => {
     console.log('Express listening on port ' + app.get('port'))
   })
 })
@@ -62,4 +67,6 @@ connection
   console.log('connection error:')
 })
 
+export const io = socket(server)
+export const chat = io.of('/chat')
 export { app }

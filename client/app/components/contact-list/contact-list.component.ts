@@ -19,7 +19,8 @@ export class ContactListComponent implements OnInit {
       .subscribe( contactList => {
         this.contactList = contactList
       })
-    this.contacts.getContacts().subscribe(console.log)
+    this.contacts.getContacts()
+    .subscribe(console.log)
   }
 
 }

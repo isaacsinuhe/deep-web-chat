@@ -1,5 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as jwt from 'jsonwebtoken';
+import { io } from '../app'
 
 import { User, IUser, IUserModel} from '../models/user';
 import { UserConversation } from '../models/user_conversation'
@@ -19,9 +20,8 @@ export default class UserController extends Controller {
         if (!user) { return res.sendStatus(403) }
         user.comparePassword(req.body.password, (error, isMatch) => {
           if (!isMatch) { return res.sendStatus(403) }
-          const id_token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN, { expiresIn: '2d' }) 
-          res.status(200).json({id_token})
-          // , { expiresIn: 10 } seconds          
+          const id_token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN, { expiresIn: '2000d' }) 
+          res.status(200).json({id_token})       
         })
       })
   }
@@ -62,7 +62,7 @@ export default class UserController extends Controller {
   }
 
   hydrate (req, res) {
-    console.log('request _id', req.query.userId)
+    // console.log('request _id', req.query.userId)
     // if (!req.query._id) res.sendStatus(400)
     User.findOne({_id: req.query.userId})
       .exec((err, user) => {
@@ -89,21 +89,61 @@ export default class UserController extends Controller {
     })
   }
 
+  searchContacts (req, res) {
+    const criteria = req.query.criteria
+    let search = ''
+
+    for (const letter in criteria) {
+      if (criteria.hasOwnProperty(letter)) {
+        const element = criteria[letter];
+        search += element + '.*'
+      }
+    }
+    
+    User.find({})
+      .where({
+        username: new RegExp('^' + search, 'gi')
+      })
+      .select('username fullname email')
+      .limit(10)
+      .then( users => {
+        console.log(users);
+        
+        res.status(200).send(users)
+      })
+      .catch(err => {
+        console.log('failed at user/contacts/search')
+      })
+
+  }
+
   getContacts (req, res) {
     const id = req.query.userId
-    console.log(id, 'this idddddddddddd');
+    // console.log(id, 'this idddddddddddd');
     
-    User.findOne({_id: id})
+    User.findById(id)
       .populate({
-        path: 'contacts',
+        path: 'contacts.contact',
         select: 'username email fullname'
       })
       .select('contacts')
       .then(
-        result => {
-          console.log('blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', result, id)
-          res.status(200).json(result.contacts)
-          console.log(result, 'result from user/contacts')
+        (result: any) => {
+          // console.log('blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', result, id)
+          const r: [{_id?, username?, email?, fullname?, status?}] | any = []
+
+          result.contacts.forEach((contact: any, index) => {
+            r.push({
+              _id: contact.contact._id,
+              username: contact.contact.username,
+              email: contact.contact.email,
+              fullname: contact.contact.fullname,
+              status: contact.status
+            })
+          })
+
+          res.status(200).json(r) 
+          // console.log(result, 'result from user/contacts')
         },
         err => res.sendStatus(400)
       )

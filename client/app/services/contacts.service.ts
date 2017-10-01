@@ -16,13 +16,22 @@ export class ContactsService {
   }
 
   getContacts () {
-    const params = new URLSearchParams(`userId=${this.session.sessionId}`)
-    const options = new RequestOptions({ search: params })
+    const params = new URLSearchParams()
+    params.set('userId', this.session.sessionId)
     
     return this.http
-      .get(`/api/user/contacts`, options)
+      .get(`/api/user/contacts`, {search: params})
       .map(res => res.json())
       .do(contacts => this.notifyContactChange(contacts))
+  }
+
+  searchContacts (criteria) {
+    const params = new URLSearchParams()
+    params.set('criteria', criteria)
+
+    return this.http
+      .get('/api/user/contacts/search', {search: params})
+      .map( contacts => contacts.json())
   }
 
   notifyContactChange (change) {

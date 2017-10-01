@@ -7,14 +7,20 @@ import { UserConversation } from './user_conversation'
 const { ObjectId } = Schema.Types
 
 
+const ContactSchema = new Schema({
+  contact: {type: ObjectId, ref: 'User'},
+  status: Number
+})
+
+
 // Creation of the new User schema
 const UserSchema: Schema = new Schema({
   username: { type: String, unique: true, trim: true},
   fullname: String,
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
-  contacts: [{ type: ObjectId, ref: 'User'}],
-  // contacts: [ ContactsSchema ],
+  // contacts: [{ type: ObjectId, ref: 'User'}],
+  contacts: [ ContactSchema ],
   notifications: [ NotificationSchema ],
   settings: [ SettingsSchema ]
 }, 
@@ -52,6 +58,10 @@ UserSchema.methods.hydrate = function() {
           options: {
             limit: 1,
             sort: { createdAt: -1 }
+          },
+          populate: {
+            path: 'owner',
+            select: 'email fullname username',
           }
         }
       }

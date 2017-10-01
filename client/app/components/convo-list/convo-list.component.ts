@@ -12,10 +12,9 @@ import { SessionService } from '../../services/session.service'
 export class ConvoListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true
 
-  convoList = []
+  public convoList = []
 
   constructor(private session: SessionService) {
-    
     this.session.sessionChanges$
       .map( ss => ss.conversations)
       .subscribe(

@@ -5,9 +5,10 @@
 .message-bubble.my-message { float: right; }
 .message-bubble {
     position: relative;
-    box-shadow: 3px 3px 1px rgba(224, 224, 224, .8), -3px 3px 1px rgba(224, 224, 224, .8);
-    background-color: whitesmoke;
-    border-bottom: 3px solid rgba(224, 224, 224, .8);
+    box-shadow: 2px 2px 1px rgba(224, 224, 224, .8), -2px 2px 1px rgba(224, 224, 224, .8);
+    /* background-color: whitesmoke; */
+    border-bottom: 2px solid rgba(224, 224, 224, .8);
+    border-top: 1px solid rgba(224, 224, 224, .8);
     cursor: pointer;
     box-sizing: border-box;
     align-self: flex-start;

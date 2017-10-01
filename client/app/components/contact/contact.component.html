@@ -1,14 +1,20 @@
 <md-card>
     <md-card-header>
-        <md-icon (click)="addContact()" class="add">add_circle</md-icon>
-        <md-icon (click)="removeContact()" class="remove">remove_circle</md-icon>
+        <div class="actions"
+            (click)="openDialog()">
+
+            <md-icon *ngIf="status === 1">remove_circle</md-icon>
+            <md-icon *ngIf="status === 2">add_circle</md-icon>
+
+        </div>
     </md-card-header>
 
     <md-card-title>
-        <md-icon>face</md-icon> {{name}}
+         {{username}}
     </md-card-title>
 
     <md-card-content>
+        <p><md-icon>face</md-icon>{{fullname}}</p>
         <p><md-icon>email</md-icon>{{email}}</p>
     </md-card-content>
 </md-card>

@@ -7,9 +7,16 @@
   <button md-mini-fab class="btn-search"><md-icon >search</md-icon></button>
 </form>
 
-<div class="search-results" *ngIf="contactlist; else announcement">
-  <deep-contact *ngFor="let contact of contactlist" [name]="contact.name" [username]="contact.username">
-  </deep-contact>
+<div class="search-results" *ngIf="contactList; else announcement">
+
+  <!-- <deep-contact *ngFor="let contact of contactlist" [name]="contact.name" [username]="contact.username">
+  </deep-contact> -->
+  <div *ngFor="let contact of contactList">
+    <deep-contact [fullname]="contact?.fullname" [username]="contact?.username" [email]="contact?.email"
+      [id]="contact?._id" [status]="contact?.status">
+    </deep-contact>
+  </div>
+
 </div>
 <ng-template #announcement>
   <div style="display: flex; flex-flow:column wrap; align-items:center;">

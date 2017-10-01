@@ -16,14 +16,12 @@ export class DashboardGuard implements CanActivate, CanActivateChild {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.session.loggedIn ? 
-      true : 
-      (this.router.navigate(['/home']), false)
+      true : (this.router.navigate(['/home']), false)
   }
   
   canActivateChild(next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
     return this.session.loggedIn ? 
-      true : 
-      (this.router.navigate(['/home']), false)
+      true : (this.router.navigate(['/home']), false)
   }
 }

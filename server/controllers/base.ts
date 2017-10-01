@@ -3,21 +3,21 @@ abstract class Controller {
   abstract model: any
 
   // Get all
-  getAll (req, res) {
+  getAll = (req, res) => {
     this.model.find({}, (err, docs) => {
       if (err) { return console.error(err) }
       res.json(docs)
     })
   }
 
-  count (req, res) {
+  count = (req, res) => {
     this.model.count((err, count) => {
       if (err) { return console.error(err) }
       res.json(count)
     })
   }
 
-  insert (req, res) {
+  insert = (req, res) => {
     const obj = new this.model(req.body)
     
     obj.save((err, item) => {
@@ -33,7 +33,7 @@ abstract class Controller {
   }
 
   // Get by id
-  get (req, res) {
+  get = (req, res) => {
     this.model.findOne({ _id: req.params.id }, (err, obj) => {
       if (err) { return console.error(err) }
       res.json(obj)
@@ -41,7 +41,7 @@ abstract class Controller {
   }
 
   // Update by id
-  update (req, res) {
+  update = (req, res) => {
     this.model.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
       if (err) { return console.error(err) }
       res.sendStatus(200)
@@ -49,7 +49,7 @@ abstract class Controller {
   }
 
   // Delete by id
-  delete (req, res) {
+  delete = (req, res) => {
     this.model.findOneAndRemove({ _id: req.params.id }, (err) => {
       if (err) { return console.error(err) }
       res.sendStatus(200)

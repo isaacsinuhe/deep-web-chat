@@ -8,17 +8,17 @@ import { ConversationsService } from '../../services/conversations.service'
   styleUrls: ['./chat-input.component.css']
 })
 export class ChatInputComponent implements OnInit {
-  @Input() messages
-  @Output() messagesChanges = new EventEmitter
+  @Input() messages //delete this prop later
+  @Output() messagesChanges = new EventEmitter //delete this prop later
   @ViewChild('message') input
 
   constructor(private conversations: ConversationsService) { }
 
   ngOnInit() { }
 
-  addMessage (value) {
-    if (!value) return
-    this.conversations.addMessage({ content: value })
+  addMessage (content) {
+    if (!content || !this.conversations.currentConvoId) return
+    this.conversations.addMessage({ content: content })
     this.input.control.setValue('')
   }
 }

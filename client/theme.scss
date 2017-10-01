@@ -1,0 +1,9 @@
+// Import a pre-built theme
+// @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+// Import your custom input theme file so you can call the custom-input-theme function
+@import 'app/components/chat-status-bar/chat-status-bar.component.scss';
+
+// Using the $theme variable from the pre-built theme you can call the theming function
+// @include chat-status-bar($theme);

@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 import { Router } from '@angular/router'
 import { Credentials } from '../../models/user'
+import { JwtHelper, tokenNotExpired } from 'angular2-jwt'
 
 
 @Component({
@@ -14,6 +15,7 @@ import { Credentials } from '../../models/user'
 export class LoginComponent implements OnInit {
   loginForm
   passMinLength = { length: 8 }
+  private helper = new JwtHelper
  
   constructor(
     private snackBar: MdSnackBar,

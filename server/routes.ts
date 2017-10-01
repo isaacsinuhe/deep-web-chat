@@ -8,13 +8,13 @@ import MessageController from './controllers/message'
 import User from './models/user'
 import * as passport from 'passport'
 
-export default function setRoutes(app) {
+export default function setAPIRoutes(app) {
   
-  const api = express.Router()
-  const userController = new UserController, 
-  conversationController = new ConversationController,
-  messageController = new MessageController,
-  userConversationController = new UserConversationController
+  const api = express.Router(),
+  userController = new UserController(), 
+  conversationController = new ConversationController(),
+  messageController = new MessageController(),
+  userConversationController = new UserConversationController()
 
   // Auth and validators
   api.route('/login').post(userController.login)//
@@ -22,7 +22,8 @@ export default function setRoutes(app) {
   api.route('/user/hydrate').get(userController.hydrate)//
   api.route('/user/uniqueUsername').get(userController.uniqueUsername)//
   api.route('/user/uniqueEmail').get(userController.uniqueEmail)//
-  api.route('/user/contacts').get(userController.getContacts)
+  api.route('/user/contacts').get(userController.getContacts)//
+  api.route('/user/contacts/search').get(userController.searchContacts)//
   
   // UserConversation requests
   api.route('/user-conversations').get(userConversationController.getAll)
@@ -41,7 +42,9 @@ export default function setRoutes(app) {
   api.route('/message/:id').delete(messageController.delete)
 
   // Conversation requests
-  api.route('/conversation/messages').get(conversationController.getMessages)//
+  api.route('/conversation/message').post(conversationController.insertMessage)//
+  api.route('/conversation/messages').get(conversationController.getPreviousMessages)//
+
   api.route('/conversations').get(conversationController.getAll)
   api.route('/conversations/count').get(conversationController.count)
   api.route('/conversation').post(conversationController.insert)

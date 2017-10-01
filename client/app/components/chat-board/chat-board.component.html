@@ -1,4 +1,4 @@
-<div #container class="convo-container" [scrollTop]="container.scrollHeight - container.clientHeight">
+<div #container (scroll)="onScroll($event)" class="convo-container">
     <deep-message *ngFor="let message of messages"
         [content]="message.content"
         [date]="message.createdAt"

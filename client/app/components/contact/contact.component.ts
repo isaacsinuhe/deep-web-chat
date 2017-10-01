@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material'
 import { ContactDialogComponent } from './../contact-dialog/contact-dialog.component'
+import { CONTACT } from '../../enums/contact.enum'
 
 @Component({
   selector: 'deep-contact',
@@ -8,31 +9,36 @@ import { ContactDialogComponent } from './../contact-dialog/contact-dialog.compo
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
-  @Input () name
+  @Input () fullname
   @Input () username
   @Input () email
   @Input () id
+  @Input () status
+
   constructor(public dialog: MdDialog) { }
   
   ngOnInit() {
   }
 
-  openContactOptions () {
-    console.log(this.id)
-    // this.dialog.open()
-  }
-
   addContact () {
-    this.openDialog('add')
+    console.log(this.id)
+    this.openDialog()
   }
   removeContact () {
-    this.openDialog('remove')
+    console.log(this.id)
+    this.openDialog()
   }
 
-  openDialog(operation) {
+  openDialog() {
+    let operation = ''
+    if (this.status === CONTACT.ACCEPTED) {
+      operation = 'remove'
+    }else if (this.status === CONTACT.PENDING) {
+      operation = 'add'
+    }
     const dialogRef = this.dialog.open(ContactDialogComponent, {
       width: '500px',
-      data: { id: this.id, name: this.name, operation}
+      data: { id: this.id, name: this.fullname, operation}
     });
     
     dialogRef.afterClosed().subscribe(result => {

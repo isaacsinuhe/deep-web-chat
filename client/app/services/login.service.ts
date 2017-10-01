@@ -9,34 +9,14 @@ import 'rxjs/add/operator/do'
 
 @Injectable()
 export class LoginService {
-  constructor(private http: AuthHttp) { }
+  constructor(private http: Http) { }
 
   requestLogin (credentials) {
     return this.http.post('/api/login', credentials)
       .map((res) => res.json())
       .do((v) => { 
-        console.log(v, tokenNotExpired()) 
+        console.log(v, tokenNotExpired())
       })
   }
 
 }
-
-// @Injectable()
-// export class LoginService implements LoginService{
-//   constructor(private http: Http) {
-//     // define http request
-//     // this.request = Observable
-//     //   .timer(500)
-//     //   .switchMap( () => 
-//     //     new Observable( observer => {
-//     //       observer.next(true)
-//     //     })
-//     //   )
-//   }
-
-//   requestLogin(credentials) {
-//     // return this.request
-//     return this.http.post('/api/login', credentials)
-//       .map((res) => res.json())
-//   }
-// }

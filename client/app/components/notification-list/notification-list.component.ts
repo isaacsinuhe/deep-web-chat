@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 import { enterFromRight } from '../../animations'
 import { SessionService } from '../../services/session.service'
+import { ContactsService } from '../../services/contacts.service'
 
 @Component({
   selector: 'deep-notification-list',
@@ -11,12 +12,23 @@ import { SessionService } from '../../services/session.service'
 export class NotificationListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   public notifList = []
-  constructor(private sS: SessionService) { }
+  // constructor(private sS: SessionService) { }
 
+  // ngOnInit() {
+  //   // this.sS.getNotifications().subscribe( n => {
+  //   //   this.notifList.push(n)
+  //   // })
+  // }
+  constructor(private contacts: ContactsService) {
+  }
   ngOnInit() {
-    // this.sS.getNotifications().subscribe( n => {
-    //   this.notifList.push(n)
-    // })
+    this.contacts.contactsChange$
+      .subscribe(contactList => {
+        this.notifList = contactList
+        console.log(contactList);
+        
+      })
+    this.contacts.getContacts().subscribe(console.log)
   }
 
 }
