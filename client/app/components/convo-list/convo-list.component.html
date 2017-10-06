@@ -1,7 +1,7 @@
 <deep-convo *ngFor="let convo of convoList"
-  [id]="convo.conversation._id"
-  [name]="convo.conversation.name"
-  [lastMessage]="convo.conversation.messages[0]"
-  [participants]="convo.participants"
-  [status]="convo.status">
+  [id]="convo?._id"
+  [name]="convo?.name"
+  [lastMessage]="convo?.lastMessage"
+  [participants]="convo?.participants"
+  [status]="convo?.status">
 </deep-convo>

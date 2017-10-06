@@ -4,6 +4,7 @@ import 'rxjs/add/operator/timeout'
 // import { SearchContactsService } from '../../services/search-contacts.service'
 import { ContactsService } from '../../services/contacts.service'
 import { enterFromRight } from '../../animations'
+import { Contact, Contacts} from '../../models/contacts'
 
 @Component({
   selector: 'deep-search',
@@ -15,7 +16,7 @@ export class SearchComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   
   searchForm
-  contactList 
+  searchList 
   constructor(private fb: FormBuilder, private contacts: ContactsService) { }
 
   ngOnInit() {
@@ -25,19 +26,20 @@ export class SearchComponent implements OnInit {
     // fully implement this service
   }
 
+  notInContactList (id) {
+    return !this.contacts.isContactInContactList(id)
+  }
+
   search () {
     const query = this.searchForm.get('search').value
-    this.contactList = []
+    this.searchList = []
     if (!query) return
 
     this.contacts.searchContacts(query)
       .subscribe( (arr) => {
-        console.log(arr);
-        arr.forEach(contact => {
-          Object.defineProperty(contact, 'status', {value: 2})
-        });
+        this.searchList = arr
+        console.log(this.searchList);
         
-        this.contactList = arr
       })
   }
 

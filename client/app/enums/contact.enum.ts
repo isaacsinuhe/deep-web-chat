@@ -1,4 +1,5 @@
 export enum CONTACT {
-    ACCEPTED = 1,
+    REQUESTING = 0,
+    ACCEPTED,
     PENDING 
 }

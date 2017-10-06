@@ -1,7 +1,7 @@
 import { Conversation } from '../models/conversation'
 import { Message } from '../models/message'
 import { User } from '../models/user'
-import { io, chat } from '../app'
+import { io, chatSocket } from '../app'
 import { ObjectId } from 'mongodb'
 import Controller from './base';
 
@@ -29,8 +29,9 @@ export default class ConversationController extends Controller {
         { upsert: false, new: true },
         (err, conversation) => {
           if (err) res.sendStatus(404)
+
           console.log('emitting from db to room ' + conversationId)
-          chat.in(conversationId).emit('conversationMessage', {
+          chatSocket.in(conversationId).emit('addConversationMessage', {
             message: retMsg,
             conversationId
           })

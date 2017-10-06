@@ -4,13 +4,14 @@
   </md-card-header>
 
   <md-card-content>
-    {{lastMessage.content}}  
+    <strong>{{lastMessage?.owner?.username}}</strong>  
+    {{lastMessage?.content}}  
   </md-card-content>
 
   <md-card-actions>
     <!-- <p><span *ngFor=""></span></p> -->
     <md-icon>watch_later</md-icon>
-    {{lastMessage.createdAt | date}}
+    {{lastMessage?.createdAt | date}}
   </md-card-actions>
 
 </md-card>

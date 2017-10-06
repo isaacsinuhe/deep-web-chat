@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable'
 import { Subject } from 'rxjs/Subject'
 import 'rxjs/add/operator/scan'
 import { AuthHttp } from 'angular2-jwt'
-import { Conversations, Conversation, Message, Owner } from '../classes/models'
+import { Conversations, Conversation, Message, Owner } from '../models/conversations'
 import { SessionService } from '../services/session.service'
 import { URLSearchParams, RequestOptions } from '@angular/http'
 
@@ -24,7 +24,7 @@ export class ConversationsService {
   public incomingMessageChange$
   public incomingMessageId
   
-  private Conversations: Conversations
+  public Conversations: Conversations
 
   constructor(private http: AuthHttp, private session: SessionService) {
     this.currentConvoSubject = new Subject
@@ -53,10 +53,11 @@ export class ConversationsService {
     if ( this.currentConvo.noMoreMessages || this.requesting) { return 0 }
     this.requesting = true
 
-    const firstMessage = this.currentConvo.getFirstMessage()
+    const firstMessage = this.currentConvo.getFirstMessage() || {_id: null}
 
     const params = new URLSearchParams()
     params.set('conversationId', this.currentConvoId)    
+    
     params.set('messageId', firstMessage._id)
 
     const options = new RequestOptions({search: params})
@@ -99,7 +100,7 @@ export class ConversationsService {
   appendMessage (message, convoId) {
     console.log(message, convoId)
     this.Conversations.findById(convoId).pushMessage(message)
-    this.session.updateLastMessage(message, convoId)
+    // this.session.updateLastMessage(message, convoId)
   }
 
   changeConversation (conversationId) {

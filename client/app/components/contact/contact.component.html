@@ -1,10 +1,19 @@
 <md-card>
     <md-card-header>
-        <div class="actions"
-            (click)="openDialog()">
+        <div class="actions">
 
-            <md-icon *ngIf="status === 1">remove_circle</md-icon>
-            <md-icon *ngIf="status === 2">add_circle</md-icon>
+            <md-icon (click)="removeContact()" *ngIf="status === 1">
+                remove_circle
+            </md-icon>
+            <md-icon (click)="ignoreContact()" *ngIf="status === 2">
+                not_interested
+            </md-icon>
+            <md-icon (click)="acceptContact()" *ngIf="status === 2">
+                add_circle
+            </md-icon>
+            <md-icon (click)="addContact()" *ngIf="!status">
+                add_circle
+            </md-icon>
 
         </div>
     </md-card-header>

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable'
 @Injectable()
 export class DashboardResolve implements Resolve<any> {
 
-    constructor(private session: SessionService) { }
+    constructor(private session: SessionService, private socket: SocketService) { }
 
     resolve(route: ActivatedRouteSnapshot) {
         return this.session.initSessionState()

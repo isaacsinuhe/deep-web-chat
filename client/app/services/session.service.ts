@@ -30,6 +30,7 @@ export class SessionService {
   }
 
   initSessionState () {
+    
     const params = new URLSearchParams(`userId=${this.sessionId}`)
     const reqOpts = new RequestOptions({search: params})
     
@@ -37,9 +38,17 @@ export class SessionService {
       .get(`/api/user/hydrate`, reqOpts)
       .map(res => res.json())
       .do( session => {
+        session.user.contacts = this.normalizeContacts(session)
         this.sessionState = session
         this.notifySessionChange(session)
       })
+  }
+
+  normalizeContacts ({user: {contacts}}) {
+    return contacts.map((contact) => {
+      contact.contact.status = contact.status
+      return contact.contact
+    })
   }
 
   updateLastMessage (message, convoId) {
@@ -47,6 +56,7 @@ export class SessionService {
     this.sessionState.conversations.forEach(({conversation}) => {
       if (conversation._id === convoId)
         conversation.messages = [message]
+        
     });
   }
 

@@ -68,5 +68,6 @@ connection
 })
 
 export const io = socket(server)
-export const chat = io.of('/chat')
+export const chatSocket = io.of('/chat')
+export const userSocket = io.of('/user')
 export { app }

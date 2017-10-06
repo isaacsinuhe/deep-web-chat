@@ -10,7 +10,7 @@ const { ObjectId } = Schema.Types
 const ContactSchema = new Schema({
   contact: {type: ObjectId, ref: 'User'},
   status: Number
-})
+}, {_id: false})
 
 
 // Creation of the new User schema

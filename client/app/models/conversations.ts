@@ -6,12 +6,11 @@ export class Conversations {
     private userId: string
 
     static createFromInitState (response) {
-        const conversationsMap = {},
-            conversationList = []
-
-        response.conversations.forEach(conversation => {       
-            conversation.status = response.status
+        const conversationList = []
             
+        response.conversations.forEach(conversation => {       
+            // conversation.status = response.conversations.status
+
             const newConversation = Conversation.createFromInitState({
                 status: conversation.status, 
                 conversation: conversation.conversation
@@ -32,16 +31,26 @@ export class Conversations {
         return this.conversations
     }
 
-    addConversation (conversation: Conversation) {
-        try {
-            Object.defineProperty(
-                this.conversations, 
-                conversation._id, 
-                {value: new Conversation(conversation)}
-            )
-        } catch (error) {
-            console.error('couln`t add the conversation', error)
+    getAllAsArray () {
+        const arr = []
+        for (const index in this.conversations) {
+            if (this.conversations.hasOwnProperty(index)) {
+                const conversation = this.conversations[index];
+                for (const _id in conversation) {
+                    if (conversation.hasOwnProperty(_id)) {
+                        const convObj = conversation[_id];
+                        arr.push(convObj)
+                    }
+                }
+            }
         }
+        return arr
+    }
+
+    addConversation (conversation: Conversation) {
+        this.conversations.push({
+            [conversation._id]: new Conversation(conversation)
+        })
     }
     
     removeConversation (conversationId): void {
@@ -76,7 +85,7 @@ export interface IMessage {
     createdAt: string | moment.Moment
     owner: Owner
 }
-export class Message implements IMessage{
+export class Message implements IMessage {
     public _id: string
     public content: string
     public owner: Owner
@@ -118,11 +127,12 @@ export class Conversation implements IConversation{
         this.createdAt = conversation.createdAt
         this.messages = conversation.messages
         this.lastMessage = conversation.lastMessage
+        this.status = conversation.status
     }
 
     static createFromInitState (data: {status: number, conversation: IConversation}) {
         const convo = data.conversation
-        const lastMessage = new Message(data.conversation.messages[0])
+        const lastMessage = convo.messages.length && new Message(convo.messages[0])
         return new Conversation({
             _id: convo._id,
             name: convo.name,
@@ -139,7 +149,7 @@ export class Conversation implements IConversation{
     }
 
     getFirstMessage (): IMessage {
-        return this.messages[0]
+        return this.messages.length ? this.messages[0] : null
     }
     
     getMessages (): [IMessage] {
@@ -147,8 +157,10 @@ export class Conversation implements IConversation{
     }
     setAll (msg): void {}
     
-    pushMessage (msg: IMessage): IMessage { 
-        this.messages.push(new Message(msg))
+    pushMessage (msg: IMessage): IMessage {
+        const message =  new Message(msg)
+        this.messages.push(message)
+        this.lastMessage = message
         return msg
     }
     unshiftMessages (msgs: [IMessage]): IMessage {

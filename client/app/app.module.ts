@@ -25,8 +25,7 @@ import { HttpModule } from '@angular/http';
 import { ConversationsService } from './services/conversations.service';
 import { LoginService } from './services/login.service';
 import { SignUpService } from './services/sign-up.service';
-import { ContactComponent } from './components/contact/contact.component';
-import { ContactDialogComponent } from './components/contact-dialog/contact-dialog.component';
+import { ContactComponent } from './components/contact/contact.component'
 import { DashboardGuard } from './guards/dashboard.guard'
 import { HomeGuard } from './guards/home.guard'
 import { DashboardRoutingModule } from './modules/dashboard/dashboard-routing.module';
@@ -47,6 +46,11 @@ import { DashboardResolve } from './guards/dashboard.resolver';
 import { ContactsService } from './services/contacts.service';
 import { SocketService } from './services/socket.service';
 import { MessageTimestampPipe } from './pipes/message-timestamp.pipe';
+import { RemoveContactDialogComponent } from './components/remove-contact-dialog/remove-contact-dialog.component';
+import { AddContactDialogComponent } from './components/add-contact-dialog/add-contact-dialog.component';
+import { MapAsArrayPipe } from './pipes/map-as-array.pipe';
+import { AcceptContactDialogComponent } from './components/accept-contact-dialog/accept-contact-dialog.component';
+import { IgnoreContactDialogComponent } from './components/ignore-contact-dialog/ignore-contact-dialog.component'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -55,7 +59,6 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    ContactDialogComponent,
     LoginComponent,
     SignupComponent,
     DashboardComponent,
@@ -75,7 +78,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ConvoComponent,
     NotificationListComponent,
     NotificationComponent,
-    MessageTimestampPipe
+    MessageTimestampPipe,
+    RemoveContactDialogComponent,
+    AddContactDialogComponent,
+    MapAsArrayPipe,
+    AcceptContactDialogComponent,
+    IgnoreContactDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -109,7 +117,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContactsService,
     SocketService
   ],
-  entryComponents: [ContactDialogComponent],
+  entryComponents: [AddContactDialogComponent, RemoveContactDialogComponent, IgnoreContactDialogComponent, AcceptContactDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,7 @@ import { MdSnackBar } from '@angular/material'
 import { Router } from '@angular/router'
 import { equalValidator } from '../../validators/formValidators'
 
-import { User } from '../../models/user'
+import { User } from '../../interfaces/user'
 
 @Component({
   selector: 'deep-signup',

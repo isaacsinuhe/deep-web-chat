@@ -1,7 +1,7 @@
 <div #container (scroll)="onScroll($event)" class="convo-container">
     <deep-message *ngFor="let message of messages"
-        [content]="message.content"
-        [date]="message.createdAt"
-        [owner]="message.owner">
+        [content]="message?.content"
+        [date]="message?.createdAt"
+        [owner]="message?.owner">
     </deep-message>
 </div>

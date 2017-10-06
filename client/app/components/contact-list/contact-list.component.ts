@@ -15,12 +15,13 @@ export class ContactListComponent implements OnInit {
   constructor(private contacts: ContactsService) {
   }
   ngOnInit() {
-    this.contacts.contactsChange$
-      .subscribe( contactList => {
-        this.contactList = contactList
-      })
-    this.contacts.getContacts()
-    .subscribe(console.log)
+    // this.contacts.contactsChange$
+    //   .subscribe( contactList => {
+    //     this.contactList = contactList
+    //   })
+    
+    this.contactList = this.contacts.getContacts()
+    // .subscribe(console.log)
   }
 
 }

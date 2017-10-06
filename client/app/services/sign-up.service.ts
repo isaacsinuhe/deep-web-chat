@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms'
 import { Http, URLSearchParams } from '@angular/http'
-import { AuthHttp } from 'angular2-jwt'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/add/observable/timer'
 import 'rxjs/add/operator/switchMap'
 import 'rxjs/add/operator/map'
 
-import { User } from '../models/user'
+import { User } from '../interfaces/user'
 
 @Injectable()
 export class SignUpService {
   // request: Observable<boolean>
-  constructor(private http: AuthHttp) { }
+  constructor(private http: Http) { }
 
   isUsernameUnique ({value}) {
     const params = new URLSearchParams()

@@ -2,6 +2,7 @@ import { OnDestroy, Component, OnInit, HostBinding, Input,  Output, EventEmitter
 import { slideFromLeftAnimation } from '../../animations'
 import { ActivatedRoute } from '@angular/router'
 import { SocketService } from './../../services/socket.service'
+import { ContactsService } from './../../services/contacts.service'
 import { SessionService } from './../../services/session.service'
 import { ConversationsService } from './../../services/conversations.service'
 
@@ -25,6 +26,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private socket: SocketService,
+    private contactsService: ContactsService,
     private conversationService: ConversationsService,
     private session: SessionService) { }
 
@@ -32,6 +34,7 @@ export class DashboardComponent implements OnInit {
     this.route.data
       .subscribe(({0: data}) => {
         this.socket.joinRooms(data)
+        this.contactsService.hydrateContacts(data)
         this.conversationService.hydrateConversations(data)
     })
   }

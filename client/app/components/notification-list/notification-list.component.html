@@ -1,4 +1,4 @@
-<div *ngFor="let contact of notifList">
+<div *ngFor="let contact of contacts.Contacts.contactList">
   <deep-contact *ngIf="contact.status === 2" 
     [fullname]="contact?.fullname"
     [username]="contact?.username"

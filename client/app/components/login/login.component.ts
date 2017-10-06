@@ -3,7 +3,7 @@ import { LoginService } from '../../services/login.service'
 import { FormBuilder, Validators } from '@angular/forms'
 import { MdSnackBar, MdSnackBarConfig } from '@angular/material'
 import { Router } from '@angular/router'
-import { Credentials } from '../../models/user'
+import { Credentials } from '../../interfaces/user'
 import { JwtHelper, tokenNotExpired } from 'angular2-jwt'
 
 
