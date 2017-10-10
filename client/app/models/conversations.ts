@@ -7,7 +7,8 @@ export class Conversations {
 
     static createFromInitState (response) {
         const conversationList = []
-            
+        console.log(response, 'from session');
+        
         response.conversations.forEach(conversation => {       
             // conversation.status = response.conversations.status
 
@@ -25,6 +26,8 @@ export class Conversations {
 
     constructor ( conversationsList: Array<any> ) {
         this.conversations = conversationsList
+        console.log(this.conversations);
+        
     }
 
     getAll (): any[] {
@@ -108,13 +111,15 @@ export interface IConversation {
     name: string
     messages: [IMessage]
     lastMessage: IMessage
+    participants: [Object]
     status: number
 }
-export class Conversation implements IConversation{
+export class Conversation implements IConversation  {
     public _id: string
     public updatedAt: string
     public createdAt: string
     public name: string
+    public participants: [Object]
     public messages: [IMessage]
     public lastMessage: IMessage
     public status: number
@@ -124,6 +129,7 @@ export class Conversation implements IConversation{
         this._id = conversation._id
         this.name = conversation.name
         this.updatedAt = conversation.updatedAt
+        this.participants = conversation.participants
         this.createdAt = conversation.createdAt
         this.messages = conversation.messages
         this.lastMessage = conversation.lastMessage
@@ -140,7 +146,8 @@ export class Conversation implements IConversation{
             createdAt: convo.updatedAt,
             messages: [lastMessage],
             lastMessage: lastMessage,
-            status: data.status
+            status: data.status,
+            participants: convo.participants
         })
     }
     

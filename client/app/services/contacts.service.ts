@@ -72,18 +72,20 @@ export class ContactsService {
       { acceptId, userId: this.session.sessionId })
       .map(response => response.json())
   }
-
-  removeContact (contactId) {
-    return this.http.post(
-      '/api/user/contacts/removeContact', 
-      { contactId, userId: this.session.sessionId })
-      .map(response => response.json())
-    }
-    
-  ignoreContact (contactId) {
+  
+  ignoreContact (ignoreId) {
     return this.http.post(
       '/api/user/contacts/ignoreContact',
-      { contactId, userId: this.session.sessionId })
+      { ignoreId, userId: this.session.sessionId })
       .map(response => response.json())
   }
+
+  removeContact (removeId) {
+
+    return this.http.post(
+      '/api/user/contacts/removeContact', 
+      { removeId, userId: this.session.sessionId })
+      .map(response => response.json())
+  }
+    
 }

@@ -4,3 +4,12 @@
     height: 100%;
     overflow: auto;
 }
+
+:host button {
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    background-color: rgba(210, 210, 210, 0.5);
+    border: 2px solid #673ab7;
+    color: #673ab7;
+    opacity: .7;
+}

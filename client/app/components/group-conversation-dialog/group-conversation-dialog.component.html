@@ -1,0 +1,26 @@
+<h1>New Group Conversation</h1>
+<h5 md-dialog-title>
+  <md-input-container>
+    <input mdInput type="text" #name minlength="5" maxlength="15" placeholder="Conversation Name">
+    <md-hint align="end">{{name.value.length}} / 15</md-hint>
+    <md-error>
+      {{'VALIDATORS.REQUIRED' | translate}}
+    </md-error>
+  </md-input-container>
+</h5>
+
+<md-dialog-content>  
+  <div *ngFor="let contact of contactsService.Contacts.contactList">
+    <md-checkbox #item
+      value="{{contact._id}}"
+      (change)="updateList(contact._id, $event)"
+      >
+      {{contact.fullname}}
+    </md-checkbox>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions>
+  <button md-button [md-dialog-close]="getValues(name)">Create</button>
+  <button md-button [md-dialog-close]="false">Cancel</button>
+</md-dialog-actions>

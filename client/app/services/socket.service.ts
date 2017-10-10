@@ -33,30 +33,58 @@ export class SocketService {
     this.userSocket.on('msg', this.msgHandler)
     this.userSocket.on('contactRequest', this.onContactRequest)
     this.userSocket.on('requestAccepted', this.onRequestAccepted)
+    this.userSocket.on('ignoredRequest', this.onIgnoredRequest)
+    this.userSocket.on('removedRequest', this.onRemovedRequest)
+    this.userSocket.on('addedToGroup', this.onAddedToGroup)
   }
 
   addConversationMessage = ({message, conversationId}) => {
     this.conversations.appendMessage(message, conversationId)
-    // this.conversations.incomingMessageSubject.next(new Message(message))
+  }
+
+  onAddedToGroup = ({created, conversation, conversationStatus}) => {
+    if(created)
+    console.log(conversation, 'from on addedToGroup');
+    
+    conversation.status = conversationStatus
+    this.conversations.Conversations.addConversation(conversation)
+    this.joinRoom(conversation)
   }
 
   onContactRequest = (request) => {
     console.log('on contact request', request)
     request.contact.status = request.contactStatus
     this.contacts.Contacts.addContact(request.contact)
-    // this.conversations.Conversations.addConversation(request.conversation)
   }
 
-  onRequestAccepted = (request) => {
-    console.log('on contact accepted', request)
+  onRequestAccepted = ({ conversation, conversationStatus, contact, contactStatus}) => {
+    console.log('on contact accepted', contact, conversation)
+    this.joinRoom(conversation)
+    contact.status = contactStatus
+    this.contacts.Contacts.addContact(contact)
+    conversation.status = conversationStatus
+    this.conversations.Conversations.addConversation(conversation)
+  }
+
+  onIgnoredRequest = ({contact}) => {
+    this.contacts.Contacts.removeContact(contact)
+  }
+
+  onRemovedRequest = ({contact}) => {
+    this.contacts.Contacts.removeContact(contact)
   }
 
   joinRooms ({conversations}) {
     conversations.forEach(({conversation}) => {
-      this.chatSocket.emit('joinRoom', conversation._id)
-      // console.log('joining room ' + conversation._id)
+      this.joinRoom(conversation)
     })
   }
+
+  joinRoom (conversation) {
+    this.chatSocket.emit('joinRoom', conversation._id)
+    console.log(`socket.service::joinRoom(${conversation._id})`, conversation)
+  }
+
   joinMyRoom () {
     this.userSocket.emit('joinRoom', this.session.sessionId) 
   }

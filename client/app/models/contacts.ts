@@ -14,9 +14,15 @@ export class Contacts {
         this.contactList.push(new Contact(contact))
     }
 
-    removeContact (contactId): Boolean {
+    updateContactStatus (contactId, status) {
+        this.findById(contactId).setStatus(status)
+    }
+
+    removeContact (contact): Boolean {
+        
+        // tslint:disable-next-line:forin
         for (const index in this.contactList) {
-            if (this.contactList[index] === contactId) {
+            if (this.contactList[index]._id === contact._id) {
                 this.contactList.splice(+index, 1)
                 return true
             }
@@ -37,8 +43,9 @@ export class Contacts {
 
     getContactsIds () {
         const ids = []
+        
         this.contactList.forEach((value, key) => {
-            ids.push(key)
+            ids.push(value._id)
         })
         return ids
     }
@@ -64,5 +71,9 @@ export class Contact {
         this.status = contact.status
         this.username = contact.username
         this._id = contact._id
+    }
+
+    setStatus (status) {
+        this.status = status
     }
 }

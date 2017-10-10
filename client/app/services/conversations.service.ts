@@ -74,6 +74,15 @@ export class ConversationsService {
       }
     )
   }
+
+  addGroupConversation ({name, contacts}) {
+    contacts.push(this.session.sessionId)
+
+    return this.http
+      .post('/api/conversation/addGroup', {name, contacts})
+      .map(res => res.json())
+      .do(console.log)
+  }
     
   prependMessage (message) {
     this.currentConvo.messages.unshift(message)

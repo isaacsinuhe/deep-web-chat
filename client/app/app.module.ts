@@ -50,7 +50,8 @@ import { RemoveContactDialogComponent } from './components/remove-contact-dialog
 import { AddContactDialogComponent } from './components/add-contact-dialog/add-contact-dialog.component';
 import { MapAsArrayPipe } from './pipes/map-as-array.pipe';
 import { AcceptContactDialogComponent } from './components/accept-contact-dialog/accept-contact-dialog.component';
-import { IgnoreContactDialogComponent } from './components/ignore-contact-dialog/ignore-contact-dialog.component'
+import { IgnoreContactDialogComponent } from './components/ignore-contact-dialog/ignore-contact-dialog.component';
+import { GroupConversationDialogComponent } from './components/group-conversation-dialog/group-conversation-dialog.component'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -83,7 +84,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddContactDialogComponent,
     MapAsArrayPipe,
     AcceptContactDialogComponent,
-    IgnoreContactDialogComponent
+    IgnoreContactDialogComponent,
+    GroupConversationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +119,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     ContactsService,
     SocketService
   ],
-  entryComponents: [AddContactDialogComponent, RemoveContactDialogComponent, IgnoreContactDialogComponent, AcceptContactDialogComponent],
+  entryComponents: [
+    AddContactDialogComponent, 
+    RemoveContactDialogComponent,
+    IgnoreContactDialogComponent,
+    AcceptContactDialogComponent, 
+    GroupConversationDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

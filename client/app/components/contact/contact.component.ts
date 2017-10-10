@@ -6,6 +6,7 @@ import { IgnoreContactDialogComponent } from './../ignore-contact-dialog/ignore-
 import { RemoveContactDialogComponent } from './../remove-contact-dialog/remove-contact-dialog.component'
 import { CONTACT } from '../../enums/contact.enum'
 import { ContactsService } from '../../services/contacts.service'
+import { SocketService } from '../../services/socket.service'
 import { ConversationsService } from '../../services/conversations.service'
 
 @Component({
@@ -24,6 +25,7 @@ export class ContactComponent implements OnInit {
     public dialog: 
     MdDialog, 
     private contactsService: ContactsService,
+    private socketService: SocketService,
     private conversationsService: ConversationsService
   ) { }
   
@@ -38,10 +40,9 @@ export class ContactComponent implements OnInit {
         this.contactsService.addContact(this.id)
           .subscribe((response) => {
             if (!response.added) return 0
-            // this.contactsService.Contacts.removeContact(response.contact)
+            console.log(response);
             response.contact.status = response.contactStatus
             this.contactsService.Contacts.addContact(response.contact)
-            this.conversationsService.Conversations.addConversation(response.conversation)
           })
       }
     })
@@ -53,13 +54,15 @@ export class ContactComponent implements OnInit {
         console.log('The dialog was closed', result)
         if (result) {
           this.contactsService.acceptContact(this.id)
-            .subscribe(response => {
-              // if (!response.added) return 0
-              console.log('contact accepted', response);
-              
-            // response.contact.status = response.contactStatus
-            // this.contactsService.Contacts.addContact(response.contact)
-            // this.conversationsService.Conversations.addConversation(response.conversation)
+            .subscribe(({accepted, conversation, conversationStatus,
+              contact, contactStatus}) => {
+
+              if (!accepted) return 0
+              console.log('contact accepted', contact)
+              this.socketService.joinRoom(conversation)
+              this.contactsService.Contacts.updateContactStatus(contact._id, contactStatus)
+              conversation.status = conversationStatus
+              this.conversationsService.Conversations.addConversation(conversation)
           })
       }
     })
@@ -71,12 +74,10 @@ export class ContactComponent implements OnInit {
       console.log('The dialog was closed', result)
       if (result) {
         this.contactsService.ignoreContact(this.id)
-          .subscribe((response) => {
-            if (!response.added) return 0
-            // this.contactsService.Contacts.removeContact(response.contact)
-            // response.contact.status = response.contactStatus
-            // this.contactsService.Contacts.addContact(response.contact)
-            // this.conversationsService.Conversations.addConversation(response.conversation)
+          .subscribe(({contact, ignored}) => {
+            if (!ignored) return 0
+            console.log(contact)
+            this.contactsService.Contacts.removeContact(contact)
           })
       }
     })
@@ -88,12 +89,11 @@ export class ContactComponent implements OnInit {
         console.log('The dialog was closed', result)
         if (result) {
           this.contactsService.removeContact(this.id)
-            .subscribe((response) => {
-              if (!response.added) return 0
-              // this.contactsService.Contacts.removeContact(response.contact)
-              response.contact.status = response.contactStatus
-              this.contactsService.Contacts.addContact(response.contact)
-              this.conversationsService.Conversations.addConversation(response.conversation)
+            .subscribe(({removed, contact}) => {
+              console.log(removed, contact);
+              
+              if (!removed) return 0
+              this.contactsService.Contacts.removeContact(contact)
             })
         }
       })

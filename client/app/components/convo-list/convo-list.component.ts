@@ -1,7 +1,9 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material'
 import { enterFromRight } from '../../animations'
 import { SessionService } from '../../services/session.service'
 import { ConversationsService } from '../../services/conversations.service'
+import { GroupConversationDialogComponent } from '../../components/group-conversation-dialog/group-conversation-dialog.component'
 
 
 @Component({
@@ -16,6 +18,7 @@ export class ConvoListComponent implements OnInit {
   public convoList = []
 
   constructor(
+    public dialog: MdDialog, 
     private session: SessionService, 
     private conversationsService: ConversationsService) {
     
@@ -28,10 +31,23 @@ export class ConvoListComponent implements OnInit {
     //   )
   }
 
+  addGroupConversation () {
+    this.baseDialog(GroupConversationDialogComponent)
+    .flatMap((result) => this.conversationsService.addGroupConversation(result))
+    .subscribe((result) => {
+      console.log(result)
+    })
+  }
+
   ngOnInit() {
-    console.log(this.conversationsService.Conversations.getAllAsArray());
-    
-    this.convoList = this.conversationsService.Conversations.getAllAsArray()
+    // this.convoList = this.conversationsService.Conversations.getAllAsArray()
+  }
+
+  baseDialog(component) {
+    const dialogRef = this.dialog.open(component, {
+      width: '500px'
+    })
+    return dialogRef.afterClosed()
   }
 
 }

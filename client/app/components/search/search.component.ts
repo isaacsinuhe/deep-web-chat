@@ -32,14 +32,14 @@ export class SearchComponent implements OnInit {
 
   search () {
     const query = this.searchForm.get('search').value
+
     this.searchList = []
-    if (!query) return
+    if (!query) { return }
 
     this.contacts.searchContacts(query)
       .subscribe( (arr) => {
         this.searchList = arr
-        console.log(this.searchList);
-        
+        console.log(this.searchList)
       })
   }
 

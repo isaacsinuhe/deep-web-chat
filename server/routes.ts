@@ -49,7 +49,8 @@ export default function setAPIRoutes(app) {
   // Conversation requests
   api.route('/conversation/message').post(conversationController.insertMessage)//
   api.route('/conversation/messages').get(conversationController.getPreviousMessages)//
-
+  api.route('/conversation/addGroup').post(conversationController.addGroup)//
+  
   api.route('/conversations').get(conversationController.getAll)
   api.route('/conversations/count').get(conversationController.count)
   api.route('/conversation').post(conversationController.insert)

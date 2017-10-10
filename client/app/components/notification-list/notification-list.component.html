@@ -1,5 +1,5 @@
 <div *ngFor="let contact of contacts.Contacts.contactList">
-  <deep-contact *ngIf="contact.status === 2" 
+  <deep-contact *ngIf="contact.status === 2 || contact.status === 0" 
     [fullname]="contact?.fullname"
     [username]="contact?.username"
     [email]="contact?.email"

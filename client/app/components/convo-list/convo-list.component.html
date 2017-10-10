@@ -1,4 +1,7 @@
-<deep-convo *ngFor="let convo of convoList"
+<button md-mini-fab (click)="addGroupConversation()">
+  <md-icon>group_add</md-icon>
+</button>
+<deep-convo *ngFor="let convo of conversationsService.Conversations.getAllAsArray()"
   [id]="convo?._id"
   [name]="convo?.name"
   [lastMessage]="convo?.lastMessage"

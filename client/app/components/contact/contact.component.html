@@ -11,8 +11,11 @@
             <md-icon (click)="acceptContact()" *ngIf="status === 2">
                 add_circle
             </md-icon>
-            <md-icon (click)="addContact()" *ngIf="!status">
+            <md-icon (click)="addContact()" *ngIf="!status && status !== 0">
                 add_circle
+            </md-icon>
+            <md-icon *ngIf="status === 0">
+                schedule
             </md-icon>
 
         </div>

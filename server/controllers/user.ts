@@ -96,50 +96,25 @@ export default class UserController extends Controller {
     })
   }
 
-  addContact (req, res) {
-    const userId = req.body.userId,
-          contactId = req.body.contactId,
+  addContact = (req, res) => {
+    const {userId, contactId} = req.body,
           transactions = []
-    let _conversation, _user, _contact = null
-
-    // 1.- create a new conversation and save it
-    new Conversation({
-      name: '',
-      messages: [],
-      participants: [userId, contactId]
-    }).save()
-
-    // 2.- insert userconversation with userId and conversationId
-    .then( conversation => {
-      _conversation = conversation
-      transactions.push(() => {conversation.remove()})
-      return new UserConversation({
-        user: userId,
-        conversation: conversation._id,
-        status: 1 // pending of acceptance conversation
-      }).save()
-    })
+    let  _user, _contact
     
-    // 3.- update currentUser pushing added contactId as requesting user (status 0)
-    .then( userConversation => {
-      transactions.push(() => { userConversation.remove() })
-      return User.findByIdAndUpdate(userId, {
-        $push: {
-          'contacts': {
-            contact: contactId,
-            status: 0
-          }
+    // 1.- update currentUser pushing added contactId as requesting user (status 0)
+    User.findByIdAndUpdate(userId, {
+      $push: {
+        'contacts': {
+          contact: contactId,
+          status: 0
         }
-      })
-      
+      }
     })
-
-    // 4.- update the target/contact user pushing userId as pending user (status 2)
+    // 2.- update the target/contact user pushing userId as pending user (status 2)
     .then( user => {
       _user = user
-      transactions.push(() => { 
-        user.update({ $pull: {'contacts.contact': contactId }})
-      })
+      transactions.push(() => user.update({ $pull: {'contacts.contact': contactId }}))
+
       return User.findByIdAndUpdate(contactId, {
         $push: {
           'contacts': {
@@ -163,21 +138,21 @@ export default class UserController extends Controller {
       res.status(500).send({added: false, error: err})
       return false // at least one transaction failed from execution
     })
-    // 5.- if all transactions succeded then 
+    // 3.- if all transactions succeded then 
     //  a.- respond the client/user with the conversation&contact info through http
     //  b.- emit to the contact with conversation&user info through userSocket on room contactId
 
     .then(succeded => {
       if (succeded) {
         userSocket.in(contactId).emit('contactRequest', {
-          conversation: _conversation,
+          // conversation: _conversation,
           contact: _user,
           contactStatus: 2
         })
         res.status(200).json({
           added: true,
-          conversation: _conversation,
-          conversationStatus: 1,
+          // conversation: _conversation,
+          // conversationStatus: 1,
           contact: _contact,
           contactStatus: 0
         })
@@ -185,40 +160,70 @@ export default class UserController extends Controller {
     })
   }
 
-  acceptContact (req, res) {
-    let _user, _accepted
+  acceptContact = (req, res) => {
+    let _user, _accepted, _conversation
     const transactions = [], 
       { acceptId, userId } = req.body
 
-    // 1.- find user and change contact/acceptedid status
-    User.findByIdAndUpdate(userId, {
-      $push: {
-        'contacts': {
-          contact: acceptId,
-          status: 0
-        }
-      }
+    // 1.- create a new conversation and save it
+    new Conversation({
+      name: '',
+      messages: [],
+      participants: [userId, acceptId]
+    }).save()
+    // 2.- insert userconversation with userId and conversationId
+    .then(conversation => {
+      _conversation = conversation
+      transactions.push(() => conversation.remove())
+
+      return new UserConversation({
+        user: userId,
+        conversation: _conversation._id,
+        status: 3 // accepted conversation
+      }).save()
     })
-    // 2.- find accepted user and change contact/userid status
-    .then(user => {
-      _user = user
-      transactions.push(() => {})
-      User.findByIdAndUpdate(acceptId, {
-        $push: {
-          'contacts': {
-            contact: acceptId,
-            status: 0
-          }
-        }
+    // 3.- insert userconversation with acceptId and conversationId
+    .then(userConversation => {
+      transactions.push(() => userConversation.remove())
+
+      return new UserConversation({
+        user: acceptId,
+        conversation: _conversation._id,
+        status: 3 
+      }).save()
+    })
+    // 4.- find user and change contact/acceptedid status to accepted
+    .then(userConversation => {
+      transactions.push(() => userConversation.remove())
+
+      return User.findOneAndUpdate({_id: userId, 'contacts.contact': acceptId}, {
+        $set: {'contacts.$.status': 1}
       })
     })
+    // 5.- find accepted user and change contact/userid status to accepted
+    .then(user => {
+      _user = user
+      transactions.push(() =>
+        User.update({ _id: userId, 'contacts.contact': acceptId }, {
+          $set: { 'contacts.$.status': 0 }
+        }))
+
+      return User.findOneAndUpdate({_id: acceptId, 'contacts.contact': userId}, {
+        $set: {'contacts.$.status': 1}
+      })
+    })
+    // 6.- if all transactions succeded return true
     .then(accepted => {
-      transactions.push(() => {})
       _accepted = accepted
+      transactions.push(() => 
+        User.update({ _id: acceptId, 'contacts.contact': userId }, {
+          $set: { 'contacts.$.status': 2 }
+        }))
+      return true
     })
     .catch(err => {
       this.rollBack(transactions)
-      res.status(500).send({ added: false, error: err })
+      res.status(500).send({ accepted: false, error: err })
       return false // at least one transaction failed from execution
     })
     // finally send response through socket to the accepted user, 
@@ -227,25 +232,165 @@ export default class UserController extends Controller {
       if (succeded) {
         userSocket.in(acceptId).emit('requestAccepted', {
           conversation: _conversation,
+          conversationStatus: 3,
           contact: _user,
-          contactStatus: 2
+          contactStatus: 1
         })
         res.status(200).json({
-          added: true,
+          accepted: true,
           conversation: _conversation,
-          conversationStatus: 1,
+          conversationStatus: 3,
           contact: _accepted,
-          contactStatus: 0
+          contactStatus: 1
+        })
+      }
+    })
+  }
+  
+  ignoreContact = (req, res) => {
+    let _user, _ignored
+    const transactions = [],
+      { ignoreId, userId } = req.body
+    
+    // 1.- update currentUser to remove the contact from its pending list
+    User.findByIdAndUpdate(userId, {
+      $pull: {
+        contacts: {
+          contact: ignoreId
+        }
+      }
+    }, {new: true})
+    // 2.- update the ignored contact to remove userid from its list
+    .then(user => {
+      // console.log(user, 'entering after updating requesting user')
+      _user = user
+      transactions.push(() => user.update({
+        $push: {
+          'contacts': {
+            contact: ignoreId,
+            status: 2
+          }
+        }}))
+
+      return User.findByIdAndUpdate(ignoreId, {
+        $pull: {
+          contacts: {
+            userId
+          }
+        }
+      }, {new: true})
+    })
+    // 3.- if all transactions were fully applied
+    .then(ignored => {
+      // console.log(ignored);
+      
+      _ignored = ignored
+      transactions.push(() => 
+        ignored.update({
+          $push: {
+            'contacts': {
+              contact: userId,
+              status: 0
+            }}})
+      )
+      return true // all transaction was succesfully executed
+    })
+    .catch(err => {
+      // console.log(this);
+      
+      this.rollBack(transactions)
+      res.status(500).send({ ignored: false, error: err })
+      return false // at least one transaction failed from execution
+    })
+    // 3.- if all transactions succeded then 
+    //  a.- respond the client/user with the conversation&contact info through http
+    //  b.- emit to the contact with conversation&user info through userSocket on room contactId
+    .then(succeded => {
+      if (succeded) {
+        userSocket.in(ignoreId).emit('ignoredRequest', {
+          contact: _user
+        })
+        res.status(200).json({
+          ignored: true,
+          contact: _ignored
         })
       }
     })
   }
 
-  removeContact () {
+  removeContact = (req, res) => {
+     let _user, _removed
+    const transactions = [],
+      { removeId, userId } = req.body
+    console.log(removeId, userId, 'removed')
 
-  }
+    // 1.- update currentUser to remove the contact from its pending list
+    User.findByIdAndUpdate(userId, {
+      $pull: {
+        contacts: {
+          contact: removeId
+        }
+      }
+    }, { new: true })
+      // 2.- update the ignored contact to remove userid from its list
+      .then(user => {
+        // console.log(user, 'entering after updating requesting user')
+        _user = user
+        transactions.push(() => user.update({
+          $push: {
+            'contacts': {
+              contact: removeId,
+              status: 1
+            }
+          }
+        }))
 
-  ignoreContact () {
+        return User.findByIdAndUpdate(removeId, {
+          $pull: {
+            contacts: {
+              userId
+            }
+          }
+        }, { new: true })
+      })
+      // 3.- if all transactions were fully applied
+      .then(removed => {
+        // console.log(ignored);
+
+        _removed = removed
+        transactions.push(() =>
+          removed.update({
+            $push: {
+              'contacts': {
+                contact: userId,
+                status: 1
+              }
+            }
+          })
+        )
+        return true // all transaction was succesfully executed
+      })
+      .catch(err => {
+        // console.log(this);
+
+        this.rollBack(transactions)
+        res.status(500).send({ removed: false, error: err })
+        return false // at least one transaction failed from execution
+      })
+      // 3.- if all transactions succeded then 
+      //  a.- respond the client/user with the conversation&contact info through http
+      //  b.- emit to the contact with conversation&user info through userSocket on room contactId
+      .then(succeded => {
+        if (succeded) {
+          userSocket.in(removeId).emit('removedRequest', {
+            contact: _user
+          })
+          res.status(200).json({
+            removed: true,
+            contact: _removed
+          })
+        }
+      })
 
   }
 
@@ -322,13 +467,15 @@ export default class UserController extends Controller {
   }
 
   rollBack (transactions) {
+    // console.log('rolling back');
+    
     // tslint:disable-next-line:forin
     for (const index in transactions) {
       const transaction = transactions[index]
 
       transaction()
         .then(trans => 
-          console.log(`Rolling back transaction ${index}/${transaction.length} ${transaction}`)
+          console.log(`Rolling back transaction ${index}/${transaction.length} rollback: ${transaction}`)
         )
         .catch( err =>
           console.log(`Error rolling the transaction ${index}/${transaction.length} ${err}`)

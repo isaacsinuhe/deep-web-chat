@@ -1,8 +1,10 @@
 import { Conversation } from '../models/conversation'
+import { UserConversation } from '../models/user_conversation'
 import { Message } from '../models/message'
-import { User } from '../models/user'
-import { io, chatSocket } from '../app'
+import { User, IUser } from '../models/user'
+import { io, chatSocket, userSocket } from '../app'
 import { ObjectId } from 'mongodb'
+import { Document, DocumentQuery } from 'mongoose'
 import Controller from './base';
 
 export default class ConversationController extends Controller {
@@ -40,6 +42,72 @@ export default class ConversationController extends Controller {
       )
     })
     .catch(e => console.log('conversation not saved', e))
+  }
+
+  addGroup (req, res) {
+    const {name, contacts} = req.body,
+          transactions = []
+    let _conversation 
+
+    // 1.- create a new conversation and save it
+    new Conversation({
+      name: name,
+      messages: [],
+      participants: [...contacts]
+    }).save()
+      // 2.- insert userconversation with each userId and conversationId
+      .then(conversation => {
+        _conversation = conversation
+        transactions.push(() => conversation.remove())
+
+        const userConversations: Promise<Document>[] = []
+
+        contacts.forEach(contactId => {
+          userConversations.push(
+            new UserConversation({
+              user: contactId,
+              conversation: _conversation._id,
+              status: 3 // accepted conversation
+            }).save())
+        });
+        return Promise.all(userConversations)
+      })
+      // 3.- Push conversation id for each participant in it
+      .then(userConversations => {
+        userConversations.forEach(userConversation => {
+          transactions.push(() => userConversation.remove())
+        });
+        return true
+      })
+      // 4.- if all transactions succeded return true
+      .catch(err => {
+        this.rollBack(transactions)
+        res.status(500).send({ created: false, error: err })
+        return false // at least one transaction failed from execution
+      })
+      // finally send response through socket to the accepted user, 
+      // and http to the user
+      .then(succeded => {
+        if (succeded) {
+          console.log(_conversation);
+          
+          contacts.forEach(contactId => {
+            userSocket.in(contactId).emit('addedToGroup', {
+              conversation: _conversation,
+              conversationStatus: 3
+            })
+          })
+
+          res.status(200).json({
+            created: true,
+            conversation: _conversation,
+            conversationStatus: 3
+          })
+        }
+      })
+
+    
+    res.status(200).json({name, contacts})
   }
 
   getPreviousMessages (req, res) {
@@ -80,5 +148,22 @@ export default class ConversationController extends Controller {
         res.sendStatus(400)
       }
     )
+  }
+
+  rollBack(transactions) {
+    // console.log('rolling back');
+
+    // tslint:disable-next-line:forin
+    for (const index in transactions) {
+      const transaction = transactions[index]
+
+      transaction()
+        .then(trans =>
+          console.log(`Rolling back transaction ${index}/${transaction.length} rollback: ${transaction}`)
+        )
+        .catch(err =>
+          console.log(`Error rolling the transaction ${index}/${transaction.length} ${err}`)
+        )
+    }
   }
 }
