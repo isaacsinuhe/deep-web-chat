@@ -20,7 +20,7 @@ export class ConvoListComponent implements OnInit {
   constructor(
     public dialog: MdDialog, 
     private session: SessionService, 
-    private conversationsService: ConversationsService) {
+    public conversationsService: ConversationsService) {
     
     // this.session.sessionChanges$
     //   .map( ss => ss.conversations)
@@ -33,7 +33,12 @@ export class ConvoListComponent implements OnInit {
 
   addGroupConversation () {
     this.baseDialog(GroupConversationDialogComponent)
-    .flatMap((result) => this.conversationsService.addGroupConversation(result))
+    .flatMap((result) => {
+      if (result !== false)
+      return this.conversationsService.addGroupConversation(result)
+      else
+      return []
+    })
     .subscribe((result) => {
       console.log(result)
     })

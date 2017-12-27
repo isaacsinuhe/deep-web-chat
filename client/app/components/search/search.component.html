@@ -2,7 +2,7 @@
   <md-input-container class="input-search">
     <input formControlName="search" type="name" mdInput 
     placeholder="{{'SEARCH.INPUT.FIND' | translate}}">
-    <md-error>you must enter a search criteria</md-error>
+    <md-error>{{'SEARCH.INPUT.ERROR' | translate}}</md-error>
   </md-input-container>
   <button md-mini-fab class="btn-search"><md-icon >search</md-icon></button>
 </form>
@@ -22,7 +22,7 @@
 </div>
 <ng-template #announcement>
   <div style="display: flex; flex-flow:column wrap; align-items:center;">
-    <p>search for contacts</p>
-    <p>around the world!!!</p>
+    <p innerHTML="{{'SEARCH.MESSAGE.1$LINE' | translate}}"></p>
+    <p innerHTML="{{'SEARCH.MESSAGE.2$LINE' | translate}}"></p>
   </div>
 </ng-template>

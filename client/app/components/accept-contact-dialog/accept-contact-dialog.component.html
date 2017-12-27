@@ -1,9 +1,13 @@
-<h1>Accept friend</h1>
+<h1>{{'DIALOG.ACCEPT.TITLE' | translate}}</h1>
 <h2 md-dialog-title>
-  Select the contacts you want to add.
+  <strong>{{data.name}}</strong> {{'DIALOG.ACCEPT.CONTENT' | translate}}
 </h2>
-<h3>Add these friends to a new Conversation?</h3>
+<h3>{{'DIALOG.CONFIRMATION' | translate}}</h3>
 <md-dialog-actions>
-  <button md-button [md-dialog-close]="true">Yes</button>
-  <button md-button [md-dialog-close]="false">Cancel</button>
+  <button md-button [md-dialog-close]="true">
+    {{'DIALOG.BUTTON.ACCEPT' | translate}}
+  </button>
+  <button md-button [md-dialog-close]="false">
+    {{'DIALOG.BUTTON.CANCEL' | translate}}
+  </button>
 </md-dialog-actions>

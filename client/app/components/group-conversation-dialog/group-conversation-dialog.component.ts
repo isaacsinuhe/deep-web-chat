@@ -11,7 +11,7 @@ import { ContactsService } from '../../services/contacts.service'
 export class GroupConversationDialogComponent implements OnInit {
   public contacts = []
   constructor(
-    private contactsService: ContactsService,
+    public contactsService: ContactsService,
     private fb: FormBuilder,
     public dialogRef: MdDialogRef<GroupConversationDialogComponent>,
     @Inject(MD_DIALOG_DATA) public data: any
@@ -38,7 +38,6 @@ export class GroupConversationDialogComponent implements OnInit {
   }
 
   getValues (name) {
-    
     return {
       name: name.value,
       contacts: this.contacts

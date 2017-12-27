@@ -1,4 +1,7 @@
-<button md-mini-fab (click)="addGroupConversation()">
+<button 
+  mdTooltip="{{'TOOLTIP.CREATE.GROUP' | translate}}"
+  [mdTooltipPosition]="'above'"
+  md-mini-fab (click)="addGroupConversation()">
   <md-icon>group_add</md-icon>
 </button>
 <deep-convo *ngFor="let convo of conversationsService.Conversations.getAllAsArray()"

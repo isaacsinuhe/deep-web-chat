@@ -12,7 +12,7 @@ export class ChatComponent implements OnInit, DoCheck, OnChanges {
   messages = []
   conversation
 
-  constructor(private conversationService: ConversationsService) {
+  constructor(public conversationService: ConversationsService) {
   }
 
   ngOnInit() {

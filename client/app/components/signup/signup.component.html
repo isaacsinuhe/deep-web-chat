@@ -7,6 +7,19 @@
     </md-card-header>
 
     <md-card-content>
+      <!-- username field -->
+      <md-input-container class="full-width">
+        <input formControlName="username" type="text" mdInput placeholder="{{'SIGNUP.FORM.USERNAME' | translate}}">
+        <md-icon mdSuffix>fingerprint</md-icon>
+        <md-error *ngIf="signUpForm.get('username').getError('required')">
+          {{'VALIDATORS.REQUIRED' | translate}}
+        </md-error>
+        <md-error *ngIf="signUpForm.get('username').getError('repeated')">
+          {{'VALIDATORS.REPEATED' | translate}}
+        </md-error>
+      </md-input-container>
+      <!-- username field -->
+
       <!-- fullname field -->
       <md-input-container class="full-width">
         <input formControlName="fullname" type="text" mdInput 
@@ -31,20 +44,6 @@
           {{'VALIDATORS.EMAIL' | translate}}
         </md-error>
         <md-error *ngIf="signUpForm.get('email').getError('repeated')">
-          {{'VALIDATORS.REPEATED' | translate}}
-        </md-error>
-      </md-input-container>
-      <!-- username field -->
-      
-      <!-- username field -->
-      <md-input-container class="full-width">
-        <input formControlName="username" type="text" mdInput 
-        placeholder="{{'SIGNUP.FORM.USERNAME' | translate}}">
-        <md-icon mdSuffix>fingerprint</md-icon>
-        <md-error *ngIf="signUpForm.get('username').getError('required')">
-          {{'VALIDATORS.REQUIRED' | translate}}
-        </md-error>
-        <md-error *ngIf="signUpForm.get('username').getError('repeated')">
           {{'VALIDATORS.REPEATED' | translate}}
         </md-error>
       </md-input-container>

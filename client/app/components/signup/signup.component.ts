@@ -27,7 +27,7 @@ export class SignupComponent implements OnInit {
     this.signUpForm = this.fb.group({
       username: ['',
         Validators.required,
-        this.signUpService.isUsernameUnique.bind(this.signUpService)],
+        this.signUpService.isUsernameUnique],
       password: this.fb.group({
           pass: ['', [Validators.required, Validators.minLength(8)]],
           pass2: ['', [Validators.required, Validators.minLength(8)]]
@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
       fullname: ['', Validators.required],
       email: ['', 
         [Validators.required, Validators.email],
-        this.signUpService.isEmailUnique.bind(this.signUpService)
+        this.signUpService.isEmailUnique
       ]
     })
   }

@@ -10,8 +10,8 @@ import 'hammerjs'
 export class AppComponent {
   
   constructor (translate: TranslateService) {
-    translate.setDefaultLang('en');
-    translate.use('en');
+    const language = window.navigator && window.navigator.language
+    translate.setDefaultLang(language)
   }
 
 }

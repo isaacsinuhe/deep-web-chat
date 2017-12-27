@@ -101,7 +101,7 @@ export class ContactComponent implements OnInit {
   baseDialog (component) {
     const dialogRef = this.dialog.open(component, {
       width: '500px',
-      data: { id: this.id, name: this.fullname}
+      data: { id: this.id, name: this.username}
     })
     return dialogRef.afterClosed()
   }

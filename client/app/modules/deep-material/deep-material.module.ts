@@ -5,11 +5,12 @@ import { MdSnackBarModule } from '@angular/material';
 
 import {
   MdDatepickerModule, MdSidenavModule, MdInputModule,
-  MdGridListModule, MdIconModule, MdTabsModule,
+  MdGridListModule, MdIconModule, MdTabsModule, MdTooltipModule,
   MdButtonModule, MdCheckboxModule, MdDialogModule} from '@angular/material'
 
 @NgModule({
   imports: [
+    MdTooltipModule,
     CommonModule,
     BrowserAnimationsModule,
     MdInputModule,
@@ -25,6 +26,7 @@ import {
   ],
   exports: [
     BrowserAnimationsModule,
+    MdTooltipModule,
     MdButtonModule,
     MdInputModule,
     MdCheckboxModule,

@@ -13,7 +13,7 @@ export class SignUpService {
   // request: Observable<boolean>
   constructor(private http: Http) { }
 
-  isUsernameUnique ({value}) {
+  isUsernameUnique = ({value}) => {
     const params = new URLSearchParams()
     params.set('username', value)
     return this.http

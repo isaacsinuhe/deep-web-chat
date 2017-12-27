@@ -1,31 +1,11 @@
-<div>
-  <md-checkbox>
-    Check me! aaaaa
-  </md-checkbox>
-</div>
+<h4 innerHTML="{{'SETTINGS.LANGUAGE.HEADER' | translate}}"></h4>
 
-<div>
-  <button md-button>aaaaaa</button>
-</div>
-<div>
-  <button md-icon-button>bbbbbbbb</button>
-</div>
-<div>
-  <button md-mini-fab>ccccccc</button>
-</div>
-
-<div>
-  <md-checkbox>
-    Check me! bbbb
-  </md-checkbox>
-</div>
-<div>
-  <md-checkbox>
-    Not me
-  </md-checkbox>
-</div>
-<div>
-  <md-checkbox>
-    Here please
-  </md-checkbox>
-</div>
+<md-radio-group (change)="setLanguage($event)" >
+  <div *ngFor="let option of languages">
+      <md-radio-button 
+        value="{{option?.value}}" 
+        [checked]="option.value === sessionService.sessionState.user.settings.language">
+        <p>{{option.string}}</p>
+      </md-radio-button>
+  </div>
+</md-radio-group>

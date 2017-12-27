@@ -13,7 +13,29 @@
   "SIGNUP.FORM.SUBMIT": "Registrar",
 
   "SEARCH.INPUT.FIND": "Buscar amigos",
+"SEARCH.INPUT.ERROR": "Debes especificar un criterio de búsqueda",
+  "SEARCH.MESSAGE.1$LINE": "Busca amigos",
+  "SEARCH.MESSAGE.2$LINE": "alrededor del mundo!!...",
+  
+  "DIALOG.BUTTON.CANCEL": "Cancelar",
+  "DIALOG.BUTTON.CREATE": "Crear",
+  "DIALOG.BUTTON.ACCEPT": "Acceptar",
 
+  "DIALOG.CONFIRMATION": "¿Estás seguro de continuar?",
+  "DIALOG.GROUP.TITLE": "Nueva Conversación",
+  "DIALOG.GROUP.CONVERSATION.NAME": "Nombre de la Conversación",
+
+  "DIALOG.REMOVE.TITLE": "Eliminar Contacto",
+  "DIALOG.REMOVE.CONTENT": "será eliminado de tu lista de contactos",
+
+  "DIALOG.IGNORE.TITLE": "Ignorar Notificación",
+  "DIALOG.IGNORE.CONTENT": "será ignorado y borrado de tu lista de notificacioines",
+
+  "DIALOG.ACCEPT.TITLE": "Aceptar Contacto",
+  "DIALOG.ACCEPT.CONTENT": "será agregado a tu lista de contactos",
+  "DIALOG.ADD.TITLE": "Agregar Contacto",
+
+  "CHAT.STATUSBAR.MESSAGE": "Selecciona una conversación",
   "CHAT.INPUT.MESSAGE": "Ingresa un mensaje",
 
   "HINTS.MIN.LENGTH": "Longitud mínima de {{length}} caracteres",
@@ -22,5 +44,19 @@
   "VALIDATORS.MIN.LENGTH": "Este campo requiere una longitud de {{length}} caracteres",
   "VALIDATORS.EQUAL": "La contraseña repetida no coincide con la inicial",
   "VALIDATORS.EMAIL": "Este campo requiere un formato de correo electrónico válido",
-  "VALIDATORS.REPEATED": "Este campo se encuentra en uso, selecciona otra combinacion"
+  "VALIDATORS.REPEATED": "Este campo se encuentra en uso, selecciona otra combinacion",
+
+  "SETTINGS.LANGUAGE.HEADER": "Idioma",
+
+  "TOOLTIP.CREATE.GROUP": "Crear Grupo",
+  "TOOLTIP.CONVERSATIONS.ROUTERLINK": "Conversaciones",
+  "TOOLTIP.CONTACTS.ROUTERLINK": "Contactos",
+  "TOOLTIP.NOTIFICATIONS.ROUTERLINK": "Notificaciones",
+  "TOOLTIP.SEARCH.ROUTERLINK": "Búsqueda",
+  "TOOLTIP.SETTINGS.ROUTERLINK": "Ajustes",
+  "TOOLTIP.LOGOUT": "Cerrar Sesión",
+  "TOOLTIP.HIDE": "Ocultar",
+  "TOOLTIP.SHOW": "Mostrar",
+  "TOOLTIP.SEND": "Mandar",
+  "TOOLTIP.PENDING": "En espera"
 }

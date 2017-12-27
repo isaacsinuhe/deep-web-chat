@@ -37,7 +37,9 @@ export default class UserController extends Controller {
         console.log('user already in db', err);
         res.sendStatus(400)
       } else {
-        user = new User(req.body)
+        const userData = req.body
+        userData.settings = {language: 'en-US'}
+        user = new User(userData)
         user.save((e, usr) => {
           if (!e) {
             try {
@@ -60,6 +62,17 @@ export default class UserController extends Controller {
         })
       }
     });
+  }
+
+  changeSettings = (req, res) => {
+    const {userId, settings} = req.body
+    User.findByIdAndUpdate(userId,{settings}, {new: true})
+    .then((user) => {
+      console.log(user)
+      res.status(200).json({
+        user: user
+      })
+    })
   }
 
   hydrate (req, res) {
@@ -165,42 +178,11 @@ export default class UserController extends Controller {
     const transactions = [], 
       { acceptId, userId } = req.body
 
-    // 1.- create a new conversation and save it
-    new Conversation({
-      name: '',
-      messages: [],
-      participants: [userId, acceptId]
-    }).save()
-    // 2.- insert userconversation with userId and conversationId
-    .then(conversation => {
-      _conversation = conversation
-      transactions.push(() => conversation.remove())
-
-      return new UserConversation({
-        user: userId,
-        conversation: _conversation._id,
-        status: 3 // accepted conversation
-      }).save()
+    // 1.- find and update current user
+    User.findOneAndUpdate({_id: userId, 'contacts.contact': acceptId}, {
+      $set: {'contacts.$.status': 1}
     })
-    // 3.- insert userconversation with acceptId and conversationId
-    .then(userConversation => {
-      transactions.push(() => userConversation.remove())
-
-      return new UserConversation({
-        user: acceptId,
-        conversation: _conversation._id,
-        status: 3 
-      }).save()
-    })
-    // 4.- find user and change contact/acceptedid status to accepted
-    .then(userConversation => {
-      transactions.push(() => userConversation.remove())
-
-      return User.findOneAndUpdate({_id: userId, 'contacts.contact': acceptId}, {
-        $set: {'contacts.$.status': 1}
-      })
-    })
-    // 5.- find accepted user and change contact/userid status to accepted
+    // 2.- find accepted user and change contact/userid status to accepted
     .then(user => {
       _user = user
       transactions.push(() =>
@@ -212,13 +194,45 @@ export default class UserController extends Controller {
         $set: {'contacts.$.status': 1}
       })
     })
-    // 6.- if all transactions succeded return true
+    // 3.- Create conversation
     .then(accepted => {
       _accepted = accepted
-      transactions.push(() => 
+      transactions.push(() =>
         User.update({ _id: acceptId, 'contacts.contact': userId }, {
           $set: { 'contacts.$.status': 2 }
         }))
+
+      return new Conversation({
+        name: `${_user.username}&${_accepted.username}`,
+        messages: [],
+        participants: [userId, acceptId]
+      }).save()
+    })
+    // 4.- insert userconversation with userId and conversationId
+    .then(conversation => {
+      _conversation = conversation
+      transactions.push(() => conversation.remove())
+
+      return new UserConversation({
+        user: userId,
+        conversation: _conversation._id,
+        status: 3 // accepted conversation
+      }).save()
+    })
+    // 5.- insert userconversation with acceptId and conversationId
+    .then(userConversation => {
+      transactions.push(() => userConversation.remove())
+
+      return new UserConversation({
+        user: acceptId,
+        conversation: _conversation._id,
+        status: 3
+      }).save()
+    })
+
+    // 6.- if all transactions succeded return true
+    .then(userConversation => {
+      transactions.push(() => userConversation.remove())
       return true
     })
     .catch(err => {

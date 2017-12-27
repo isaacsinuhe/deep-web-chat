@@ -1,0 +1,63 @@
+{
+  "LOGIN.HEADER": "Log In",
+  "LOGIN.FORM.USERNAME": "Username",
+  "LOGIN.FORM.PASSWORD": "Password",
+  "LOGIN.FORM.SUBMIT": "Log In",
+
+  "SIGNUP.HEADER": "Sign Up",
+  "SIGNUP.FORM.FULLNAME": "Name",
+  "SIGNUP.FORM.EMAIL": "Email",
+  "SIGNUP.FORM.USERNAME": "Username",
+  "SIGNUP.FORM.PASSWORD": "Password",
+  "SIGNUP.FORM.PASSWORD.REPEAT": "Repeat Password",
+  "SIGNUP.FORM.SUBMIT": "Sign Up",
+
+  "SEARCH.INPUT.FIND": "Find Friends",
+  "SEARCH.INPUT.ERROR": "You must specify a search criteria",
+  "SEARCH.MESSAGE.1$LINE": "Search friends",
+  "SEARCH.MESSAGE.2$LINE": "around the world!!...",
+  
+  "DIALOG.BUTTON.CANCEL": "Cancel",
+  "DIALOG.BUTTON.CREATE": "Create",
+  "DIALOG.BUTTON.ACCEPT": "Accept",
+  "DIALOG.CONFIRMATION": "Are you sure you want to continue?",
+
+  "DIALOG.GROUP.TITLE": "New Conversation",
+  "DIALOG.GROUP.CONVERSATION.NAME": "Conversation Name",
+
+  "DIALOG.REMOVE.TITLE": "Remove Contact",
+  "DIALOG.REMOVE.CONTENT": "is going to be removed from your contact list",
+
+  "DIALOG.IGNORE.TITLE": "Ignore Contact",
+  "DIALOG.IGNORE.CONTENT": "is going to be ignored and deleted from your notifications list",
+
+  "DIALOG.ACCEPT.TITLE": "Accept Contact",
+  "DIALOG.ACCEPT.CONTENT": "is going to be added to your contact list",
+
+  "DIALOG.ADD.TITLE": "Add Contact",
+
+  "CHAT.STATUSBAR.MESSAGE": "Select a Conversation",
+  "CHAT.INPUT.MESSAGE": "Type a message",
+
+  "HINTS.MIN.LENGTH": "Minimum allowed length, {{length}} characters",
+
+  "VALIDATORS.REQUIRED": "Required Field",
+  "VALIDATORS.MIN.LENGTH": "This field requires a min length of {{length}} characters",
+  "VALIDATORS.EQUAL": "Password mismatch",
+  "VALIDATORS.EMAIL": "This field requires a valid email format",
+  "VALIDATORS.REPEATED": "This field contains an used value, please choose another one",
+
+  "SETTINGS.LANGUAGE.HEADER": "Language",
+
+  "TOOLTIP.CREATE.GROUP": "Create Group",
+  "TOOLTIP.CONVERSATIONS.ROUTERLINK": "Conversations",
+  "TOOLTIP.CONTACTS.ROUTERLINK": "Contacts",
+  "TOOLTIP.NOTIFICATIONS.ROUTERLINK": "Notifications",
+  "TOOLTIP.SEARCH.ROUTERLINK": "Search",
+  "TOOLTIP.SETTINGS.ROUTERLINK": "Settings",
+  "TOOLTIP.LOGOUT": "Log out",
+  "TOOLTIP.HIDE": "Hide",
+  "TOOLTIP.SHOW": "Show",
+  "TOOLTIP.SEND": "Send",
+  "TOOLTIP.PENDING": "Pending"
+}

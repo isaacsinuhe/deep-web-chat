@@ -9,6 +9,8 @@
   <md-icon>home</md-icon></a>
   
   <a md-tab-link
+  mdTooltip="{{'TOOLTIP.LOGOUT' | translate}}"
+  mdTooltipPosition="below"
   (click)="logout()"
   [ngClass]="{'inactive-nav-item': !dashboard.isActive}">
   <md-icon>exit_to_app</md-icon></a>

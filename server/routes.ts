@@ -25,6 +25,7 @@ export default function setAPIRoutes(app) {
   api.route('/user/contacts').get(userController.getContacts)//
   api.route('/user/contacts/search').get(userController.searchContacts)//
 
+  api.route('/user/settings').post(userController.changeSettings)//
   api.route('/user/contacts/addContact').post(userController.addContact)//
   api.route('/user/contacts/acceptContact').post(userController.acceptContact)//
   api.route('/user/contacts/removeContact').post(userController.removeContact)//

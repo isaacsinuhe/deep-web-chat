@@ -1,4 +1,4 @@
-<p *ngIf="!conversation">Select a conversation</p>
+<p *ngIf="!conversation" innerHTML="{{'CHAT.STATUSBAR.MESSAGE' | translate}}"></p>
 <p>{{conversation?.name}}</p>
 <p *ngFor="let part of conversation?.participants">{{part?.username}}</p>
-<p>{{conversation?.updatedAt}}</p>
+<p>{{conversation?.updatedAt | dateToMoment}}</p>

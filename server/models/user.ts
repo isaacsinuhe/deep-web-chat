@@ -19,10 +19,9 @@ const UserSchema: Schema = new Schema({
   fullname: String,
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
-  // contacts: [{ type: ObjectId, ref: 'User'}],
   contacts: [ ContactSchema ],
   notifications: [ NotificationSchema ],
-  settings: [ SettingsSchema ]
+  settings: {type: SettingsSchema}
 }, 
 { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 

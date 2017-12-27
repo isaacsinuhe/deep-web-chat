@@ -4,23 +4,48 @@
     <md-sidenav #sidenav class="sidenav" opened="true" mode="side">
         <div class="sidenav-header">
             <md-button-toggle-group #g="mdButtonToggleGroup" (change)="changeState(g.value)">
-                <md-button-toggle [routerLink]="['convos']" [checked]="state === 'convos'" value="convos">
+                <md-button-toggle 
+                mdTooltip="{{'TOOLTIP.CONVERSATIONS.ROUTERLINK' | translate}}"
+                mdTooltipPosition="above"
+                [routerLink]="['convos']" 
+                [checked]="state === 'convos'" 
+                value="convos">
                     <md-icon>chat_bubble</md-icon>
                 </md-button-toggle>
-
-                <md-button-toggle [routerLink]="['contacts']" [checked]="state === 'contacts'" value="contacts">
+            
+                <md-button-toggle 
+                mdTooltip="{{'TOOLTIP.CONTACTS.ROUTERLINK' | translate}}"
+                mdTooltipPosition="above"
+                [routerLink]="['contacts']" 
+                [checked]="state === 'contacts'" 
+                value="contacts">
                     <md-icon>group</md-icon>
                 </md-button-toggle>
-
-                <md-button-toggle [routerLink]="['notifs']" [checked]="state === 'notifs'" value="notifs">
+                
+                <md-button-toggle 
+                mdTooltip="{{'TOOLTIP.NOTIFICATIONS.ROUTERLINK' | translate}}"
+                mdTooltipPosition="above"
+                [routerLink]="['notifs']" 
+                [checked]="state === 'notifs'" 
+                value="notifs">
                     <md-icon>public</md-icon>
                 </md-button-toggle>
-
-                <md-button-toggle [routerLink]="['search']" [checked]="state === 'search'" value="search">
+                
+                <md-button-toggle 
+                mdTooltip="{{'TOOLTIP.SEARCH.ROUTERLINK' | translate}}"
+                mdTooltipPosition="above"
+                [routerLink]="['search']" 
+                [checked]="state === 'search'" 
+                value="search">
                     <md-icon>search</md-icon>
                 </md-button-toggle>
 
-                <md-button-toggle [routerLink]="['settings']" [checked]="state === 'settings'" value="settings">
+                <md-button-toggle 
+                mdTooltip="{{'TOOLTIP.SETTINGS.ROUTERLINK' | translate}}" 
+                mdTooltipPosition="above" 
+                [routerLink]="['settings']" 
+                [checked]="state === 'settings'" 
+                value="settings">
                     <md-icon>settings</md-icon>
                 </md-button-toggle>
             </md-button-toggle-group>
@@ -34,8 +59,14 @@
     <!-- actual sidenav sidenav content -->
 
     <div class="sidenav-content">
-         <button class="toggle-nav-btn" md-mini-fab (click)="sidenav.toggle()">
-            <md-icon>chevron_{{sidenav.opened?'left':'right'}}</md-icon>
+         <button 
+         mdTooltip="{{(sidenav.opened ? 'TOOLTIP.HIDE' : 'TOOLTIP.SHOW') | translate }}"
+         class="toggle-nav-btn" 
+         md-mini-fab 
+         (click)="sidenav.toggle()">
+            <md-icon>
+                chevron_{{sidenav.opened?'left':'right'}}
+            </md-icon>
         </button>
         <deep-chat></deep-chat>
     </div>

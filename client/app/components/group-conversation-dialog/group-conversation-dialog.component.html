@@ -1,7 +1,7 @@
-<h1>New Group Conversation</h1>
+<h1>{{'DIALOG.GROUP.TITLE' | translate}}</h1>
 <h5 md-dialog-title>
   <md-input-container>
-    <input mdInput type="text" #name minlength="5" maxlength="15" placeholder="Conversation Name">
+    <input mdInput type="text" #name minlength="5" maxlength="15" placeholder="{{'DIALOG.GROUP.CONVERSATION.NAME' | translate}}">
     <md-hint align="end">{{name.value.length}} / 15</md-hint>
     <md-error>
       {{'VALIDATORS.REQUIRED' | translate}}
@@ -15,12 +15,16 @@
       value="{{contact._id}}"
       (change)="updateList(contact._id, $event)"
       >
-      {{contact.fullname}}
+      {{contact.username}}
     </md-checkbox>
   </div>
 </md-dialog-content>
 
 <md-dialog-actions>
-  <button md-button [md-dialog-close]="getValues(name)">Create</button>
-  <button md-button [md-dialog-close]="false">Cancel</button>
+  <button md-button [md-dialog-close]="getValues(name)">
+    {{'DIALOG.BUTTON.CREATE' | translate}}
+  </button>
+  <button md-button [md-dialog-close]="false">
+    {{'DIALOG.BUTTON.CANCEL' | translate}}
+  </button>
 </md-dialog-actions>

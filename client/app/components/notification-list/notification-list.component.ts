@@ -19,7 +19,7 @@ export class NotificationListComponent implements OnInit, OnChanges {
   //   //   this.notifList.push(n)
   //   // })
   // }
-  constructor(private contacts: ContactsService) {
+  constructor(public contacts: ContactsService) {
   }
   ngOnInit() {
     // this.notifList = this.contacts.Contacts.contactList

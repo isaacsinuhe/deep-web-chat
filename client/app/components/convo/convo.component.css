@@ -1,8 +1,7 @@
 :host {
-    padding: 15px;
-    cursor: pointer;
 }
 md-card {
+    cursor: pointer;
     /* background-color: #e0e0e0; */
 }
 md-card-actions {

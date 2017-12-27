@@ -12,7 +12,7 @@ export class ContactListComponent implements OnInit {
   @HostBinding('@routeAnimation') routeAnimation = true;
   public contactList = []
 
-  constructor(private contacts: ContactsService) {
+  constructor(public contacts: ContactsService) {
   }
   ngOnInit() {
     // this.contacts.contactsChange$

@@ -51,7 +51,8 @@ import { AddContactDialogComponent } from './components/add-contact-dialog/add-c
 import { MapAsArrayPipe } from './pipes/map-as-array.pipe';
 import { AcceptContactDialogComponent } from './components/accept-contact-dialog/accept-contact-dialog.component';
 import { IgnoreContactDialogComponent } from './components/ignore-contact-dialog/ignore-contact-dialog.component';
-import { GroupConversationDialogComponent } from './components/group-conversation-dialog/group-conversation-dialog.component'
+import { GroupConversationDialogComponent } from './components/group-conversation-dialog/group-conversation-dialog.component';
+import { DateToMomentPipe } from './pipes/date-to-moment.pipe'
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -85,7 +86,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MapAsArrayPipe,
     AcceptContactDialogComponent,
     IgnoreContactDialogComponent,
-    GroupConversationDialogComponent
+    GroupConversationDialogComponent,
+    DateToMomentPipe
   ],
   imports: [
     BrowserModule,

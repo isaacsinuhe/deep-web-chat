@@ -11,7 +11,7 @@ export class MessageComponent implements OnInit {
   @Input() content
   @Input() date: Moment
   @Input() owner
-  private id
+  public id
   
   constructor(private sessionService: SessionService) { }
 

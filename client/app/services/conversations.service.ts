@@ -75,7 +75,7 @@ export class ConversationsService {
     )
   }
 
-  addGroupConversation ({name, contacts}) {
+  addGroupConversation ({name, contacts = []}) { 
     contacts.push(this.session.sessionId)
 
     return this.http

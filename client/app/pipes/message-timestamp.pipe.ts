@@ -7,6 +7,7 @@ import { Moment } from 'moment'
 export class MessageTimestampPipe implements PipeTransform {
 
   transform(date: Moment, args?: any): any {
+    if (!date) return ''
     const formattedDate = `${date.format('MMMM-DD h:mm:ss a')}`
     return formattedDate;
   }

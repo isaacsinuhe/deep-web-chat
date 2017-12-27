@@ -5,7 +5,5 @@ const { ObjectId } = Schema.Types
 
 // Creation of the new User schema
 export const SettingsSchema = new Schema({
-    language: String,
-    notifications: Boolean,
-    status: String
-})
+    language: String
+}, { _id: false })
